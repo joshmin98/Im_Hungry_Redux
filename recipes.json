@@ -1,0 +1,445 @@
+```https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?query=soup&ranking=2&addRecipeInformation=true&limitLicense=true&offset=0&number=3
+{
+  "number": 3,
+  "totalResults": 210,
+  "offset": 0,
+  "processingTimeMs": 119,
+  "baseUri": "https://spoonacular.com/recipeImages/",
+  "results": [
+    {
+      "sustainable": false,
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "ingredients": [
+                {
+                  "image": "olive-oil.jpg",
+                  "name": "olive oil",
+                  "id": 4053
+                }
+              ],
+              "equipment": [
+                {
+                  "image": "dutch-oven.jpg",
+                  "name": "dutch oven",
+                  "id": 404667
+                }
+              ],
+              "step": "To a large dutch oven or soup pot, heat the olive oil over medium heat."
+            },
+            {
+              "number": 2,
+              "length": {
+                "number": 10,
+                "unit": "minutes"
+              },
+              "ingredients": [
+                {
+                  "image": "sliced-carrot.png",
+                  "name": "carrot",
+                  "id": 11124
+                },
+                {
+                  "image": "celery.jpg",
+                  "name": "celery",
+                  "id": 11143
+                },
+                {
+                  "image": "brown-onion.png",
+                  "name": "onion",
+                  "id": 11282
+                }
+              ],
+              "equipment": [],
+              "step": "Add the onion, carrots and celery and cook for 8-10 minutes or until tender, stirring occasionally."
+            },
+            {
+              "number": 3,
+              "length": {
+                "number": 22,
+                "unit": "minutes"
+              },
+              "ingredients": [
+                {
+                  "image": "salt-and-pepper.jpg",
+                  "name": "salt and pepper",
+                  "id": 1102047
+                },
+                {
+                  "image": "chicken-broth.png",
+                  "name": "vegetable stock",
+                  "id": 6615
+                },
+                {
+                  "image": "red-lentils.png",
+                  "name": "red lentils",
+                  "id": 10016069
+                },
+                {
+                  "image": "tomato.png",
+                  "name": "tomato",
+                  "id": 11529
+                },
+                {
+                  "image": "lentils-brown.jpg",
+                  "name": "lentils",
+                  "id": 16069
+                },
+                {
+                  "image": "turnips.png",
+                  "name": "turnip",
+                  "id": 11564
+                },
+                {
+                  "image": "garlic.png",
+                  "name": "garlic",
+                  "id": 11215
+                }
+              ],
+              "equipment": [
+                {
+                  "image": "oven.jpg",
+                  "name": "stove",
+                  "id": 404794
+                },
+                {
+                  "image": "stock-pot.jpg",
+                  "name": "pot",
+                  "id": 404752
+                }
+              ],
+              "step": "Add the garlic and cook for an additional 2 minutes, or until fragrant. Season conservatively with a pinch of salt and black pepper.To the pot, add the tomatoes, turnip and red lentils. Stir to combine. Stir in the vegetable stock and increase the heat on the stove to high. Bring the soup to a boil and then reduce to a simmer. Simmer for 20 minutes or until the turnips are tender and the lentils are cooked through."
+            },
+            {
+              "number": 4,
+              "length": {
+                "number": 5,
+                "unit": "minutes"
+              },
+              "ingredients": [
+                {
+                  "image": "chicken-breasts.png",
+                  "name": "chicken breast",
+                  "id": 5062
+                },
+                {
+                  "image": "parsley.jpg",
+                  "name": "parsley",
+                  "id": 11297
+                }
+              ],
+              "equipment": [],
+              "step": "Add the chicken breast and parsley. Cook for an additional 5 minutes. Adjust seasoning to taste."
+            },
+            {
+              "number": 5,
+              "ingredients": [
+                {
+                  "image": "parsley.jpg",
+                  "name": "fresh parsley",
+                  "id": 11297
+                }
+              ],
+              "equipment": [],
+              "step": "Serve the soup immediately garnished with fresh parsley and any additional toppings. Enjoy!"
+            }
+          ]
+        }
+      ],
+      "glutenFree": true,
+      "veryPopular": true,
+      "healthScore": 73,
+      "title": "Red Lentil Soup with Chicken and Turnips",
+      "diets": [
+        "gluten free",
+        "dairy free"
+      ],
+      "aggregateLikes": 1866,
+      "sourceUrl": "http://www.pinkwhen.com/red-lentil-soup-with-chicken-and-turnips/",
+      "readyInMinutes": 55,
+      "creditsText": "Jen West",
+      "dairyFree": true,
+      "servings": 8,
+      "vegetarian": false,
+      "whole30": false,
+      "creditText": "Jen West",
+      "id": 715415,
+      "preparationMinutes": 10,
+      "imageType": "jpg",
+      "winePairing": {
+        "productMatches": [],
+        "pairingText": "",
+        "pairedWines": []
+      },
+      "cookingMinutes": 45,
+      "image": "https://spoonacular.com/recipeImages/715415-312x231.jpg",
+      "veryHealthy": true,
+      "vegan": false,
+      "cheap": false,
+      "dishTypes": [
+        "soup"
+      ],
+      "gaps": "no",
+      "cuisines": [],
+      "lowFodmap": false,
+      "license": "CC BY-SA 3.0",
+      "weightWatcherSmartPoints": 11,
+      "occasions": [
+        "fall",
+        "winter"
+      ],
+      "spoonacularScore": 99,
+      "pricePerServing": 276.67,
+      "spoonacularSourceUrl": "https://spoonacular.com/red-lentil-soup-with-chicken-and-turnips-715415",
+      "sourceName": "Pink When",
+      "ketogenic": false
+    },
+    {
+      "sustainable": false,
+      "analyzedInstructions": [
+        {
+          "name": "",
+          "steps": [
+            {
+              "number": 1,
+              "ingredients": [
+                {
+                  "image": "potatoes-yukon-gold.png",
+                  "name": "potato",
+                  "id": 11362
+                },
+                {
+                  "image": "sliced-carrot.png",
+                  "name": "carrot",
+                  "id": 11124
+                },
+                {
+                  "image": "garlic.png",
+                  "name": "garlic",
+                  "id": 11215
+                },
+                {
+                  "image": "brown-onion.png",
+                  "name": "onion",
+                  "id": 11282
+                },
+                {
+                  "image": "water.png",
+                  "name": "water",
+                  "id": 14412
+                }
+              ],
+              "equipment": [
+                {
+                  "image": "bowl.jpg",
+                  "name": "bowl",
+                  "id": 404783
+                }
+              ],
+              "step": "Chop your onions, slice your carrots and smash your garlic. Set aside.Peel and chop the potatoes. Set aside in a bowl of cold water."
+            },
+            {
+              "number": 2,
+              "ingredients": [],
+              "equipment": [],
+              "step": "Remove the casing from your chorizo. This is an important step. Chorizo casing is tough and unforgiving and will make the sausage link curl during the cooking process. Just remove it and don\u0027t worry about appearance."
+            },
+            {
+              "number": 3,
+              "ingredients": [],
+              "equipment": [],
+              "step": "Cut the links length-wise then chop into half-moons."
+            },
+            {
+              "number": 4,
+              "ingredients": [
+                {
+                  "image": "kale.jpg",
+                  "name": "kale",
+                  "id": 11233
+                }
+              ],
+              "equipment": [
+                {
+                  "image": "pan.png",
+                  "name": "frying pan",
+                  "id": 404645
+                },
+                {
+                  "image": "stock-pot.jpg",
+                  "name": "pot",
+                  "id": 404752
+                }
+              ],
+              "step": "Sautee in a separate pan until the are nice and browned. Don\u0027t put into the pot until the last minute, otherwise the color of the chorizo will leach into the soup turning it a weird red color.Now it\u0027s time to prepare the kale. With each individual leaf, cut out the stem. You can do this several ways."
+            },
+            {
+              "number": 5,
+              "length": {
+                "number": 5,
+                "unit": "minutes"
+              },
+              "ingredients": [
+                {
+                  "image": "red-pepper-flakes.jpg",
+                  "name": "red pepper flakes",
+                  "id": 1032009
+                },
+                {
+                  "image": "potatoes-yukon-gold.png",
+                  "name": "potato",
+                  "id": 11362
+                },
+                {
+                  "image": "sliced-carrot.png",
+                  "name": "carrot",
+                  "id": 11124
+                },
+                {
+                  "image": "garlic.png",
+                  "name": "garlic",
+                  "id": 11215
+                },
+                {
+                  "image": "brown-onion.png",
+                  "name": "onion",
+                  "id": 11282
+                },
+                {
+                  "image": "water.png",
+                  "name": "water",
+                  "id": 14412
+                },
+                {
+                  "image": "kale.jpg",
+                  "name": "kale",
+                  "id": 11233
+                }
+              ],
+              "equipment": [
+                {
+                  "image": "wooden-spoon.jpg",
+                  "name": "wooden spoon",
+                  "id": 404732
+                },
+                {
+                  "image": "chefs-knife.jpg",
+                  "name": "knife",
+                  "id": 404745
+                },
+                {
+                  "image": "stock-pot.jpg",
+                  "name": "pot",
+                  "id": 404752
+                }
+              ],
+              "step": "Cut a triangle out of the leaf, or fold over the leaf and cut out the stem that way. Or rip off the halves of the leaves off the stem. I like a little bit of stem to give some crunch and texture.Tightly roll the leaf into a bundle.Run your knife over it to julienne the leaf into thin strips.Don\u0027t worry if it\u0027s not perfect. Set aside the kale.In a big pot, sautee your onions, carrots and garlic in a bit of olive oil.Once the vegetables start to soften, add the potatoes and some crushed red pepper flakes. Stir the pot and cook the potatoes until the outer edges start turning clear.Then add the 6 cups of water and 2 bouillion packets (or 4 cups of broth and 2 cups of water) to the pot. Bring to a boil then let simmer until the potatoes are cooked.With a wooden spoon, mash the potatoes against the side of the pot. Do this until almost all the chunks of potatoes are mashed. Leave some chunks behind. This will give your soup a wonderful hearty texture.Now it\u0027s time to add the Kale. It looks like a lot and will fill up your whole pot but not to worry because it wilts down pretty quickly.Cook for 5 minutes at a simmer then stir in chorizo sausage."
+            },
+            {
+              "number": 6,
+              "ingredients": [],
+              "equipment": [],
+              "step": "Serve hot or at room temperature (the latter is my favorite). Eat with a nice crusty loaf of Portuguese bread. Enjoy!"
+            }
+          ]
+        }
+      ],
+      "glutenFree": true,
+      "veryPopular": false,
+      "healthScore": 100,
+      "title": "Caldo Verde - Portuguese Kale Soup",
+      "diets": [
+        "gluten free",
+        "dairy free",
+        "whole 30"
+      ],
+      "aggregateLikes": 13,
+      "sourceUrl": "http://www.foodista.com/recipe/7SDK7CGK/caldo-verde-portuguese-kale-soup",
+      "readyInMinutes": 45,
+      "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+      "dairyFree": true,
+      "servings": 4,
+      "vegetarian": false,
+      "whole30": true,
+      "creditText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+      "id": 636787,
+      "imageType": "jpg",
+      "winePairing": {
+        "productMatches": [],
+        "pairingText": "",
+        "pairedWines": []
+      },
+      "image": "https://spoonacular.com/recipeImages/636787-312x231.jpg",
+      "veryHealthy": true,
+      "vegan": false,
+      "cheap": false,
+      "dishTypes": [
+        "soup"
+      ],
+      "gaps": "no",
+      "cuisines": [],
+      "lowFodmap": false,
+      "license": "CC BY 3.0",
+      "weightWatcherSmartPoints": 11,
+      "occasions": [
+        "fall",
+        "winter"
+      ],
+      "spoonacularScore": 98,
+      "pricePerServing": 224.09,
+      "spoonacularSourceUrl": "https://spoonacular.com/caldo-verde-portuguese-kale-soup-636787",
+      "sourceName": "Foodista",
+      "ketogenic": false
+    },
+    {
+      "sustainable": false,
+      "analyzedInstructions": [],
+      "glutenFree": true,
+      "veryPopular": false,
+      "healthScore": 55,
+      "title": "Chilled Cucumber Avocado Soup with Yogurt and Kefir",
+      "diets": [
+        "gluten free",
+        "lacto ovo vegetarian",
+        "primal"
+      ],
+      "aggregateLikes": 171,
+      "sourceUrl": "http://fullbellysisters.blogspot.com/2012/06/chilled-cucumber-avocado-soup-with.html",
+      "readyInMinutes": 45,
+      "creditsText": "Full Belly Sisters",
+      "dairyFree": false,
+      "servings": 3,
+      "vegetarian": true,
+      "whole30": false,
+      "creditText": "Full Belly Sisters",
+      "id": 716437,
+      "imageType": "jpg",
+      "winePairing": {},
+      "image": "https://spoonacular.com/recipeImages/716437-312x231.jpg",
+      "veryHealthy": true,
+      "vegan": false,
+      "cheap": false,
+      "dishTypes": [
+        "soup"
+      ],
+      "gaps": "no",
+      "cuisines": [],
+      "lowFodmap": false,
+      "license": "CC BY-SA 3.0",
+      "weightWatcherSmartPoints": 3,
+      "occasions": [
+        "fall",
+        "winter"
+      ],
+      "spoonacularScore": 97,
+      "pricePerServing": 216.29,
+      "spoonacularSourceUrl": "https://spoonacular.com/chilled-cucumber-avocado-soup-with-yogurt-and-kefir-716437",
+      "sourceName": "Full Belly Sisters",
+      "ketogenic": false
+    }
+  ]
+}
+```

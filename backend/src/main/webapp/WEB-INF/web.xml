@@ -1,0 +1,28 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>RecipeServlet</servlet-name>
+  	<display-name>RecipeServlet</display-name>
+  	<description></description>
+  	<servlet-class>ImHungryServlet.RecipeServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RestaurantServlet</servlet-name>
+  	<display-name>RestaurantServlet</display-name>
+  	<description></description>
+  	<servlet-class>ImHungryServlet.RestaurantServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RecipeServlet</servlet-name>
+  	<url-pattern>/RecipeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RestaurantServlet</servlet-name>
+  	<url-pattern>/RestaurantServlet</url-pattern>
+  </servlet-mapping>
+ 
+</web-app>
