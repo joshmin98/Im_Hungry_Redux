@@ -18,11 +18,11 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>RecipeServlet</servlet-name>
-  	<url-pattern>/RecipeServlet</url-pattern>
+  	<url-pattern>/backend/RecipeServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
   	<servlet-name>RestaurantServlet</servlet-name>
-  	<url-pattern>/RestaurantServlet</url-pattern>
+  	<url-pattern>/backend/RestaurantServlet</url-pattern>
   </servlet-mapping>
  
 </web-app>
