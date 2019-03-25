@@ -1,6 +1,7 @@
 package ImHungryServlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,22 +32,21 @@ public class RecipeServlet extends HttpServlet {
      * Default constructor. 
      */
     public RecipeServlet(){
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		response.setContentType("application/json");
-		
 		String query = request.getParameter("query");
 		String num = request.getParameter("numResults");
-		
-		getRecipeData(query, num);
-		
+
+		String data = getRecipeData(query, num);
+                PrintWriter out = response.getWriter();
+                out.print(data);
+                out.flush();
 	}
 	
 	public String getRecipeData(String query, String num) {

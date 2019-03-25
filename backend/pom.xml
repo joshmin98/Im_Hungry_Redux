@@ -36,7 +36,7 @@
 	<configuration>
           <url>http://localhost:8080/manager/text</url>
           <server>my-tomcat</server>
-          <path>/backend</path>
+          <path>/api</path>
 	</configuration>
       </plugin>
 
