@@ -21,25 +21,25 @@ public class YelpRestaurantService {
 	
 	// getRestaurantInfo(term, limit) - returns Yelp restaurant results as a JSON string. 
 	
-	public static String getRestaurantInfo(String term, String limit) throws UnsupportedEncodingException {
+	public static String getRestaurantInfo(String term, String limit, String radius) throws UnsupportedEncodingException {
 		// returns a JSON String of Yelp results
-		String jsonResult = getRestaurantJsonString(term, limit);
+		String jsonResult = getRestaurantJsonString(term, limit, radius);
 		// Root restaurantInfoObject = toEntity(jsonResult);
 		return jsonResult;
 	} 
 	
 	// getRestaurantJsonString(term, limit) - makes the HTTP request to the API and forms the JSON string
-	private static String getRestaurantJsonString(String term, String limit) throws UnsupportedEncodingException {
-		String yelpurl = baseyelpSearchUrl + "term=" + term + "&" + "limit=" + limit; 
+	private static String getRestaurantJsonString(String term, String limit, String radius) throws UnsupportedEncodingException {
+		String yelpurl = baseyelpSearchUrl + "term=" + term + "&limit=" + limit + "&radius=" + radius; 
 
 		if((term != null && term != "") && (limit != null && limit != ""))
-			yelpurl = baseyelpSearchUrl+"&term="+URLEncoder.encode(term, "utf-8")+"&limit="+URLEncoder.encode(limit, "utf-8");
+			yelpurl = baseyelpSearchUrl+"&term="+URLEncoder.encode(term, "utf-8")+"&limit="+URLEncoder.encode(limit, "utf-8")+"&radius="+URLEncoder.encode(radius, "utf-8");
 				
 		StringBuilder sb = new StringBuilder();
 		HttpURLConnection conn = null; 
 		BufferedReader reader = null; 
 		
-		try {
+		try { 
 			URL url = new URL(yelpurl);
 			
 			conn = (HttpURLConnection)url.openConnection();  
@@ -69,6 +69,7 @@ public class YelpRestaurantService {
 		return prettyJSON;  
 	}
 	
+	// converts one line json format to pretty json format
 	public static String convertPrettyJSON(String uglyJSON) {
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
