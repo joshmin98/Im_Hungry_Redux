@@ -33,8 +33,10 @@ public class RestaurantServlet extends HttpServlet {
 		// Get queries
 		String term = request.getParameter("query");
 		String limit = request.getParameter("numResults");
+		String radius = request.getParameter("radius");
+
 		// contains restaurant JSON string results
-		String restaurantJSONstring = YelpRestaurantService.getRestaurantInfo(term,limit);
+		String restaurantJSONstring = YelpRestaurantService.getRestaurantInfo(term,limit, radius);
 				
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
