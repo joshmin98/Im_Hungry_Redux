@@ -36,8 +36,9 @@ public class RestaurantServlet extends HttpServlet {
                 String radius = request.getParameter("radius");
 
                 // contains restaurant JSON string results
-                String restaurantJSONstring = YelpRestaurantService.getRestaurantInfo(term, limit, radius);
-
+                String restaurantJSONstring = (term != null && limit != null && radius != null)
+                                ? YelpRestaurantService.getRestaurantInfo(term, limit, radius)
+                                : "{\"error\": \"Missing fields in request parameters\"}";
                 response.setContentType("application/json");
                 response.getWriter().append(restaurantJSONstring).flush();
         }
