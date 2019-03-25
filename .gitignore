@@ -4,7 +4,8 @@
 **/node_modules
 **/.pnp
 frontend/pnp.js
-frontend/node_modules
+**/node_modules
+**/build
 
 # testing
 **/coverage
@@ -23,3 +24,9 @@ frontend/node_modules
 **/yarn-error.log*
 **/.tern-port
 **/.tern-project
+
+# Java
+**/target
+**/.settings
+**/.classpath
+**/.project
