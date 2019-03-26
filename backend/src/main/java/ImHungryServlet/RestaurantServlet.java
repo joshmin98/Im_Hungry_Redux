@@ -29,6 +29,7 @@ public class RestaurantServlet extends HttpServlet {
         protected void doGet(HttpServletRequest request, HttpServletResponse response)
                         throws ServletException, IOException {
                 // TODO Auto-generated method stub
+          YelpRestaurantService yelp = new YelpRestaurantService();
 
                 // Get queries
                 String term = request.getParameter("query");
@@ -37,7 +38,7 @@ public class RestaurantServlet extends HttpServlet {
 
                 // contains restaurant JSON string results
                 String restaurantJSONstring = (term != null && limit != null && radius != null)
-                                ? YelpRestaurantService.getRestaurantInfo(term, limit, radius)
+                                ? yelp.getRestaurantInfo(term, limit, radius)
                                 : "{\"error\": \"Missing fields in request parameters\"}";
                 response.setContentType("application/json");
                 response.getWriter().append(restaurantJSONstring).flush();

@@ -31,3 +31,5 @@ frontend/pnp.js
 **/.classpath
 **/.project
 **/bin
+**/set_env_vars.sh
+**/config.properties

@@ -1,7 +1,12 @@
 package ImHungryServlet;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.util.Objects;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,12 +31,22 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 @WebServlet(name = "RecipeServlet", urlPatterns = "/RecipeServlet")
 public class RecipeServlet extends HttpServlet {
         private static final long serialVersionUID = 1L;
+        private static String API_KEY;
 
         /**
          * Default constructor. 
          */
         public RecipeServlet() {
-
+                Properties prop = new Properties();
+                try {
+                        ClassLoader classLoader = RecipeServlet.class.getClassLoader();
+                        URL res = Objects.requireNonNull(classLoader.getResource("config.properties"));
+                        InputStream is = new FileInputStream(res.getFile());
+                        prop.load(is);
+                        API_KEY = prop.getProperty("RECIPE_API_KEY");
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
         /**
@@ -50,20 +65,21 @@ public class RecipeServlet extends HttpServlet {
         }
 
         public String getRecipeData(String query, String num) {
-
-                String API_KEY = "885e38805emsh424ffd2e4016f98p1cb3efjsn55402a4c6758";
-                String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/";
-
-                URL += "recipes/searchComplex?query=" + query + "&ranking=2&addRecipeInformation=true";
-                URL += "&limitLicense=true&offset=0&number=" + num;
-
+              String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
+              URL += "searchComplex?number=" + num +
+                     "&offset=0" +
+                     "&limitLicense=false" +
+                     "&query=" + query +
+                     "&instructionsRequired=true" +
+                     "&addRecipeInformation=true";
                 HttpResponse<JsonNode> jsonResponse = null;
 
                 try {
-                        jsonResponse = Unirest.get(URL).header("X-RapidAPI-Key", API_KEY).asJson();
+                        jsonResponse = Unirest.get(URL)
+                                       .header("X-RapidAPI-Key", API_KEY)
+                                       .asJson();
                 } catch (UnirestException ue) {
                         System.out.println("Unirest Exception");
-                } finally {
                 }
 
                 JsonParser parser = new JsonParser();
