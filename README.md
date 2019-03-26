@@ -19,3 +19,11 @@ Then run the maven commands:
 ```tomcat7:redeploy```
 
 Alternatively, you can run the build script in the backend directory. ```sh buildscript.sh```
+
+# Configuration
+
+Place API keys "YELP_API_KEY" and "RECIPE_API_KEY" (Spoonacular/RapidAPI) in the file ```src/main/resources/config.properties```.
+
+This file should be formatted in the following: 
+```YELP_API_KEY=xxxxxxxxxxxxxx```
+```RECIPE_API_KEY=xxxxxxxxxxxx```
