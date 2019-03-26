@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
 import UserSignIn from './sub-components/UserSignIn';
+import axios from 'axios';
+import PhotoCollage from './sub-components/PhotoCollage';
 
 import { HungryProvider, HungryConsumer } from "./Context";
 
@@ -62,6 +64,12 @@ class HomePage extends React.Component {
       distance: parseInt(e.target.value)
     })
   }
+  handleClick = () => {
+    const query = JSON.stringify({ searchVal: this.state.searchVal, distance: this.state.distance });
+    axios.post("", query).then(res => {
+      console.log(res);
+    })
+  }
   render() {
       const {classes} = this.props;
       return (
@@ -96,8 +104,8 @@ class HomePage extends React.Component {
                 />
               </Grid>
               <Grid item xs={2} >
-                <Button variant="contained" color="secondary" className={classes.button}>
-                  Search
+                <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleClick}>
+                  Feed Me!
                 </Button> 
               </Grid>
             </Grid>
