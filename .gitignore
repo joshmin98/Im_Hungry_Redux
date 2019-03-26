@@ -33,3 +33,6 @@ frontend/pnp.js
 **/bin
 **/set_env_vars.sh
 **/config.properties
+
+# Misc
+*~
