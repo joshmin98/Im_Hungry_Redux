@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import PrintPage from "./components/PrintPage";
-import HomePage from "./components/HomePage";
-import ListManagementPage from "./components/ListManagementPage";
-import RestaurantPage from "./components/RestaurantPage";
-import RecipePage from "./components/RecipePage";
-import SearchPage from "./components/SearchPage";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import PrintPage from './components/PrintPage';
+import HomePage from './components/HomePage';
+import ListManagementPage from './components/ListManagementPage.tsx';
+import RestaurantPage from './components/RestaurantPage';
+import RecipePage from './components/RecipePage';
+import SearchPage from './components/SearchPage';
 
 class App extends Component {
   render() {
