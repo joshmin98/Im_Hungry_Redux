@@ -65,19 +65,13 @@ public class RecipeServlet extends HttpServlet {
         }
 
         public String getRecipeData(String query, String num) {
-              String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
-              URL += "searchComplex?number=" + num +
-                     "&offset=0" +
-                     "&limitLicense=false" +
-                     "&query=" + query +
-                     "&instructionsRequired=true" +
-                     "&addRecipeInformation=true";
+                String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
+                URL += "searchComplex?number=" + num + "&offset=0" + "&limitLicense=false" + "&query=" + query
+                                + "&instructionsRequired=true" + "&addRecipeInformation=true";
                 HttpResponse<JsonNode> jsonResponse = null;
 
                 try {
-                        jsonResponse = Unirest.get(URL)
-                                       .header("X-RapidAPI-Key", API_KEY)
-                                       .asJson();
+                        jsonResponse = Unirest.get(URL).header("X-RapidAPI-Key", API_KEY).asJson();
                 } catch (UnirestException ue) {
                         System.out.println("Unirest Exception");
                 }
@@ -104,7 +98,6 @@ public class RecipeServlet extends HttpServlet {
          */
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                         throws ServletException, IOException {
-                // TODO Auto-generated method stub
                 doGet(request, response);
         }
 
