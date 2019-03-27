@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
@@ -10,8 +9,6 @@ import Button from '@material-ui/core/Button';
 import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
 import PhotoCollage from './sub-components/PhotoCollage';
-
-import { HungryProvider, HungryConsumer } from './Context';
 
 const url_prefix = 'http://localhost:8080';
 
