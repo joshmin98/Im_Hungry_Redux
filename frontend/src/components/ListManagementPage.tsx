@@ -4,14 +4,12 @@ import { withRouter } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
 // import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const ListManagementPage: React.FC<RouteComponentProps> = ({
-  match,
-}: RouteComponentProps) => {
+const ListManagementPage: React.FC<RouteComponentProps> = props => {
   const [list, setList] = useState([1, 3, 5, 7, 9]);
 
   return (
     <div>
-      <h1>{match.params.list}</h1>
+      <h1>{props.location.pathname.slice(7)}</h1>
       {/* <DragDropContext>
           <Droppable droppableId="droppable">
           {(provided, snapshot) => (
