@@ -51,6 +51,7 @@ public class RecipeServlet extends HttpServlet {
         }
 
         public String getRecipeData(String query, String num) {
+<<<<<<< HEAD:backend/src/main/java/ImHungryServlet/RecipeServlet.java
 
                 String API_KEY = "885e38805emsh424ffd2e4016f98p1cb3efjsn55402a4c6758";
                 String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/";
@@ -58,6 +59,11 @@ public class RecipeServlet extends HttpServlet {
                 URL += "recipes/searchComplex?query=" + query + "&ranking=2&addRecipeInformation=true";
                 URL += "&limitLicense=true&offset=0&number=" + num;
 
+=======
+                String URL = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/";
+                URL += "searchComplex?number=" + num + "&offset=0" + "&limitLicense=false" + "&query=" + query
+                                + "&instructionsRequired=true" + "&addRecipeInformation=true";
+>>>>>>> 460c7295c1df0e2953077d4cc1a7ed726e0a8fc8:backend/src/ImHungryServlet/RecipeServlet.java
                 HttpResponse<JsonNode> jsonResponse = null;
 
                 try {
@@ -89,7 +95,6 @@ public class RecipeServlet extends HttpServlet {
          */
         protected void doPost(HttpServletRequest request, HttpServletResponse response)
                         throws ServletException, IOException {
-                // TODO Auto-generated method stub
                 doGet(request, response);
         }
 
