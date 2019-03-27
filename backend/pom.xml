@@ -37,6 +37,9 @@
           <url>http://localhost:8080/manager/text</url>
           <server>my-tomcat</server>
           <path>/api</path>
+          <username>manager</username>
+          <password>managerPwd</password>
+          <update>true</update>
 	</configuration>
       </plugin>
 
