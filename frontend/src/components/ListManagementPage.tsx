@@ -79,6 +79,7 @@ const ListManagementPage: React.FC<any> = props => {
                     )}
                   </Draggable>
                 ))}
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
