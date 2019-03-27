@@ -9,6 +9,7 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import Header from './sub-components/Header';
 
@@ -37,23 +38,51 @@ const styles = (theme: Theme) =>
   });
 
 const ListManagementPage: React.FC<any> = props => {
-  const [list, setList] = useState([1, 3, 5, 7, 9]);
+  const [list, setList]: any = useState([1, 3, 5, 7, 9]);
   const { classes } = props;
+
+  const onDragEnd = (result: any) => {
+    if (!result.destination) return;
+
+    const items = reorder(list, result.source.index, result.destination.index);
+    setList(items);
+  };
+
+  const reorder = (list: any, startIdx: number, endIdx: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIdx, 1);
+    result.splice(endIdx, 0, removed);
+    return result;
+  };
 
   return (
     <div className={classes.root}>
       <Header />
       <div className={classes.container}>
         <h1>{props.location.pathname.slice(7)}</h1>
-        <Grid container spacing={16} className={classes.main}>
-          <Grid item xs={12}>
-            {list.map((item, idx) => (
-              <Card key={idx} className={classes.card}>
-                <CardContent>{item}</CardContent>
-              </Card>
-            ))}
-          </Grid>
-        </Grid>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {list.map((item: any, idx: any) => (
+                  <Draggable key={idx} draggableId={item} index={idx}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Card className={classes.card}>
+                          <CardContent>{item}</CardContent>
+                        </Card>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );
