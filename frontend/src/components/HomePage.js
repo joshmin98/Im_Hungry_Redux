@@ -49,7 +49,8 @@ const styles = theme => ({
 class HomePage extends React.Component {
   state = {
     searchVal: '',
-    distance: 5,
+    distance: 8000,
+    limit: 5
   };
   handleSearchChange = e => {
     this.setState({
@@ -65,8 +66,9 @@ class HomePage extends React.Component {
     const query = JSON.stringify({
       searchVal: this.state.searchVal,
       distance: this.state.distance,
+      limit: this.state.limit,
     });
-    axios.post('', query).then(res => {
+    axios.post(url_prefix+"api/result", query).then(res => {
       console.log(res);
     });
   };
