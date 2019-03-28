@@ -12,19 +12,19 @@ import junit.framework.Assert;
 
 public class BackendTest {
 
-        // @Test
-        // public void testYelpRestaurntQuery() throws UnsupportedEncodingException {
-        //         YelpRestaurantService yrs = new YelpRestaurantService();
-        //         Assert.assertTrue(yrs.getRestaurantInfo("Chinese", "5", "10").contains("Northern Cafe"));
-        //         Assert.assertTrue(yrs.getRestaurantInfo("Chinese", "5", "10").contains("Los Angeles"));
+        @Test
+        public void testYelpRestaurntQuery() throws UnsupportedEncodingException {
+                YelpRestaurantService yrs = new YelpRestaurantService();
+                Assert.assertTrue(yrs.getRestaurantInfo("Chinese", "5", "8500").contains("Northern Cafe"));
+                Assert.assertTrue(yrs.getRestaurantInfo("Chinese", "5", "8500").contains("Los Angeles"));
 
-        // }
+        }
 
-        // @Test(expected = RuntimeException.class)
-        // public void testYelpRestaurntEmptyQuery() throws UnsupportedEncodingException {
-        //         YelpRestaurantService yrs = new YelpRestaurantService();
-        //         String json = yrs.getRestaurantInfo("", "", "");
-        // }
+        @Test(expected = RuntimeException.class)
+        public void testYelpRestaurantEmptyQuery() throws UnsupportedEncodingException {
+                YelpRestaurantService yrs = new YelpRestaurantService();
+                String json = yrs.getRestaurantInfo("", "", "");
+        }
 
         // @Test
         // public void testRecipeMalformed() throws UnirestException {

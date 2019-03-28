@@ -34,6 +34,9 @@ public class RestaurantServlet extends HttpServlet {
                 String limit = request.getParameter("numResults");
                 String radius = request.getParameter("radius");
 
+                if (term == null) {
+                  throw new RuntimeException("No query");
+                }
                 // contains restaurant JSON string results
                 String restaurantJSONstring = (term != null && limit != null && radius != null)
                                 ? yelp.getRestaurantInfo(term, limit, radius)
