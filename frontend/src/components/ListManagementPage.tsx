@@ -46,6 +46,7 @@ const ListManagementPage: React.FC<any> = props => {
 
     const items = reorder(list, result.source.index, result.destination.index);
     setList(items);
+    console.log(list);
   };
 
   const reorder = (list: any, startIdx: number, endIdx: number) => {
