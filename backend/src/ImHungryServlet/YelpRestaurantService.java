@@ -19,7 +19,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class YelpRestaurantService {
-
         private static String API_KEY;
         private static final String baseyelpSearchUrl = "https://api.yelp.com/v3/businesses/search?latitude=34.0206&longitude=-118.2854";
 
