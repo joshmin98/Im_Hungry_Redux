@@ -19,12 +19,21 @@ public class BackendTest extends PippoTest {
     Response response = get("/");
     response.then()
         .statusCode(200)
-        .contentType(ContentType.HTML);
+        .contentType(ContentType.JSON);
   }
 
   @Test
   public void testRestaurants() {
-    Response response = get("/restaurants?query=test&numresults=5&radius=8500");
+    Response response = get("/restaurants?query=test&limit=5&radius=8500");
+    response.then()
+        .statusCode(200)
+        .contentType(ContentType.JSON);
+    // Add asserts for json here
+  }
+
+   @Test
+  public void testRestaurantsEmpty() {
+    Response response = get("/restaurants?query=&limit=&radius=");
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON);
@@ -33,7 +42,7 @@ public class BackendTest extends PippoTest {
 
   @Test
   public void testRecipes() {
-    Response response = get("/recipes?query=test&numResults=12");
+    Response response = get("/recipes?query=test&limit=12");
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON);
