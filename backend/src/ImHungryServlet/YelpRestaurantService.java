@@ -83,10 +83,11 @@ public class YelpRestaurantService {
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
-
+                String uglyJSON = sb.toString();
                 String prettyJSON = convertPrettyJSON(sb.toString());
-                System.out.println(prettyJSON);
-                return prettyJSON;
+                // System.out.println(uglyJSON);
+                // System.out.println(prettyJSON);
+                return uglyJSON;
         }
 
         // converts one line json format to pretty json format
