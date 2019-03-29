@@ -7,10 +7,35 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.junit.Test;
 
 import ImHungryServlet.RecipeServlet;
+import ImHungryServlet.RestaurantServlet;
+
 import ImHungryServlet.YelpRestaurantService;
 import junit.framework.Assert;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+import java.io.*;
+import javax.servlet.http.*;
 
-public class BackendTest {
+
+public class BackendTest extends Mockito {
+        @Test
+        public void testRestaurantServlet() throws Exception {
+                HttpServletRequest request = mock(HttpServletRequest.class);       
+                HttpServletResponse response = mock(HttpServletResponse.class);    
+
+                when(request.getParameter("query")).thenReturn("Chinese");
+                when(request.getParameter("numResults")).thenReturn("7");
+                when(request.getParameter("radius")).thenReturn("8500");
+
+                StringWriter stringWriter = new StringWriter();
+                PrintWriter writer = new PrintWriter(stringWriter);
+                when(response.getWriter()).thenReturn(writer);
+
+                new RestaurantServlet().doGet(request, response);
+                verify(request, atLeast(1)).getParameter("query"); // only if you want to verify username was called...
+                writer.flush(); // it may not have been flushed yet...
+                assertTrue(stringWriter.toString().contains(new YelpRestaurantService().getRestaurantInfo("Chinese", "7", "8500")));
+        }
 
         @Test
         public void testYelpRestaurntQuery() throws UnsupportedEncodingException {
