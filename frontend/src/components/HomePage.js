@@ -50,7 +50,7 @@ class HomePage extends React.Component {
   state = {
     searchVal: '',
     distance: 8000,
-    limit: 5
+    limit: 5,
   };
   handleSearchChange = e => {
     this.setState({
@@ -68,7 +68,7 @@ class HomePage extends React.Component {
       distance: this.state.distance,
       limit: this.state.limit,
     });
-    axios.post(url_prefix+"api/result", query).then(res => {
+    axios.post(url_prefix + '/api/result', query).then(res => {
       console.log(res);
     });
   };

@@ -26,12 +26,16 @@
   	<servlet-name>RestaurantServlet</servlet-name>
   	<url-pattern>/restaurants</url-pattern>
   </servlet-mapping>
- <filter>
-  <filter-name>CorsFilter</filter-name>
-  <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
-</filter>
-<filter-mapping>
-  <filter-name>CorsFilter</filter-name>
-  <url-pattern>/*</url-pattern>
-</filter-mapping>
+
+  <servlet>
+  	<servlet-name>ResultsServlet</servlet-name>
+  	<description></description>
+  	<servlet-class>ImHungryServlet.ResultsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+  	<servlet-name>ResultsServlet</servlet-name>
+  	<url-pattern>/results</url-pattern>
+  </servlet-mapping>
 </web-app>
+
