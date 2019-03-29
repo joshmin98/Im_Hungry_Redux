@@ -6,8 +6,31 @@ import ListManagementPage from './components/ListManagementPage.tsx';
 import RestaurantPage from './components/RestaurantPage';
 import RecipePage from './components/RecipePage';
 import SearchPage from './components/SearchPage';
+import firebase from './config/firebaseConfig';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
+
+  componentDidMount() {
+    this.authListener();
+  }
+
+  authListener() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user });
+        console.log(user);
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
