@@ -30,7 +30,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class RecipeService extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static String API_KEY = "33ca31a454msh8ddf7f5cdb4d34ap11c0e7jsn2c4f2d940e5b";
+    private static String API_KEY;
 
     /**
      * Default constructor.

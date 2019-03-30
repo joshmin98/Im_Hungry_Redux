@@ -19,7 +19,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class YelpRestaurantService {
-        private static String API_KEY = "d5CaSD1fY-tiI_b-jD1UZ62Q4PFfnCOCRw6WwzSYdrzyxehoclOrlsYRR0JYQCL5jXie1LaYlgnwD7r22AbAU0WCtPUB3DVccZMatEQ7kFEGCABLHMvz41FsRQJ7XHYx";
+        private static String API_KEY;
         private static final String baseyelpSearchUrl = "https://api.yelp.com/v3/businesses/search?latitude=34.0206&longitude=-118.2854";
 
         // getRestaurantInfo(term, limit) - returns Yelp restaurant results as a JSON string. 
@@ -33,16 +33,16 @@ public class YelpRestaurantService {
         }
 
         public YelpRestaurantService() {
-                // Properties prop = new Properties();
-                // try {
-                //         ClassLoader classLoader = YelpRestaurantService.class.getClassLoader();
-                //         URL res = Objects.requireNonNull(classLoader.getResource("config.properties"));
-                //         InputStream is = new FileInputStream(res.getFile());
-                //         prop.load(is);
-                //         API_KEY = prop.getProperty("YELP_API_KEY");
-                // } catch (IOException e) {
-                //         e.printStackTrace();
-                // }
+                Properties prop = new Properties();
+                try {
+                        ClassLoader classLoader = YelpRestaurantService.class.getClassLoader();
+                        URL res = Objects.requireNonNull(classLoader.getResource("config.properties"));
+                        InputStream is = new FileInputStream(res.getFile());
+                        prop.load(is);
+                        API_KEY = prop.getProperty("YELP_API_KEY");
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
         }
 
         // getRestaurantJsonString(term, limit) - makes the HTTP request to the API and forms the JSON string
