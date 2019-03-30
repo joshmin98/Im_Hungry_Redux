@@ -66,7 +66,7 @@ public class YelpRestaurantService {
                         conn.setRequestMethod("GET");
                         conn.setRequestProperty("Accept", "application/json");
                         conn.setRequestProperty("Authorization", "Bearer " + API_KEY);
-                        
+
                         //Read the content from the defined connection
                         //Using IO Stream with Buffer raise highly the efficiency of IO
                         reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
