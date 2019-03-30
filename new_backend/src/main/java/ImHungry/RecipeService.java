@@ -35,19 +35,19 @@ public class RecipeService extends HttpServlet {
     /**
      * Default constructor.
      */
-    // public RecipeService() {
+    public RecipeService() {
 
-    //     Properties prop = new Properties();
-    //     try {
-    //         ClassLoader classLoader = RecipeServlet.class.getClassLoader();
-    //         URL res = Objects.requireNonNull(classLoader.getResource("config.properties"));
-    //         InputStream is = new FileInputStream(res.getFile());
-    //         prop.load(is);
-    //         API_KEY = prop.getProperty("YELP_API_KEY");
-    //     } catch (IOException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+        Properties prop = new Properties();
+        try {
+            ClassLoader classLoader = RecipeService.class.getClassLoader();
+            URL res = Objects.requireNonNull(classLoader.getResource("config.properties"));
+            InputStream is = new FileInputStream(res.getFile());
+            prop.load(is);
+            API_KEY = prop.getProperty("RECIPE_API_KEY");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getRecipeData(String query, String num) {
 
