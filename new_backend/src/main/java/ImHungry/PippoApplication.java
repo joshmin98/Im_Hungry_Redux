@@ -11,7 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-
 /**
  * A simple Pippo application.
  *
@@ -38,12 +37,11 @@ public class PippoApplication extends Application {
             // log.info("list post");
             // Get parameters
             String listName = (routeContext.getParameter("listName") != null)
-                            ? routeContext.getParameter("listName").toString()
-                            : null;
+                    ? routeContext.getParameter("listName").toString()
+                    : null;
             // ArrayList<JsonObject> list = routeContext.getSession(listName);
-            String response = (listName != null)
-                            ? routeContext.getSession(listName).toString()
-                            : "{\"error\":\"missing listName parameter\"}";
+            String response = (listName != null) ? routeContext.getSession(listName).toString()
+                    : "{\"error\":\"missing listName parameter\"}";
             routeContext.json().send(response);
         });
 
@@ -133,7 +131,32 @@ public class PippoApplication extends Application {
             routeContext.send("list/move");
         });
 
+        POST("/reorder", routeContext -> {
+            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            // Get parameters
+            String listName = routeContext.getParameter("listName").toString();
+            String oldPosition = routeContext.getParameter("oldPosition").toString();
+            String newPosition = routeContext.getParameter("newPosition").toString();
 
+            ArrayList<JsonObject> list = routeContext.getSession(listName);
+
+            if (!list.isEmpty()) {
+                // Reordering of list by removing item at current position
+                // then adding it back at the new position
+                int oldPos = Integer.parseInt(oldPosition);
+                int newPos = Integer.parseInt(newPosition);
+
+                try {
+                    JsonObject item = list.get(oldPos);
+                    list.remove(oldPos);
+                    list.add(newPos, item);
+                } catch (IndexOutOfBoundsException iobe) {
+                    log.error(iobe.getMessage());
+                }
+            }
+
+            routeContext.send("reorder");
+        });
 
         GET("/restaurants", routeContext -> {
             routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -183,14 +206,16 @@ public class PippoApplication extends Application {
 
             // String recipeJSONstring = "";
             // try {
-            //     recipeJSONstring = (query != null && limit != null) ? rs.getRecipeData(query, limit)
-            //             : "{\"error\": \"Missing fields in request parameters\"}";
+            // recipeJSONstring = (query != null && limit != null) ? rs.getRecipeData(query,
+            // limit)
+            // : "{\"error\": \"Missing fields in request parameters\"}";
             // } catch (Exception e) {
-            //     System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
             // }
 
-            // JsonObject recipesJO = (recipeJSONstring != null) ? (JsonObject) (new JsonParser()).parse(recipeJSONstring)
-            //         : null;
+            // JsonObject recipesJO = (recipeJSONstring != null) ? (JsonObject) (new
+            // JsonParser()).parse(recipeJSONstring)
+            // : null;
             // JsonArray recipesJA = recipesJO.get("results").getAsJsonArray();
             // String recipes = specifyType(recipesJA, "recipe");
 
