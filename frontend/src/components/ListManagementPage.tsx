@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 
 import Header from './sub-components/Header';
+import * as axios from 'axios';
 
 const styles = (theme: Theme) =>
   createStyles({
