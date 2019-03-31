@@ -4,12 +4,11 @@ import { withRouter } from 'react-router-dom';
 import {
   Card,
   CardContent,
-  Grid,
+  Button,
   Theme,
   createStyles,
   withStyles,
 } from '@material-ui/core';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
 import Header from './sub-components/Header';
 
@@ -41,19 +40,17 @@ const ListManagementPage: React.FC<any> = props => {
   const [list, setList]: any = useState([1, 3, 5, 7, 9]);
   const { classes } = props;
 
-  const onDragEnd = (result: any) => {
-    if (!result.destination) return;
-
-    const items = reorder(list, result.source.index, result.destination.index);
-    setList(items);
-    console.log(list);
-  };
-
   const reorder = (list: any, startIdx: number, endIdx: number) => {
+    if (endIdx === -1) {
+      return;
+    } else if (endIdx === list.length) {
+      return;
+    }
+
     const result = Array.from(list);
     const [removed] = result.splice(startIdx, 1);
     result.splice(endIdx, 0, removed);
-    return result;
+    setList(result);
   };
 
   return (
@@ -61,30 +58,25 @@ const ListManagementPage: React.FC<any> = props => {
       <Header />
       <div className={classes.container}>
         <h1>{props.location.pathname.slice(7)}</h1>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {list.map((item: any, idx: any) => (
-                  <Draggable key={idx} draggableId={item} index={idx}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Card className={classes.card}>
-                          <CardContent>{item}</CardContent>
-                        </Card>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        {list.map((item: any, idx: number) => (
+          <Card key={`item-${item}`}>
+            <CardContent>
+              <div id={`listPlace-${idx}`}>{item}</div>
+            </CardContent>
+            <Button
+              id={`item-${item}-up`}
+              onClick={() => reorder(list, idx, idx + 1)}
+            >
+              Up
+            </Button>
+            <Button
+              id={`item-${item}-down`}
+              onClick={() => reorder(list, idx, idx + 1)}
+            >
+              Down
+            </Button>
+          </Card>
+        ))}
       </div>
     </div>
   );
