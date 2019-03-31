@@ -54,20 +54,33 @@ public class DatabaseServlet extends HttpServlet {
 		Firestore db = FirestoreClient.getFirestore();
 		
 		Map<String, String> myMap = new HashMap<String, String>() {{
-	        put("a", "1");
-	        put("b", "2");
+	        put("1", "pizza");
+	        put("2", "burgers");
 	    }};
-		ApiFuture<WriteResult> future = db.collection("Users").document("TestData").set(myMap);
+		ApiFuture<WriteResult> future = db.collection("tanaynsh@usc.edu").document("Search Terms").set(myMap);
 		
+		try {
+			getDataFromDatabase(db, request, response);
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+	}
+	
+	public void getDataFromDatabase(Firestore db, HttpServletRequest request, HttpServletResponse response) throws ExecutionException, InterruptedException, IOException {
 		DocumentReference docRef = db.collection("Users").document("TestData");
 		ApiFuture<DocumentSnapshot> futureTwo = docRef.get();
 		DocumentSnapshot document;
 		try {
 			document = futureTwo.get();
 			if(document.exists()) {
-				Map<String, Object> myTestMap = document.getData();
-				response.getWriter().append("Data found.").append(request.getContextPath());
+				//Map<String, Object> myTestMap = document.getData();
+				String testString = document.getString("a");
+				response.getWriter().append("Test data returned: ").append(testString);
 			} 
 			else {
 				System.out.println("Document does not exist. ");
