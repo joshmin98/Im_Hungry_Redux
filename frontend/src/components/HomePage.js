@@ -67,9 +67,10 @@ class HomePage extends React.Component {
   };
   handleLimit = e => {
     this.setState({
-      limit: parseInt(e.target.value)
-    })
+      limit: parseInt(e.target.value),
+    });
   };
+<<<<<<< HEAD
   handleClick = async () => {
     axios.get(url_restaurants, {
         params: {
@@ -112,6 +113,30 @@ class HomePage extends React.Component {
           restaurants: this.state.restaurants,
           recipes: this.state.recipes
         }})
+=======
+  handleClick = () => {
+    axios
+      .get(
+        url_prefix,
+        {
+          params: {
+            query: this.state.searchVal,
+            radius: this.state.distance,
+            limit: this.state.limit,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          },
+        },
+      )
+      .then(response => {
+        console.log(response);
+      });
+>>>>>>> cefe319aa25c8125cd641584696db4b03b481eba
   };
 
   render() {
@@ -152,14 +177,14 @@ class HomePage extends React.Component {
             />
           </Grid>
           <Grid item xs={2}>
-          <TextField
-            label="Limit"
-            placeholder="Placeholder"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={this.handleLimit}
-          />
+            <TextField
+              label="Limit"
+              placeholder="Placeholder"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={this.handleLimit}
+            />
           </Grid>
           <Grid item xs={2}>
             <Button
