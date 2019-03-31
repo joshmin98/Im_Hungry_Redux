@@ -10,7 +10,8 @@ import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
 import PhotoCollage from './sub-components/PhotoCollage';
 
-const url_prefix = 'http://localhost:8338/restaurants';
+const url_restaurants = 'http://localhost:8338/restaurants';
+const url_recipes = 'http://localhost:8338/recipes';
 
 const styles = theme => ({
   root: {
@@ -51,6 +52,8 @@ class HomePage extends React.Component {
     searchVal: '',
     distance: 8000,
     limit: 5,
+    restaurants: [],
+    recipes: [],
   };
   handleSearchChange = e => {
     this.setState({
@@ -67,8 +70,8 @@ class HomePage extends React.Component {
       limit: parseInt(e.target.value)
     })
   };
-  handleClick = () => {
-    axios.get(url_prefix, {
+  handleClick = async () => {
+    axios.get(url_restaurants, {
         params: {
           query: this.state.searchVal,
           radius: this.state.distance,
@@ -81,10 +84,36 @@ class HomePage extends React.Component {
         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
      }).then(response => {
-      console.log(response);
+      this.setState({
+        restaurants: response.data
+      })
     });
 
+    const res = await axios.get(url_recipes, {
+      params: {
+        query: this.state.searchVal,
+        radius: this.state.distance,
+        limit: this.state.limit
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    })
+      this.setState({
+        recipes: res.data
+      })
+
+      this.props.history.push({
+        pathname: '/search',
+        state: { 
+          restaurants: this.state.restaurants,
+          recipes: this.state.recipes
+        }})
   };
+
   render() {
     const { classes } = this.props;
     return (
