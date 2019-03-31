@@ -70,7 +70,6 @@ class HomePage extends React.Component {
       limit: parseInt(e.target.value),
     });
   };
-<<<<<<< HEAD
   handleClick = async () => {
     axios.get(url_restaurants, {
         params: {
@@ -113,30 +112,6 @@ class HomePage extends React.Component {
           restaurants: this.state.restaurants,
           recipes: this.state.recipes
         }})
-=======
-  handleClick = () => {
-    axios
-      .get(
-        url_prefix,
-        {
-          params: {
-            query: this.state.searchVal,
-            radius: this.state.distance,
-            limit: this.state.limit,
-          },
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-          },
-        },
-      )
-      .then(response => {
-        console.log(response);
-      });
->>>>>>> cefe319aa25c8125cd641584696db4b03b481eba
   };
 
   render() {
