@@ -10,7 +10,7 @@ import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
 import PhotoCollage from './sub-components/PhotoCollage';
 
-const url_prefix = 'http://localhost:8080';
+const url_prefix = 'http://localhost:8338/restaurants';
 
 const styles = theme => ({
   root: {
@@ -62,22 +62,28 @@ class HomePage extends React.Component {
       distance: parseInt(e.target.value),
     });
   };
+  handleLimit = e => {
+    this.setState({
+      limit: parseInt(e.target.value)
+    })
+  };
   handleClick = () => {
     axios.get(url_prefix, {
-      params: {
-        val: this.state.searchVal,
-        distance: this.state.distance,
-        limit: this.state.limit
+        params: {
+          query: this.state.searchVal,
+          radius: this.state.distance,
+          limit: this.state.limit
+        }
+      }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
-    }, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin' : '*',
-      'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    }
-   }).then(response => {
-    console.log(response);
-   });
+     }).then(response => {
+      console.log(response);
+    });
+
   };
   render() {
     const { classes } = this.props;
@@ -96,7 +102,7 @@ class HomePage extends React.Component {
           </Typography>
         </div>
         <Grid container spacing={16} className={classes.form}>
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <TextField
               label="Seach for food"
               placeholder="Placeholder"
@@ -106,7 +112,7 @@ class HomePage extends React.Component {
               onChange={this.handleSearchChange}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <TextField
               label="Distance"
               placeholder="Placeholder"
@@ -115,6 +121,16 @@ class HomePage extends React.Component {
               variant="outlined"
               onChange={this.handleDistanceChange}
             />
+          </Grid>
+          <Grid item xs={2}>
+          <TextField
+            label="Limit"
+            placeholder="Placeholder"
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            onChange={this.handleLimit}
+          />
           </Grid>
           <Grid item xs={2}>
             <Button
