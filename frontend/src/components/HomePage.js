@@ -64,26 +64,31 @@ class HomePage extends React.Component {
   };
   handleLimit = e => {
     this.setState({
-      limit: parseInt(e.target.value)
-    })
+      limit: parseInt(e.target.value),
+    });
   };
   handleClick = () => {
-    axios.get(url_prefix, {
-        params: {
-          query: this.state.searchVal,
-          radius: this.state.distance,
-          limit: this.state.limit
-        }
-      }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-     }).then(response => {
-      console.log(response);
-    });
-
+    axios
+      .get(
+        url_prefix,
+        {
+          params: {
+            query: this.state.searchVal,
+            radius: this.state.distance,
+            limit: this.state.limit,
+          },
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          },
+        },
+      )
+      .then(response => {
+        console.log(response);
+      });
   };
   render() {
     const { classes } = this.props;
@@ -123,14 +128,14 @@ class HomePage extends React.Component {
             />
           </Grid>
           <Grid item xs={2}>
-          <TextField
-            label="Limit"
-            placeholder="Placeholder"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={this.handleLimit}
-          />
+            <TextField
+              label="Limit"
+              placeholder="Placeholder"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={this.handleLimit}
+            />
           </Grid>
           <Grid item xs={2}>
             <Button

@@ -72,7 +72,7 @@ class UserSignIn extends React.Component {
     this.setState({
       [name]: e.target.value,
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   handleSubmit = event => {
@@ -85,7 +85,7 @@ class UserSignIn extends React.Component {
           console.log('LOGGED IN');
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     } else {
       firebase
