@@ -11,6 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+
 /**
  * A simple Pippo application.
  *
@@ -34,7 +35,7 @@ public class PippoApplication extends Application {
 
         GET("/list", routeContext -> {
             routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
-            log.info("list post");
+            // log.info("list post");
             // Get parameters
             String listName = (routeContext.getParameter("listName") != null)
                             ? routeContext.getParameter("listName").toString()
@@ -46,65 +47,93 @@ public class PippoApplication extends Application {
             routeContext.json().send(response);
         });
 
-        POST("/list", routeContext -> {
+        POST("/list/add", routeContext -> {
             routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
-            log.info("list post");
+            log.info("list add");
             String listName = routeContext.getParameter("listName").toString();
-            String action = routeContext.getParameter("action").toString();
             String id = routeContext.getParameter("id").toString();
 
-            ArrayList<JsonObject> list = null;
+            ArrayList<JsonObject> list = routeContext.getSession(listName);
             JsonParser parser = new JsonParser();
-            if (listName != null) {
-                if (listName.equals("Favorites")) {
-                    list = routeContext.getSession("Favorites");
-                } else if (listName.equals("To Explore")) {
-                    list = routeContext.getSession("To Explore");
-                } else if (listName.equals("Do Not Show")) {
-                    list = routeContext.getSession("Do Not Show");
-                }
+            JsonObject item = null;
+            String restaurantsString = routeContext.getSession("restaurants");
+            // log.info(restaurantsString);
+            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
 
-                // find item in restaurant and recipe results
-                JsonObject item = null;
-                String restaurantsString = routeContext.getSession("restaurants");
-                // log.info(restaurantsString);
-                JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
+            String recipesString = routeContext.getSession("recipes");
+            JsonArray recipes = (JsonArray) parser.parse(recipesString);
 
-                String recipesString = routeContext.getSession("recipes");
-                JsonArray recipes = (JsonArray) parser.parse(recipesString);
+            item = findItem(restaurants, recipes, id);
 
-                item = findItem(restaurants, recipes, id);
-
-                log.info(listName + " " + action + " " + id + " " + contains(list, id));
-                log.info(list.toString());
-
-                if (action.equals("add") && !list.contains(item)) {
-                    log.info("added to " + listName);
-                    // item.addProperty("listPlace", list.size());
-                    list.add(item);
-                } else if (action.equals("delete") && list.contains(item)) {
-                    log.info("deleted from " + listName);
-                    list.remove(item);
-                } else if (action.equals("move") && list.contains(item)) {
-                    log.info("move");
-                    String moveList = routeContext.getParameter("moveList").toString();
-                    ArrayList<JsonObject> otherList = new ArrayList<JsonObject>();
-                    if (routeContext.getSession(moveList) != null) {
-                        otherList = (ArrayList<JsonObject>) routeContext.getSession(moveList);
-                    }
-
-                    otherList.add(item);
-                    list.remove(item);
-                    // list.remove(indexOf(list, id));
-
-                    log.info("moved from " + listName + " to " + moveList);
-
-                    routeContext.setSession(moveList, otherList);
-                }
-                routeContext.setSession(listName, list);
+            if (!list.contains(item)) {
+                log.info("added to " + listName);
+                list.add(item);
             }
-            routeContext.send("list post");
+            routeContext.setSession(listName, list);
+            routeContext.send("list/add");
         });
+
+        POST("/list/delete", routeContext -> {
+            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            log.info("list delete");
+            String listName = routeContext.getParameter("listName").toString();
+            String id = routeContext.getParameter("id").toString();
+
+            ArrayList<JsonObject> list = routeContext.getSession(listName);
+            JsonParser parser = new JsonParser();
+            JsonObject item = null;
+            String restaurantsString = routeContext.getSession("restaurants");
+            // log.info(restaurantsString);
+            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
+
+            String recipesString = routeContext.getSession("recipes");
+            JsonArray recipes = (JsonArray) parser.parse(recipesString);
+
+            item = findItem(restaurants, recipes, id);
+
+            if (list.contains(item)) {
+                log.info("deleted from " + listName);
+                list.remove(item);
+            }
+            routeContext.setSession(listName, list);
+            routeContext.send("list/delete");
+        });
+
+        POST("/list/move", routeContext -> {
+            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            log.info("list move");
+            String listName = routeContext.getParameter("listName").toString();
+            String id = routeContext.getParameter("id").toString();
+            String moveList = routeContext.getParameter("moveList").toString();
+
+            ArrayList<JsonObject> list = routeContext.getSession(listName);
+            JsonParser parser = new JsonParser();
+            JsonObject item = null;
+            String restaurantsString = routeContext.getSession("restaurants");
+            // log.info(restaurantsString);
+            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
+
+            String recipesString = routeContext.getSession("recipes");
+            JsonArray recipes = (JsonArray) parser.parse(recipesString);
+
+            item = findItem(restaurants, recipes, id);
+
+            if (list.contains(item)) {
+                ArrayList<JsonObject> otherList = (ArrayList<JsonObject>) routeContext.getSession(moveList);
+
+                otherList.add(item);
+                list.remove(item);
+
+                log.info("moved from " + listName + " to " + moveList);
+
+                routeContext.setSession(moveList, otherList);
+            }
+
+            routeContext.setSession(listName, list);
+            routeContext.send("list/move");
+        });
+
+
 
         GET("/restaurants", routeContext -> {
             routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -115,16 +144,14 @@ public class PippoApplication extends Application {
             String radius = routeContext.getParameter("radius").toString();
             String restaurantJSONstring = "";
             try {
-                restaurantJSONstring = (query != null && limit != null && radius != null)
+                restaurantJSONstring = (!query.isEmpty() || !limit.isEmpty() || !radius.isEmpty())
                         ? yelp.getRestaurantInfo(query, limit, radius)
                         : "{\"error\": \"Missing fields in request parameters\"}";
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
 
-            JsonObject restaurantsJO = (restaurantJSONstring != null)
-                    ? (JsonObject) (new JsonParser()).parse(restaurantJSONstring)
-                    : null;
+            JsonObject restaurantsJO = (JsonObject) (new JsonParser()).parse(restaurantJSONstring);
             JsonArray restaurantsJA = restaurantsJO.get("businesses").getAsJsonArray();
             String restaurants = specifyType(restaurantsJA, "restaurant");
             routeContext.setSession("restaurants", restaurants);
@@ -173,27 +200,6 @@ public class PippoApplication extends Application {
         });
     }
 
-    // check if a list has an item given an id
-    private boolean contains(ArrayList<JsonObject> list, String id) {
-        for (JsonObject i : list) {
-            if (i.get("id").getAsString().equals(id)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    // finding index of item in a list given id
-    // private int indexOf(ArrayList<JsonObject> list, String id) {
-    // for(int i = 0; i < list.size(); ++i) {
-    // if(list.get(i).get("id").getAsString().equals(id)) {
-    // return i;
-    // }
-    // }
-    // return -1;
-    // }
-
     // specify type of item, restaurant or recipe
     private String specifyType(JsonArray result, String type) {
         log.info("specifyType");
@@ -223,7 +229,6 @@ public class PippoApplication extends Application {
                 return i;
             }
         }
-
         return null;
     }
 }

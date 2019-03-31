@@ -1,12 +1,19 @@
 package ImHungry;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.response.Response;
 
+import org.apache.http.cookie.SetCookie;
 import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+import java.util.ArrayList;
 
 import ro.pippo.test.PippoRule;
 import ro.pippo.test.PippoTest;
@@ -25,6 +32,13 @@ public class BackendTest extends PippoTest {
   // }
 
   @Test
+  public void testDefault() {
+    Response response = get("/");
+        response.then()
+        .statusCode(200);
+  }
+
+  @Test
   /* User searches for Query: Burgers, Limit: 5 results, Radius: 8500 m */
   public void testRestaurants() {
     Response response = get("/restaurants?query=burgers&limit=5&radius=8500");
@@ -32,25 +46,208 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON); 
-      assertEquals("{\"businesses\": [{\"id\": \"_yVWZKwr_9ne_7ShMscWjA\", \"alias\": \"burger-plaza-grill-los-angeles\", \"name\": \"Burger Plaza Grill\", \"image_url\": \"https://s3-media1.fl.yelpcdn.com/bphoto/t6R8d01_EEBVVsPh38q_rw/o.jpg\", \"is_closed\": false, \"url\": \"https://www.yelp.com/biz/burger-plaza-grill-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\", \"review_count\": 69, \"categories\": [{\"alias\": \"burgers\", \"title\": \"Burgers\"}, {\"alias\": \"sandwiches\", \"title\": \"Sandwiches\"}], \"rating\": 4.5, \"coordinates\": {\"latitude\": 34.01744, \"longitude\": -118.2783}, \"transactions\": [\"pickup\", \"delivery\"], \"price\": \"$\", \"location\": {\"address1\": \"3655 S Grand Ave\", \"address2\": \"\", \"address3\": \"\", \"city\": \"Los Angeles\", \"zip_code\": \"90007\", \"country\": \"US\", \"state\": \"CA\", \"display_address\": [\"3655 S Grand Ave\", \"Los Angeles, CA 90007\"]}, \"phone\": \"+12137659787\", \"display_phone\": \"(213) 765-9787\", \"distance\": 732.1111160793129}, {\"id\": \"dxLiwx8Ghcm0AWNph0xrVw\", \"alias\": \"the-dragon-and-meeple-los-angeles\", \"name\": \"The Dragon and Meeple\", \"image_url\": \"https://s3-media1.fl.yelpcdn.com/bphoto/i-Q2ldUcSgvXaRZdMcpfGg/o.jpg\", \"is_closed\": false, \"url\": \"https://www.yelp.com/biz/the-dragon-and-meeple-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\", \"review_count\": 4, \"categories\": [{\"alias\": \"tabletopgames\", \"title\": \"Tabletop Games\"}, {\"alias\": \"burgers\", \"title\": \"Burgers\"}], \"rating\": 5.0, \"coordinates\": {\"latitude\": 34.01619, \"longitude\": -118.28168}, \"transactions\": [], \"location\": {\"address1\": \"3742 S Flower St\", \"address2\": \"\", \"address3\": null, \"city\": \"Los Angeles\", \"zip_code\": \"90007\", \"country\": \"US\", \"state\": \"CA\", \"display_address\": [\"3742 S Flower St\", \"Los Angeles, CA 90007\"]}, \"phone\": \"+12139735029\", \"display_phone\": \"(213) 973-5029\", \"distance\": 569.2009519733493}, {\"id\": \"Q3pwRtT8v8oTCKFEYJgCbg\", \"alias\": \"cassells-hamburgers-los-angeles-2\", \"name\": \"Cassell's Hamburgers\", \"image_url\": \"https://s3-media2.fl.yelpcdn.com/bphoto/8N68gTRLQEdU74GU-BqdTw/o.jpg\", \"is_closed\": false, \"url\": \"https://www.yelp.com/biz/cassells-hamburgers-los-angeles-2?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\", \"review_count\": 1366, \"categories\": [{\"alias\": \"burgers\", \"title\": \"Burgers\"}, {\"alias\": \"breakfast_brunch\", \"title\": \"Breakfast & Brunch\"}, {\"alias\": \"newamerican\", \"title\": \"American (New)\"}], \"rating\": 4.0, \"coordinates\": {\"latitude\": 34.0633354187012, \"longitude\": -118.300720214844}, \"transactions\": [\"pickup\", \"delivery\"], \"price\": \"$$\", \"location\": {\"address1\": \"3600 W 6th St\", \"address2\": null, \"address3\": \"\", \"city\": \"Los Angeles\", \"zip_code\": \"90020\", \"country\": \"US\", \"state\": \"CA\", \"display_address\": [\"3600 W 6th St\", \"Los Angeles, CA 90020\"]}, \"phone\": \"+12133875502\", \"display_phone\": \"(213) 387-5502\", \"distance\": 4962.62992846366}, {\"id\": \"cyTW8Ee1wTGbZKWKQFgLWg\", \"alias\": \"burgerim-los-angeles-15\", \"name\": \"Burgerim\", \"image_url\": \"https://s3-media3.fl.yelpcdn.com/bphoto/QO4Owwr5nDka7Vwc5JZ0TQ/o.jpg\", \"is_closed\": false, \"url\": \"https://www.yelp.com/biz/burgerim-los-angeles-15?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\", \"review_count\": 1, \"categories\": [{\"alias\": \"hotdogs\", \"title\": \"Fast Food\"}, {\"alias\": \"burgers\", \"title\": \"Burgers\"}, {\"alias\": \"chicken_wings\", \"title\": \"Chicken Wings\"}], \"rating\": 4.0, \"coordinates\": {\"latitude\": 34.0318784, \"longitude\": -118.2841149}, \"transactions\": [\"pickup\", \"delivery\"], \"location\": {\"address1\": \"2595 S Hoover St\", \"address2\": null, \"address3\": \"\", \"city\": \"Los Angeles\", \"zip_code\": \"90007\", \"country\": \"US\", \"state\": \"CA\", \"display_address\": [\"2595 S Hoover St\", \"Los Angeles, CA 90007\"]}, \"phone\": \"+12135365538\", \"display_phone\": \"(213) 536-5538\", \"distance\": 1282.6547244661592}, {\"id\": \"vpe7aCGjaAjoCLC_qIDXHA\", \"alias\": \"burger-cart-los-angeles\", \"name\": \"Burger Cart\", \"image_url\": \"\", \"is_closed\": false, \"url\": \"https://www.yelp.com/biz/burger-cart-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\", \"review_count\": 1, \"categories\": [{\"alias\": \"foodtrucks\", \"title\": \"Food Trucks\"}, {\"alias\": \"burgers\", \"title\": \"Burgers\"}], \"rating\": 5.0, \"coordinates\": {\"latitude\": 34.0476938856064, \"longitude\": -118.335749544203}, \"transactions\": [], \"location\": {\"address1\": \"4550 W Pico Blvd\", \"address2\": \"Ste D-101\", \"address3\": null, \"city\": \"Los Angeles\", \"zip_code\": \"90019\", \"country\": \"US\", \"state\": \"CA\", \"display_address\": [\"4550 W Pico Blvd\", \"Ste D-101\", \"Los Angeles, CA 90019\"]}, \"phone\": \"\", \"display_phone\": \"\", \"distance\": 5531.920636020443}], \"total\": 1700, \"region\": {\"center\": {\"longitude\": -118.2854, \"latitude\": 34.0206}}}", response.asString());
+    // assertEquals(yelp.getRestaurantInfo("burgers", "5", "8500"), response.asString());
+    // assertEquals("[{\"id\":\"DXFhzx94myitMxmBhsdz8A\",\"alias\":\"traditions-los-angeles\",\"name\":\"Traditions\",\"image_url\":\"https://s3-media4.fl.yelpcdn.com/bphoto/ushDMhbnoOhefTJQf1z5mQ/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/traditions-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":116,\"categories\":[{\"alias\":\"divebars\",\"title\":\"Dive Bars\"},{\"alias\":\"sportsbars\",\"title\":\"Sports Bars\"},{\"alias\":\"burgers\",\"title\":\"Burgers\"}],\"rating\":3.5,\"coordinates\":{\"latitude\":34.019963,\"longitude\":-118.286161},\"transactions\":[],\"price\":\"$$\",\"location\":{\"address1\":\"3607 Trousdale Pkwy\",\"address3\":\"\",\"city\":\"Los Angeles\",\"zip_code\":\"90089\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"3607 Trousdale Pkwy\",\"Los Angeles, CA 90089\"]},\"phone\":\"+12138213445\",\"display_phone\":\"(213) 821-3445\",\"distance\":99.67984174213088,\"type\":\"restaurant\"},{\"id\":\"cgMqbKO7UGLfijRqfg9kjw\",\"alias\":\"the-habit-burger-grill-los-angeles\",\"name\":\"The Habit Burger Grill\",\"image_url\":\"https://s3-media1.fl.yelpcdn.com/bphoto/rhkud8IzJLSDm8pNt1ZK1g/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/the-habit-burger-grill-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":58,\"categories\":[{\"alias\":\"burgers\",\"title\":\"Burgers\"},{\"alias\":\"salad\",\"title\":\"Salad\"},{\"alias\":\"sandwiches\",\"title\":\"Sandwiches\"}],\"rating\":2.5,\"coordinates\":{\"latitude\":34.0200721451021,\"longitude\":-118.286443501711},\"transactions\":[],\"price\":\"$\",\"location\":{\"address1\":\"3607 Trousdale Pkwy\",\"address2\":\"\",\"address3\":\"\",\"city\":\"Los Angeles\",\"zip_code\":\"90089\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"3607 Trousdale Pkwy\",\"Los Angeles, CA 90089\"]},\"phone\":\"+15626336364\",\"display_phone\":\"(562) 633-6364\",\"distance\":112.66805356899862,\"type\":\"restaurant\"},{\"id\":\"dQI2N7qVsjrQ4BxnyR0pHg\",\"alias\":\"wahlburgers-los-angeles-2\",\"name\":\"Wahlburgers\",\"image_url\":\"https://s3-media3.fl.yelpcdn.com/bphoto/HSW1ZLSdq4dDgBSo9FJwGw/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/wahlburgers-los-angeles-2?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":176,\"categories\":[{\"alias\":\"burgers\",\"title\":\"Burgers\"},{\"alias\":\"tradamerican\",\"title\":\"American (Traditional)\"}],\"rating\":3.5,\"coordinates\":{\"latitude\":34.0242256,\"longitude\":-118.2846996},\"transactions\":[],\"price\":\"$$\",\"location\":{\"address1\":\"835 W Jefferson Blvd\",\"address2\":\"Unit 1710\",\"city\":\"Los Angeles\",\"zip_code\":\"90007\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"835 W Jefferson Blvd\",\"Unit 1710\",\"Los Angeles, CA 90007\"]},\"phone\":\"+12135365962\",\"display_phone\":\"(213) 536-5962\",\"distance\":439.6164837612774,\"type\":\"restaurant\"},{\"id\":\"87cOHd188XjyKAkIiPHdyw\",\"alias\":\"natural-history-museum-grill-los-angeles\",\"name\":\"Natural History Museum Grill\",\"image_url\":\"https://s3-media3.fl.yelpcdn.com/bphoto/QQHztj1af_CFBERYbCgDcw/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/natural-history-museum-grill-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":52,\"categories\":[{\"alias\":\"burgers\",\"title\":\"Burgers\"},{\"alias\":\"sandwiches\",\"title\":\"Sandwiches\"},{\"alias\":\"tradamerican\",\"title\":\"American (Traditional)\"}],\"rating\":3.0,\"coordinates\":{\"latitude\":34.0172114571928,\"longitude\":-118.289133757353},\"transactions\":[],\"price\":\"$$\",\"location\":{\"address1\":\"900 Exposition Blvd\",\"address2\":\"\",\"address3\":\"\",\"city\":\"Los Angeles\",\"zip_code\":\"90037\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"900 Exposition Blvd\",\"Los Angeles, CA 90037\"]},\"phone\":\"+12137633250\",\"display_phone\":\"(213) 763-3250\",\"distance\":510.2813414569061,\"type\":\"restaurant\"},{\"id\":\"9mHXsA466j-WfqitLT9_Ag\",\"alias\":\"trimana-los-angeles-43\",\"name\":\"Trimana\",\"image_url\":\"https://s3-media1.fl.yelpcdn.com/bphoto/xTUq-zS21vLEjrL3fePTDA/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/trimana-los-angeles-43?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":71,\"categories\":[{\"alias\":\"mexican\",\"title\":\"Mexican\"},{\"alias\":\"burgers\",\"title\":\"Burgers\"},{\"alias\":\"pizza\",\"title\":\"Pizza\"}],\"rating\":4.0,\"coordinates\":{\"latitude\":34.015164,\"longitude\":-118.2858663},\"transactions\":[],\"price\":\"$\",\"location\":{\"address1\":\"700 Exposition Park Dr\",\"address2\":\"\",\"address3\":\"\",\"city\":\"Los Angeles\",\"zip_code\":\"90037\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"700 Exposition Park Dr\",\"Los Angeles, CA 90037\"]},\"phone\":\"+12137481226\",\"display_phone\":\"(213) 748-1226\",\"distance\":516.710750758593,\"type\":\"restaurant\"}]",
+    //                 response.asString());
+    
   }
 
-   @Test
-  public void testRestaurantsEmpty() {
-    Response response = get("/restaurants?query=&limit=&radius=");
+//    @Test
+//   public void testRestaurantsEmpty() {
+//     Response response = get("/restaurants?query=&limit=&radius=");
+//     response.then()
+//         .statusCode(200)
+//         .contentType(ContentType.JSON);
+//     // Add asserts for json here
+//   }
+
+  // @Test
+  // public void testRecipes() {
+  //   Response response = get("/recipes?query=test&limit=12");
+  //   response.then()
+  //       .statusCode(200)
+  //       .contentType(ContentType.JSON);
+  //   // Add asserts for json here
+  // }
+
+  @Test
+  public void testListEmptyParam() {
+    Response response = given().get("/list");
     response.then()
-        .statusCode(200)
-        .contentType(ContentType.JSON);
-    // Add asserts for json here
+        .statusCode(200);
   }
 
   @Test
-  public void testRecipes() {
-    Response response = get("/recipes?query=test&limit=12");
-    response.then()
-        .statusCode(200)
+  public void testListAdd() {
+    SessionFilter sessionFilter = new SessionFilter();
+    given()
+        .filter(sessionFilter)
+        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .then().statusCode(200)
         .contentType(ContentType.JSON);
-    // Add asserts for json here
+    Response response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "To Explore")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Do Not Show")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    // finditem coverage
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Do Not Show")
+        .queryParam("id", "missing")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    // item already in list
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
   }
+
+  @Test
+  public void testListDelete() {
+    SessionFilter sessionFilter = new SessionFilter();
+    given()
+        .filter(sessionFilter)
+        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .then().statusCode(200)
+        .contentType(ContentType.JSON);
+
+    Response response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/delete");
+    response.then()
+        .statusCode(200);
+    
+    response = given()
+        .filter(sessionFilter)
+        .get("/list?listName=Favorites");
+    response.then()
+        .statusCode(200);
+    JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(0, result.size());
+
+    // item not in list
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "missing")
+        .post("/list/delete");
+    response.then()
+        .statusCode(200);
+  }
+
+  @Test
+  public void testListMove() {
+    SessionFilter sessionFilter = new SessionFilter();
+    given()
+        .filter(sessionFilter)
+        .get("/restaurants?query=pizza&limit=5&radius=8500")
+        .then().statusCode(200)
+        .contentType(ContentType.JSON);
+
+    Response response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .get("/list?listName=Favorites");
+    response.then()
+        .statusCode(200);
+    JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(1, result.size());
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        .queryParam("moveList", "To Explore")
+        .post("/list/move");
+    response.then()
+        .statusCode(200);
+    
+    response = given()
+        .filter(sessionFilter)
+        .get("/list?listName=Favorites");
+    response.then()
+        .statusCode(200);
+    result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(0, result.size());
+
+    response = given().filter(sessionFilter).get("/list?listName=To Explore");
+    response.then().statusCode(200);
+    result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(1, result.size());
+
+    // item not in list
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", "missing")
+        .queryParam("moveList", "To Explore")
+        .post("/list/move");
+    response.then()
+        .statusCode(200);
+  }
+
+//   @Test
+//   public void testListBad() {
+//     SessionFilter sessionFilter = new SessionFilter();
+//     given()
+//         .filter(sessionFilter)
+//         .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+//         .then().statusCode(200)
+//         .contentType(ContentType.JSON);
+//     Response response = given()
+//         .filter(sessionFilter)
+//         .queryParam("listName", "Favorites")
+//         .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+//         .queryParam("action", "bad")
+//         .post("/list");
+//     response.then()
+//         .statusCode(200);
+//   }
+
+
+ 
 
 }
