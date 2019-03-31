@@ -247,7 +247,78 @@ public class BackendTest extends PippoTest {
 //         .statusCode(200);
 //   }
 
+@Test
+  public void testListReorder() {
+    SessionFilter sessionFilter = new SessionFilter();
+    given()
+        .filter(sessionFilter)
+        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .then().statusCode(200)
+        .contentType(ContentType.JSON);
 
+    String id1 = "v5Eiu0WaNhDXBSNsAdjmUw",
+          id2 = "559251";
+    Response response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", id1)
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("id", id2)
+        .post("/list/add");
+    response.then()
+        .statusCode(200);
+    
+    response = given()
+        .filter(sessionFilter)
+        .get("/list?listName=Favorites");
+    response.then()
+        .statusCode(200);
+    JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(id1, result.get(0).getAsJsonObject().get("id").getAsString());
+
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("oldPosition", 0)
+        .queryParam("newPosition", 1)
+        .post("/reorder");
+    response.then()
+        .statusCode(200);
+
+    response = given()
+        .filter(sessionFilter)
+        .get("/list?listName=Favorites");
+    response.then()
+        .statusCode(200);
+    result = (JsonArray) (new JsonParser()).parse(response.asString());
+    assertEquals(id2, result.get(0).getAsJsonObject().get("id").getAsString());
+
+    // out of bounds index
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "Favorites")
+        .queryParam("oldPosition", 0)
+        .queryParam("newPosition", 10)
+        .post("/reorder");
+    response.then()
+        .statusCode(200);
+
+    // reorder empty list
+    response = given()
+        .filter(sessionFilter)
+        .queryParam("listName", "To Explore")
+        .queryParam("oldPosition", 0)
+        .queryParam("newPosition", 2)
+        .post("/reorder");
+    response.then()
+        .statusCode(200);
+  }
  
 
 }
