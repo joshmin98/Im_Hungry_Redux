@@ -63,14 +63,21 @@ class HomePage extends React.Component {
     });
   };
   handleClick = () => {
-    const query = JSON.stringify({
-      searchVal: this.state.searchVal,
-      distance: this.state.distance,
-      limit: this.state.limit,
-    });
-    axios.post(url_prefix + '/api/result', query).then(res => {
-      console.log(res);
-    });
+    axios.get(url_prefix, {
+      params: {
+        val: this.state.searchVal,
+        distance: this.state.distance,
+        limit: this.state.limit
+      }
+    }, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin' : '*',
+      'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    }
+   }).then(response => {
+    console.log(response);
+   });
   };
   render() {
     const { classes } = this.props;
