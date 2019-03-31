@@ -42,7 +42,7 @@ public class DatabaseServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		FileInputStream serviceAccount = new FileInputStream("/Users/tanayshah/Downloads/csci310project2-e2908-firebase-adminsdk-zz730-a1a036dd8d.json");
+		FileInputStream serviceAccount = new FileInputStream("/home/joshmin/firebase.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 		    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
