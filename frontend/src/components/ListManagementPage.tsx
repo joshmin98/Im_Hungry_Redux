@@ -59,13 +59,13 @@ const ListManagementPage: React.FC<any> = props => {
       <div className={classes.container}>
         <h1>{props.location.pathname.slice(7)}</h1>
         {list.map((item: any, idx: number) => (
-          <Card key={`item-${item}`}>
+          <Card className={classes.card} key={`item-${item}`}>
             <CardContent>
               <div id={`listPlace-${idx}`}>{item}</div>
             </CardContent>
             <Button
               id={`item-${item}-up`}
-              onClick={() => reorder(list, idx, idx + 1)}
+              onClick={() => reorder(list, idx, idx - 1)}
             >
               Up
             </Button>
