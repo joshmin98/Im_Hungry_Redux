@@ -3,6 +3,8 @@ package ImHungry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ro.pippo.core.Application;
+import ro.pippo.core.Session;
+import ro.pippo.core.route.RouteContext;
 
 import java.util.ArrayList;
 
@@ -26,14 +28,13 @@ public class PippoApplication extends Application {
 
         // send 'Hello World' as response
         GET("/", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
             routeContext.json().send("Hello World");
-            // System.out.println("default");
             log.info("HELLO WOrld");
-
         });
 
         GET("/list", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "GET");
             // log.info("list post");
             // Get parameters
             String listName = (routeContext.getParameter("listName") != null)
@@ -46,7 +47,7 @@ public class PippoApplication extends Application {
         });
 
         POST("/list/add", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "POST");
             log.info("list add");
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
@@ -72,7 +73,7 @@ public class PippoApplication extends Application {
         });
 
         POST("/list/delete", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "POST");
             log.info("list delete");
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
@@ -98,7 +99,7 @@ public class PippoApplication extends Application {
         });
 
         POST("/list/move", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "POST");
             log.info("list move");
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
@@ -132,7 +133,7 @@ public class PippoApplication extends Application {
         });
 
         POST("/reorder", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "POST");
             // Get parameters
             String listName = routeContext.getParameter("listName").toString();
             String oldPosition = routeContext.getParameter("oldPosition").toString();
@@ -159,7 +160,7 @@ public class PippoApplication extends Application {
         });
 
         GET("/restaurants", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "GET");
             YelpRestaurantService yelp = new YelpRestaurantService();
 
             String query = routeContext.getParameter("query").toString();
@@ -198,7 +199,7 @@ public class PippoApplication extends Application {
         });
 
         GET("/recipes", routeContext -> {
-            routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+            routeContext = setHeaders(routeContext, "GET");
             // RecipeService rs = new RecipeService();
 
             // String query = routeContext.getParameter("query").toString();
@@ -263,5 +264,13 @@ public class PippoApplication extends Application {
             }
         }
         return null;
+    }
+
+    private RouteContext setHeaders(RouteContext routeContext, String method) {
+        routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
+        routeContext.getResponse().header("Access-Control-Allow-Credentials", "true");
+        routeContext.getResponse().header("Access-Control-Allow-Methods", method);
+
+        return routeContext;
     }
 }
