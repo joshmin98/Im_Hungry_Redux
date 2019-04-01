@@ -319,6 +319,12 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200);
   }
+
+  // Start of database service testing
+  @Test
+   public void dbRouteTest() {
+      Response response = get("/db");
+  }
  
 
 }
