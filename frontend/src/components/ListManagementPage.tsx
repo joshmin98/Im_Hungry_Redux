@@ -50,6 +50,7 @@ const ListManagementPage: React.FC<any> = props => {
   useEffect(() => {
     axios.default
       .get('http://localhost:8338/restaurants', {
+        withCredentials: true,
         params: {
           query: 'burger',
           limit: 5,
@@ -59,15 +60,9 @@ const ListManagementPage: React.FC<any> = props => {
       .then(resp => {
         axios.default
           .get('http://localhost:8338/list', {
+            withCredentials: true,
             params: {
               listName: 'Favorites',
-            },
-            headers: {
-              // withCredentials: true,
-              'Content-Type': 'application/json',
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods':
-                'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             },
           })
           .then(resp => console.log(resp));
