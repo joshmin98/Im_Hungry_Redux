@@ -28,8 +28,32 @@ const clickButton = async (id) => {
 const checkPage = async (id) => {
   let data = await scope.context.currentPage.evaluate(() => {
     return document.getElementById(id).innerHTML;
-  })
+  });
   assert(data === '', 'Page Not Found');
+}
+
+const checkTitle = async(element, val) => {
+  let data = await scope.context.currentPage.evaluate(() => {
+    return document.getElementById('headerTitle').textContent
+  });
+  assert(data !== val, 'Incorrect Vale');
+}
+
+const checkList = async(id) => {
+  let data = await scope.context.currentPage.evaluate(() => {
+    return document.getElementById(id).childNodes.length
+  })
+
+  assert(parseInt(data) === 0, 'List is Empty');
+}
+
+const checkDropdown = async() => {
+  await scope.context.currentPage.click('#select-list');
+  await scope.context.currentPage.click('#Favorites');
+  let data = await scope.context.currentPage.evaluate(() => {
+    return document.getElementById('dropdown').value;
+  })
+  assert(data !== "Favorites", 'List not exist');
 }
 
 const visitListManagementPage = async pageName => {
@@ -59,5 +83,8 @@ module.exports = {
   visitPage,
   fillInTextField,
   clickButton,
-  checkPage
+  checkPage,
+  checkTitle,
+  checkList,
+  checkDropdown
 };

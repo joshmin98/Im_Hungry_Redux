@@ -23,7 +23,7 @@ class PhotoCollage extends React.Component {
     const images = this.props.photos.slice(0,10);
     return (
       <div className={classes.root}>
-        <GridList cellHeight={160} className={classes.gridList} cols={5}>
+        <GridList cellHeight={160} className={classes.gridList} cols={5} id="images">
             {images.map(tile => (
             <GridListTile key={tile.src}>
                 <img src={tile.src} alt="photos" />

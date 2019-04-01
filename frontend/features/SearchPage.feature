@@ -1,7 +1,7 @@
 Feature: Results Page
 
 Background:
-  Given I am on the Search Page
+  Given that I am on the homepage
   And I have entered a search query "burger"
   And "1000" for distance
   And "5" for the number of results to be displayed

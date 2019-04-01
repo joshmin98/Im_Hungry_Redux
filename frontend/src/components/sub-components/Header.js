@@ -59,7 +59,7 @@ class Header extends React.Component {
                 <Typography variant="h6" color="inherit">
                     I'm Hungry
                 </Typography>
-                <IconButton color="inherit" className={classes.button} onClick={this.handleDrawerOpen}>
+                <IconButton color="inherit" className={classes.button} onClick={this.handleDrawerOpen} id="menuBtn">
                     <MenuIcon />
                 </IconButton>
             </ToolBar>
@@ -78,13 +78,14 @@ class Header extends React.Component {
                           value={this.state.list}
                           onChange={this.handleChange}
                           input={<Input name="list" id="list" />}
+                          id="dropdown"
                         >
-                          <MenuItem value="">
+                          <MenuItem id="" value="">
                             <em>None</em>
                           </MenuItem>
-                          <MenuItem value={'Favorites'}>Favorite</MenuItem>
-                          <MenuItem value={'ToExplore'}>To Explore</MenuItem>
-                          <MenuItem value={'DoNotShow'}>Do Not Show</MenuItem>                    
+                          <MenuItem id="Favorites" value={'Favorites'}>Favorites</MenuItem>
+                          <MenuItem id="ToExplore" value={'ToExplore'}>To Explore</MenuItem>
+                          <MenuItem id="DoNotSow" value={'DoNotShow'}>Do Not Show</MenuItem>                    
                         </Select>
                        </FormControl>
                     </ListItem>
