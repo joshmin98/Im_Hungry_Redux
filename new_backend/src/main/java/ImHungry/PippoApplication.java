@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ro.pippo.core.Application;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import com.google.gson.JsonArray;
@@ -195,6 +196,11 @@ public class PippoApplication extends Application {
             routeContext.json().send(restaurants);
             // routeContext.json().send(restaurantsJA.toString());
             // routeContext.json().send(restaurantJSONstring);
+        });
+        
+        GET("/db", routeContext -> {
+        	DatabaseService db = new DatabaseService();
+        	
         });
 
         GET("/recipes", routeContext -> {

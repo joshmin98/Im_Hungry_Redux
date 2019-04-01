@@ -59,6 +59,12 @@
       <artifactId>pippo-test</artifactId>
       <version>${pippo.version}</version>
     </dependency>
+    
+    <dependency>
+        <groupId>com.google.firebase</groupId>
+        <artifactId>firebase-admin</artifactId>
+        <version>6.8.0</version>
+    </dependency>
 
     <!-- <dependency> // might need this for json testing.
     <groupId>ro.pippo</groupId>
