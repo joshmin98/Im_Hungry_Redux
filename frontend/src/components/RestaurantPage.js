@@ -32,7 +32,7 @@ class RestaurantPage extends React.Component {
             <ButtonGroup
               passId="restaurantPrint"
               restaurant={true}
-              id={this.props.match.params.id}
+              info={this.props.location.state.restaurant}
               history={this.props.history}
             />
           </Grid>

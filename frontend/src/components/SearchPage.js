@@ -31,6 +31,12 @@ const styles = theme => ({
   },
   gray: {
     backgroundColor: 'lightgray'
+  },
+  title: {
+    textAlign: 'center',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: 70
   }
 });
 
@@ -75,14 +81,17 @@ class SearchPage extends React.Component {
     }})
   }
   render() {
-    console.log(this.state.photos);
+    console.log(this.props.location);
     const { classes } = this.props;
     var pagRestaurant = this.state.restaurants.slice(this.state.offset,this.state.offset+5);
     var pagRecipe = this.state.recipes.slice(this.state.offset,this.state.offset+5);
 
     return (
-      <div className={classes.root}>
+      <div className={classes.root} id="searchPage">
         <Header />
+        <Typography component="h1" variant="h2" className={classes.title} id="title">
+          <b>{this.props.location.state.name}</b>
+        </Typography>
         <PhotoCollage photos={this.state.photos} />
         <Grid container spacing={16} className={classes.main}>
           <Grid item xs={6}>

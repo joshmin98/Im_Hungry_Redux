@@ -12,7 +12,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { ListItemText } from "@material-ui/core";
+import { ListItemText, FormControl, InputLabel, Select, MenuItem, Input } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
@@ -26,7 +26,8 @@ const styles = theme => ({
 
 class Header extends React.Component {
   state = {
-    open: false
+    open: false,
+    list: ''
   }
   handleDrawerOpen = () => {
       this.setState({
@@ -37,6 +38,17 @@ class Header extends React.Component {
       this.setState({
           open: false
       })
+  }
+  handleChange = (e) => {
+    this.setState({
+      list: e.target.value
+    })
+  }
+  handleList = () => {
+    this.props.history.push('/lists/'+this.state.list);
+  }
+  handleBack = () => {
+    this.props.history.push('/');
   }
   render() {
     const { classes } = this.props;
@@ -59,14 +71,31 @@ class Header extends React.Component {
                 </IconButton>
                 <Divider />
                 <List>
-                    <ListItem button>
-                        <ListItemText primary="Printable View" />
+                    <ListItem>
+                       <FormControl>
+                        <InputLabel>List</InputLabel>
+                        <Select
+                          value={this.state.list}
+                          onChange={this.handleChange}
+                          input={<Input name="list" id="list" />}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          <MenuItem value={'Favorites'}>Favorite</MenuItem>
+                          <MenuItem value={'ToExplore'}>To Explore</MenuItem>
+                          <MenuItem value={'DoNotShow'}>Do Not Show</MenuItem>                    
+                        </Select>
+                       </FormControl>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Add To List" />
+                      <ListItemText primary="Manage List" onClick={this.handleList}/>
                     </ListItem>
                     <ListItem button>
-                        <ListItemText primary="Log Out" />
+                      <ListItemText primary="Return to Search" onClick={this.handleBack}/>
+                    </ListItem>
+                    <ListItem button>
+                      <ListItemText primary="Log Out" />
                     </ListItem>
                 </List>
             </div>

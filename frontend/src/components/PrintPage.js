@@ -17,7 +17,7 @@ class PrintPage extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        {this.props.match.params.name === "recipe" ? <RecipeInfo id={this.props.match.params.id}/> : <RestaurantInfo id={this.props.match.params.id}/>}
+        {this.props.match.params.name === "recipe" ? <RecipeInfo info={this.props.location.state.info}/> : <RestaurantInfo info={this.props.location.state.info}/>}
       </div>
     );
   }
