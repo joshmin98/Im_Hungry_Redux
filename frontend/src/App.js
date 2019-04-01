@@ -38,8 +38,8 @@ class App extends Component {
           <>
             <Route exact path="/" component={HomePage} />
             <Route path="/lists/:list" component={ListManagementPage} />
-            <Route path="/restaurant/:id" component={RestaurantPage} />
-            <Route path="/recipe/:id" component={RecipePage} />
+            <Route path="/restaurant" component={RestaurantPage} />
+            <Route path="/recipe" component={RecipePage} />
             <Route path="/search" component={SearchPage} />
             <Route path="/print/:name/:id" component={PrintPage} />
           </>

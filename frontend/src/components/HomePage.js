@@ -8,7 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
-import PhotoCollage from './sub-components/PhotoCollage';
 
 const url_restaurants = 'http://localhost:8338/restaurants';
 const url_recipes = 'http://localhost:8338/recipes';
@@ -17,6 +16,7 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: 10,
+    backgroundColor: 'white'
   },
   main: {
     marginTop: 150,
@@ -71,7 +71,7 @@ class HomePage extends React.Component {
     });
   };
   handleClick = async () => {
-    axios.get(url_restaurants, {
+    const response = await axios.get(url_restaurants, {
         params: {
           query: this.state.searchVal,
           radius: this.state.distance,
@@ -83,10 +83,9 @@ class HomePage extends React.Component {
         'Access-Control-Allow-Origin' : '*',
         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
-     }).then(response => {
-      this.setState({
-        restaurants: response.data
-      })
+     })
+    this.setState({
+      restaurants: response.data
     });
 
     const res = await axios.get(url_recipes, {
@@ -102,16 +101,15 @@ class HomePage extends React.Component {
         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
     })
-      this.setState({
-        recipes: res.data
-      })
-
-      this.props.history.push({
-        pathname: '/search',
-        state: { 
-          restaurants: this.state.restaurants,
-          recipes: this.state.recipes
-        }})
+    this.setState({
+      recipes: res.data
+    })
+    this.props.history.push({
+      pathname: '/search',
+      state: { 
+        restaurants: this.state.restaurants,
+        recipes: this.state.recipes
+      }})
   };
 
   render() {

@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button"
 import {withStyles} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
-import PrintPage from "../PrintPage";
 
 const styles = theme => ({
     root: {

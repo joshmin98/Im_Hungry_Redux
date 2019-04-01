@@ -25,7 +25,7 @@ class RestaurantInfo extends React.Component {
     website: "facebook.com"
   };
   componentDidMount() {
-    let info = JSON.parse(localStorage.getItem("restaurants"))[this.props.id];
+    let info = this.props.info;
     let address = "";
     info.location.display_address.forEach(el => {
       address += el + " ";
@@ -52,9 +52,9 @@ class RestaurantInfo extends React.Component {
         <h1 className={classes.header}>{this.state.name}</h1>
         <p id="address">
           <strong>Address:</strong>{" "}
-          <button onClick={this.openGoogle} className={classes.hoverText}>
+          <p onClick={this.openGoogle} className={classes.hoverText}>
             {this.state.address}
-          </button>
+          </p>
         </p>
         <p id="number">
           <strong>Phone Number: </strong>
@@ -62,9 +62,9 @@ class RestaurantInfo extends React.Component {
         </p>
         <p id="website">
           <strong>Website: </strong>{" "}
-          <button onClick={this.openWebsite} className={classes.hoverText}>
+          <p onClick={this.openWebsite}>
             {this.state.website}
-          </button>
+          </p>
         </p>
       </div>
     );
