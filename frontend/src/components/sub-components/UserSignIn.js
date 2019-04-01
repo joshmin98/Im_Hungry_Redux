@@ -18,7 +18,7 @@ const styles = theme => ({
     width: '100%',
   },
   paper: {
-    width: theme.spacing.unit * 50,
+    //width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
@@ -72,7 +72,7 @@ class UserSignIn extends React.Component {
     this.setState({
       [name]: e.target.value,
     });
-    console.log(this.state);
+    // console.log(this.state);
   };
 
   handleSubmit = event => {
@@ -85,7 +85,7 @@ class UserSignIn extends React.Component {
           console.log('LOGGED IN');
         })
         .catch(error => {
-          console.log(error);
+          // console.log(error);
         });
     } else {
       firebase

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
   Card,
@@ -9,9 +9,11 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core';
-
+import * as http from 'http';
 import Header from './sub-components/Header';
 import * as axios from 'axios';
+
+// const hostname = 'http://localhost:8338/list?listName=';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -37,7 +39,36 @@ const styles = (theme: Theme) =>
     },
   });
 
+const httpAgent = new http.Agent({ keepAlive: true });
+
+/* const instance = axios.default.create({
+ *   httpAgent,
+ * });
+ *  */
+
 const ListManagementPage: React.FC<any> = props => {
+  useEffect(() => {
+    axios.default
+      .get('http://localhost:8338/restaurants', {
+        withCredentials: true,
+        params: {
+          query: 'burger',
+          limit: 5,
+          radius: 8500,
+        },
+      })
+      .then(resp => {
+        axios.default
+          .get('http://localhost:8338/list', {
+            withCredentials: true,
+            params: {
+              listName: 'Favorites',
+            },
+          })
+          .then(resp => console.log(resp));
+      });
+  }, []);
+
   const [list, setList]: any = useState([1, 3, 5, 7, 9]);
   const { classes } = props;
 
@@ -51,6 +82,7 @@ const ListManagementPage: React.FC<any> = props => {
     const result = Array.from(list);
     const [removed] = result.splice(startIdx, 1);
     result.splice(endIdx, 0, removed);
+    console.log(startIdx, endIdx);
     setList(result);
   };
 

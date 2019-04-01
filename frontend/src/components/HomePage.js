@@ -8,14 +8,15 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
-import PhotoCollage from './sub-components/PhotoCollage';
 
-const url_prefix = 'http://localhost:8338/restaurants';
+const url_restaurants = 'http://localhost:8338/restaurants';
+const url_recipes = 'http://localhost:8338/recipes';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: 10,
+    backgroundColor: 'white'
   },
   main: {
     marginTop: 150,
@@ -51,6 +52,8 @@ class HomePage extends React.Component {
     searchVal: '',
     distance: 8000,
     limit: 5,
+    restaurants: [],
+    recipes: [],
   };
   handleSearchChange = e => {
     this.setState({
@@ -64,11 +67,11 @@ class HomePage extends React.Component {
   };
   handleLimit = e => {
     this.setState({
-      limit: parseInt(e.target.value)
-    })
+      limit: parseInt(e.target.value),
+    });
   };
-  handleClick = () => {
-    axios.get(url_prefix, {
+  handleClick = async () => {
+    const response = await axios.get(url_restaurants, {
         params: {
           query: this.state.searchVal,
           radius: this.state.distance,
@@ -80,11 +83,35 @@ class HomePage extends React.Component {
         'Access-Control-Allow-Origin' : '*',
         'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       }
-     }).then(response => {
-      console.log(response);
+     })
+    this.setState({
+      restaurants: response.data
     });
 
+    const res = await axios.get(url_recipes, {
+      params: {
+        query: this.state.searchVal,
+        radius: this.state.distance,
+        limit: this.state.limit
+      }
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      }
+    })
+    this.setState({
+      recipes: res.data
+    })
+    this.props.history.push({
+      pathname: '/search',
+      state: { 
+        restaurants: this.state.restaurants,
+        recipes: this.state.recipes
+      }})
   };
+
   render() {
     const { classes } = this.props;
     return (
@@ -123,14 +150,14 @@ class HomePage extends React.Component {
             />
           </Grid>
           <Grid item xs={2}>
-          <TextField
-            label="Limit"
-            placeholder="Placeholder"
-            className={classes.textField}
-            margin="normal"
-            variant="outlined"
-            onChange={this.handleLimit}
-          />
+            <TextField
+              label="Limit"
+              placeholder="Placeholder"
+              className={classes.textField}
+              margin="normal"
+              variant="outlined"
+              onChange={this.handleLimit}
+            />
           </Grid>
           <Grid item xs={2}>
             <Button

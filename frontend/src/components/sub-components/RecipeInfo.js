@@ -34,10 +34,10 @@ class RecipeInfo extends React.Component {
         Instructions: ['step 1', 'step 2', 'step 3', 'step 4']
     };
     componentDidMount() {
-        let info = JSON.parse(localStorage.getItem('recipes'));
+        let info = this.props.info;
         let ingredients = [];
         let instructions = [];
-        info.results[this.props.id].analyzedInstructions[0].steps.forEach(el => {
+        info.analyzedInstructions[0].steps.forEach(el => {
             // parse ingredients
             el.ingredients.forEach( ingredient => {
                 ingredients.push(ingredient.name);
@@ -47,13 +47,11 @@ class RecipeInfo extends React.Component {
             instructions.push(el.step);
         });
 
-        console.log(info.results[this.props.id]);
-
         this.setState({
-            name: info.results[this.props.id].title,
-            img: info.results[this.props.id].image,
-            preptime: info.results[this.props.id].preparationMinutes.toString() + ' mins',
-            cookTime: info.results[this.props.id].cookingMinutes.toString() + ' mins',
+            name: info.title,
+            img: info.image,
+            preptime: info.preparationMinutes.toString() + ' mins',
+            cookTime: info.cookingMinutes.toString() + ' mins',
             Ingredient: ingredients,
             Instructions: instructions
         })
