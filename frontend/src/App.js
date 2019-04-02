@@ -41,7 +41,7 @@ class App extends Component {
             <Route path="/restaurant" component={RestaurantPage} />
             <Route path="/recipe" component={RecipePage} />
             <Route path="/search" component={SearchPage} />
-            <Route path="/print/:name/:id" component={PrintPage} />
+            <Route path="/print/:name/" component={PrintPage} />
           </>
         </Router>
       </div>

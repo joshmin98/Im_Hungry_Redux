@@ -16,7 +16,6 @@ const styles = theme => ({
   root: {
     flexGrow: 1,
     marginTop: 10,
-    backgroundColor: 'white'
   },
   main: {
     marginTop: 150,
@@ -107,6 +106,7 @@ class HomePage extends React.Component {
     this.props.history.push({
       pathname: '/search',
       state: { 
+        name: this.state.searchVal,
         restaurants: this.state.restaurants,
         recipes: this.state.recipes
       }})
@@ -131,8 +131,8 @@ class HomePage extends React.Component {
         <Grid container spacing={16} className={classes.form}>
           <Grid item xs={6}>
             <TextField
-              label="Seach for food"
-              placeholder="Placeholder"
+              label="Enter Food"
+              id="food"
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -142,7 +142,7 @@ class HomePage extends React.Component {
           <Grid item xs={2}>
             <TextField
               label="Distance"
-              placeholder="Placeholder"
+              id="distance"
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -152,7 +152,7 @@ class HomePage extends React.Component {
           <Grid item xs={2}>
             <TextField
               label="Limit"
-              placeholder="Placeholder"
+              id="limit"
               className={classes.textField}
               margin="normal"
               variant="outlined"
@@ -161,6 +161,7 @@ class HomePage extends React.Component {
           </Grid>
           <Grid item xs={2}>
             <Button
+              id="feedME"
               variant="contained"
               color="secondary"
               className={classes.button}

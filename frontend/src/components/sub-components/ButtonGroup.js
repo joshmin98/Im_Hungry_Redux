@@ -66,7 +66,20 @@ class ButtonGroup extends React.Component {
         this.props.history.push("/search");
     }
     printDocument = () => {
-        this.props.restaurant ? this.props.history.push("/print/restaurant/" + this.props.id) : this.props.history.push("/print/recipe/" + this.props.id); 
+        this.props.restaurant ? 
+            this.props.history.push({
+                pathname: "/print/restaurant/",
+                state: { 
+                  info: this.props.info
+                }
+            }) 
+            : 
+            this.props.history.push({
+                pathname: "/print/recipe/",
+                state: { 
+                  info: this.props.info
+                }
+            }); 
     }
     render() {
         const {classes} = this.props;
