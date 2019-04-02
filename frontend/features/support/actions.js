@@ -32,11 +32,17 @@ const checkPage = async (id) => {
   assert(data === '', 'Page Not Found');
 }
 
-const checkTitle = async(element, val) => {
-  let data = await scope.context.currentPage.evaluate(() => {
-    return document.getElementById('headerTitle').textContent
-  });
-  assert(data !== val, 'Incorrect Vale');
+const checkTitle = async(e, val) => {
+  // let data = await scope.context.currentPage.evaluate(() => {
+  //   return document.getElementById('headerTitle').innerText
+  // });
+  // assert(data !== val, 'Incorrect Vale');
+  //await scope.context.currentPage.waitForSelector('h1',{timeout: 0});
+  await scope.context.currentPage.waitFor(5000);
+  const element = await scope.context.currentPage.$("#headerTitle");
+  const text = await scope.context.currentPage.evaluateHandle(element => element.textContent, element);
+  assert(text !== val, 'incorrect value');
+  
 }
 
 const checkList = async(id) => {

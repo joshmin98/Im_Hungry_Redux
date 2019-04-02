@@ -71,7 +71,8 @@ class HomePage extends React.Component {
   };
   handleClick = async () => {
     const response = await axios.get(url_restaurants, {
-        params: {
+      withCredentials: true,  
+      params: {
           query: this.state.searchVal,
           radius: this.state.distance,
           limit: this.state.limit
@@ -88,6 +89,7 @@ class HomePage extends React.Component {
     });
 
     const res = await axios.get(url_recipes, {
+      withCredentials: true,
       params: {
         query: this.state.searchVal,
         radius: this.state.distance,

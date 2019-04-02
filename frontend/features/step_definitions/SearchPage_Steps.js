@@ -34,7 +34,9 @@ Given('I am on the Results Page', async function () {
   return 'success';
 });
 
-Then('the page will have the title: Results for {string}', async function (string) {
+Then('the page will have the title: Results for {string}', {
+  timeout: 6 * 1000
+}, async function (string) {
   await checkTitle('title', string);
   return 'success';
 });
@@ -50,11 +52,6 @@ Then('the page will have a dropdown box with the predefined lists', async functi
   return 'success';
 });
 
-Then('the page will have a button labeled {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-       
 Then('the page will have a button labeled {string}', function (string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -95,11 +92,6 @@ Then('I will be on the {string} list page', function (string) {
   return 'pending';
 });
 
-When('I click the {string} button', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
 Then('I will be on the Search Page', function () {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -121,11 +113,6 @@ When('I click on a recipe with name {string}', function (string) {
 });
        
 Then('I will be on the Recipe Page of recipe {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-       
-When('I click the {string} button', function (string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });

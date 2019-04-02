@@ -90,7 +90,9 @@ class SearchPage extends React.Component {
       <div className={classes.root} id="searchPage">
         <Header />
         <Typography component="h1" variant="h2" className={classes.title} id="headerTitle">
-          <b id="title">{this.props.location.state.name}</b>
+          
+          {this.props.location.state.name}
+          
         </Typography>
         <PhotoCollage photos={this.state.photos} />
         <Grid container spacing={16} className={classes.main}>

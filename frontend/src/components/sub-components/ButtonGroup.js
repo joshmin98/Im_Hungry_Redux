@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button"
 import {withStyles} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import axios from 'axios';
 
 const styles = theme => ({
     root: {
@@ -34,33 +35,22 @@ class ButtonGroup extends React.Component {
         });
     };
     addToList = () => {
-        const list = this.state.value;
-        if (list === 'Favorites') {
-            let input = JSON.parse(localStorage.getItem('Favorites'));
-            if (this.props.restaurant) {
-                !input.restaurants.includes(this.props.id) && input.restaurants.push(this.props.id);
-            } else {
-                !input.recipes.includes(this.props.id) && input.recipes.push(this.props.id);
-            }
-            localStorage.setItem('Favorites', JSON.stringify(input));
-        } else if (list === 'To Explore') {
-            let input = JSON.parse(localStorage.getItem('To Explore'));
-            if (this.props.restaurant) {
-                !input.restaurants.includes(this.props.id) && input.restaurants.push(this.props.id);
-            } else {
-                !input.recipes.includes(this.props.id) && input.recipes.push(this.props.id);
-            }
-            localStorage.setItem('To Explore', JSON.stringify(input));
-        } else if (list === 'Do Not Show') {
-            let input = JSON.parse(localStorage.getItem('Do Not Show'));
-            if (this.props.restaurant) {
-                !input.restaurants.includes(this.props.id) && input.restaurants.push(this.props.id);
-            } else {
-                !input.recipes.includes(this.props.id) && input.recipes.push(this.props.id);
-            }
-            localStorage.setItem('Do Not Show', JSON.stringify(input));
-        }
-        console.log(localStorage);
+        axios.default
+            .get('http://localhost:8338/list/add', {
+                withCredentials: true,
+                params: {
+                 listName: this.state.value,
+                 id: this.props.info.id,
+                },
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin' : '*',
+                    'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                }
+            }).then(res => {
+                console.log(res);
+            });
     }
     handBack = () => {
         this.props.history.push("/search");
@@ -83,6 +73,7 @@ class ButtonGroup extends React.Component {
     }
     render() {
         const {classes} = this.props;
+        console.log(this.props.info);
         return (
             <div className={classes.root}>
                 <div>
