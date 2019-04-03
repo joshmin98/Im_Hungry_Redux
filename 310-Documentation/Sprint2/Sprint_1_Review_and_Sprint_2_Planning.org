@@ -17,6 +17,15 @@
     - More sustainable pace for development
     - Write tests before implementation in all cases
 * Sprint 2 Planning
-  - 
-  -
-  -
+  - Backlog:
+    - Modernize UI
+      - Change background color of application
+      - Center text and textbox for Home Page
+    - Add error handling for when the radius and results are zero
+    - Add error handling for when no results are available with a given query
+    - Add tests for pagination
+    - Save previous searches for users
+      - Add a dropdown menu on the frontend Results Page with previous search terms
+    - Integrate with Firebase for user information storage
+    - Add session storage for user cookie/database credential
+
