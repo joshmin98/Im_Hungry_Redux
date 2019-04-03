@@ -1,5 +1,5 @@
 #+TITLE: Sprint 1 Review and Sprint 2 Planning
-<2019-04-03 Wed>
+<2019-04-03 Wed 3:30PM>
 * Sprint 1 Review
   - Verbal Feedback:
     - We need to add error handling for when the radius is 0; we must write tests for this case, and present the user an error (either on the Home Page or Search Page).
