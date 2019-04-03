@@ -1,9 +1,19 @@
 #+TITLE: Sprint 1 Review and Sprint 2 Planning
 * Sprint 1 Review
-  - Verbal feedback:
+  - Verbal Feedback:
     - We need to add error handling for when the radius is 0; we must write tests for this case, and present the user an error (either on the Home Page or Search Page).
+    - We need to convert radius input units to miles
     - We need to change the background color of the website from "white smoke" to something else.
     - We need to write tests for search result pagination
     - We need to center the Logo and Search Box on the I'm Hungry Home Page.
+  - Report Feedback:
+    - We provided inaccessible links to documentation (link sharing was off)
+    - Inconsistent dates for our commits
+    - Not following TDD (committing code before tests)
+    - Need to add in quantative measurements in the "Simple Design" section of the report
+  - Retrospective:
+    - Make sure documentation is on GitHub
+    - More sustainable pace for development
+    - Write tests before implementation in all cases
 * Sprint 2 Planning
   - 
