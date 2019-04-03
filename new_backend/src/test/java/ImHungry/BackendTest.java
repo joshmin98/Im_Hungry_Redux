@@ -61,14 +61,14 @@ public class BackendTest extends PippoTest {
 //     // Add asserts for json here
 //   }
 
-  // @Test
-  // public void testRecipes() {
-  //   Response response = get("/recipes?query=test&limit=12");
-  //   response.then()
-  //       .statusCode(200)
-  //       .contentType(ContentType.JSON);
-  //   // Add asserts for json here
-  // }
+  @Test
+  public void testRecipes() {
+    Response response = get("/recipes?query=pizza&limit=5");
+    response.then()
+        .statusCode(200)
+        .contentType(ContentType.JSON);
+    // Add asserts for json here
+  }
 
   @Test
   public void testListEmptyParam() {
@@ -87,43 +87,48 @@ public class BackendTest extends PippoTest {
         .contentType(ContentType.JSON);
     Response response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "To Explore")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "To Explore")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=To Explore&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Do Not Show")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "Do Not Show")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=Do Not Show&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
 
-    // finditem coverage
+    // // finditem coverage
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Do Not Show")
-        .queryParam("id", "missing")
-        .post("/list/add");
+        // .queryParam("listName", "Do Not Show")
+        // .queryParam("id", "missing")
+        // .post("/list/add");
+        .get("list/add?listName=Do Not Show&id=missing");
     response.then()
         .statusCode(200);
 
-    // item already in list
+    // // item already in list
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
   }
@@ -139,17 +144,19 @@ public class BackendTest extends PippoTest {
 
     Response response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/delete");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/delete");
+        .get("list/delete?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
     
@@ -164,9 +171,10 @@ public class BackendTest extends PippoTest {
     // item not in list
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "missing")
-        .post("/list/delete");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "missing")
+        // .post("/list/delete");
+        .get("list/delete?listName=Favorites&id=missing");
     response.then()
         .statusCode(200);
   }
@@ -182,9 +190,10 @@ public class BackendTest extends PippoTest {
 
     Response response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
 
@@ -198,10 +207,11 @@ public class BackendTest extends PippoTest {
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
-        .queryParam("moveList", "To Explore")
-        .post("/list/move");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+        // .queryParam("moveList", "To Explore")
+        // .post("/list/move");
+        .get("list/move?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw&moveList=To Explore");
     response.then()
         .statusCode(200);
     
@@ -221,10 +231,11 @@ public class BackendTest extends PippoTest {
     // item not in list
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", "missing")
-        .queryParam("moveList", "To Explore")
-        .post("/list/move");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "missing")
+        // .queryParam("moveList", "To Explore")
+        // .post("/list/move");
+        .get("list/move?listName=Favorites&id=missing&moveList=To Explore");
     response.then()
         .statusCode(200);
   }
@@ -252,7 +263,7 @@ public class BackendTest extends PippoTest {
     SessionFilter sessionFilter = new SessionFilter();
     given()
         .filter(sessionFilter)
-        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .get("/restaurants?query=pizza&limit=5&radius=8500")
         .then().statusCode(200)
         .contentType(ContentType.JSON);
 
@@ -260,17 +271,19 @@ public class BackendTest extends PippoTest {
           id2 = "559251";
     Response response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", id1)
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", id1)
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=" + id1);
     response.then()
         .statusCode(200);
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("id", id2)
-        .post("/list/add");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", id2)
+        // .post("/list/add");
+        .get("list/add?listName=Favorites&id=" + id2);
     response.then()
         .statusCode(200);
     
@@ -284,10 +297,11 @@ public class BackendTest extends PippoTest {
 
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("oldPosition", 0)
-        .queryParam("newPosition", 1)
-        .post("/reorder");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("oldPosition", 0)
+        // .queryParam("newPosition", 1)
+        // .post("/reorder");
+        .get("/reorder?listName=Favorites&oldPosition=0&newPosition=1");
     response.then()
         .statusCode(200);
 
@@ -302,20 +316,22 @@ public class BackendTest extends PippoTest {
     // out of bounds index
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "Favorites")
-        .queryParam("oldPosition", 0)
-        .queryParam("newPosition", 10)
-        .post("/reorder");
+        // .queryParam("listName", "Favorites")
+        // .queryParam("oldPosition", 0)
+        // .queryParam("newPosition", 10)
+        // .post("/reorder");
+        .get("/reorder?listName=Favorites&oldPosition=0&newPosition=10");
     response.then()
         .statusCode(200);
 
     // reorder empty list
     response = given()
         .filter(sessionFilter)
-        .queryParam("listName", "To Explore")
-        .queryParam("oldPosition", 0)
-        .queryParam("newPosition", 2)
-        .post("/reorder");
+        // .queryParam("listName", "To Explore")
+        // .queryParam("oldPosition", 0)
+        // .queryParam("newPosition", 2)
+        // .post("/reorder");
+        .get("/reorder?listName=To Explore&oldPosition=0&newPosition=2");
     response.then()
         .statusCode(200);
   }
@@ -324,6 +340,9 @@ public class BackendTest extends PippoTest {
   @Test
    public void dbRouteTest() {
       Response response = get("/db");
+      response.then()
+        .statusCode(200)
+        .contentType(ContentType.JSON);
   }
  
 
