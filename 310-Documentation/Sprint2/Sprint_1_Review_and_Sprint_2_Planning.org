@@ -28,4 +28,8 @@
       - Add a dropdown menu on the frontend Results Page with previous search terms
     - Integrate with Firebase for user information storage
     - Add session storage for user cookie/database credential
-
+    - Start on grocery list functionality
+      - Create page for grocery list in the frontend
+      - Create schema for grocery list in the backend
+      - Add "Add to Grocery list" button on the frontend
+      - Add server endpoint for adding and getting from a grocery list
