@@ -1,0 +1,3 @@
+Who: Josh Min, Tanay Shah
+Where: RTH 2nd floor, 04/04/2019, 2:30PM start time, approx 3:50PM end time
+Tanay worked on firebase backend, Josh worked on login on frontend
