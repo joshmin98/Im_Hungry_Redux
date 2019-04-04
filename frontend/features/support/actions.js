@@ -15,52 +15,54 @@ const visitPage = async pageName => {
   scope.context.currentPage = await scope.browser.newPage();
   const url = domain + port + `/${pageName}`;
   await scope.context.currentPage.goto(url);
-}
+};
 
 const fillInTextField = async (id, value) => {
   await scope.context.currentPage.type(id, value);
-}
+};
 
-const clickButton = async (id) => {
+const clickButton = async id => {
   await scope.context.currentPage.click(id);
-}
+};
 
-const checkPage = async (id) => {
+const checkPage = async id => {
   let data = await scope.context.currentPage.evaluate(() => {
     return document.getElementById(id).innerHTML;
   });
   assert(data === '', 'Page Not Found');
-}
+};
 
-const checkTitle = async(e, val) => {
+const checkTitle = async (e, val) => {
   // let data = await scope.context.currentPage.evaluate(() => {
   //   return document.getElementById('headerTitle').innerText
   // });
   // assert(data !== val, 'Incorrect Vale');
   //await scope.context.currentPage.waitForSelector('h1',{timeout: 0});
   await scope.context.currentPage.waitFor(5000);
-  const element = await scope.context.currentPage.$("#headerTitle");
-  const text = await scope.context.currentPage.evaluateHandle(element => element.textContent, element);
+  const element = await scope.context.currentPage.$('#headerTitle');
+  const text = await scope.context.currentPage.evaluateHandle(
+    element => element.textContent,
+    element,
+  );
   assert(text !== val, 'incorrect value');
-  
-}
+};
 
-const checkList = async(id) => {
+const checkList = async id => {
   let data = await scope.context.currentPage.evaluate(() => {
-    return document.getElementById(id).childNodes.length
-  })
+    return document.getElementById(id).childNodes.length;
+  });
 
   assert(parseInt(data) === 0, 'List is Empty');
-}
+};
 
-const checkDropdown = async() => {
+const checkDropdown = async () => {
   await scope.context.currentPage.click('#select-list');
   await scope.context.currentPage.click('#Favorites');
   let data = await scope.context.currentPage.evaluate(() => {
     return document.getElementById('dropdown').value;
-  })
-  assert(data !== "Favorites", 'List not exist');
-}
+  });
+  assert(data !== 'Favorites', 'List not exist');
+};
 
 const visitListManagementPage = async pageName => {
   if (!scope.browser) {
@@ -92,5 +94,5 @@ module.exports = {
   checkPage,
   checkTitle,
   checkList,
-  checkDropdown
+  checkDropdown,
 };

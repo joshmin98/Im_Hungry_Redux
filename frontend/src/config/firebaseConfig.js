@@ -1,12 +1,12 @@
 import firebase from 'firebase';
 
 let config = {
-  apiKey: 'AIzaSyB5QdHbvJ1iZnCUNaYqn84SOnL3455Ve8Q',
-  authDomain: 'login-test-ff7da.firebaseapp.com',
-  databaseURL: 'https://login-test-ff7da.firebaseio.com',
-  projectId: 'login-test-ff7da',
-  storageBucket: '',
-  messagingSenderId: '824038302409',
+  apiKey: 'AIzaSyCuTrQEGf-bCjFtZcmBNBmzSQo_995RlX4',
+  authDomain: 'csci310project2-e2908.firebaseapp.com',
+  databaseURL: 'https://csci310project2-e2908.firebaseio.com',
+  projectId: 'csci310project2-e2908',
+  storageBucket: 'csci310project2-e2908.appspot.com',
+  messagingSenderId: '298643165340',
 };
 
 firebase.initializeApp(config);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -56,6 +56,7 @@ class UserSignIn extends React.Component {
     emailLI: '',
     passwordLI: '',
     passwordAgainLI: '',
+    loading: false,
   };
   handleOpen = name => e => {
     this.setState({
@@ -78,23 +79,38 @@ class UserSignIn extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.whichModal === 'login') {
+      this.setState({ loading: true });
       firebase
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(resp => {
+          this.setGlobal({ user: resp });
+          this.setState({ open: false });
           console.log('LOGGED IN');
         })
         .catch(error => {
-          // console.log(error);
+          console.log(error);
         });
     } else {
+      if (this.state.password !== this.state.passwordAgainLI) {
+        alert('Passwords must match!');
+        return;
+      }
+      this.setState({ loading: true });
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .createUserWithEmailAndPassword(
+          this.state.email.toString().trim(),
+          this.state.password,
+        )
         .then(resp => {
+          this.setGlobal({ user: resp });
+          this.setState({ open: false });
           console.log('CREATED USER');
         })
         .catch(error => {
+          console.log(this.state.email);
+          console.log(error);
           alert('User already registered');
         });
     }
@@ -133,75 +149,97 @@ class UserSignIn extends React.Component {
         >
           {this.state.whichModal === 'login' ? (
             <div className={classes.paper}>
-              <Typography component="h3" variant="h2" className={classes.text}>
-                Log In
-              </Typography>
+              {this.state.loading ? (
+                <Typography>Loading...</Typography>
+              ) : (
+                <>
+                  <Typography
+                    component="h3"
+                    variant="h2"
+                    className={classes.text}
+                  >
+                    Log In
+                  </Typography>
 
-              <form onSubmit={this.handleSubmit}>
-                <TextField
-                  label="Email"
-                  className={classes.textField}
-                  margin="normal"
-                  type="email"
-                  variant="outlined"
-                  onChange={this.handleChange('email')}
-                />
-                <TextField
-                  label="Password"
-                  className={classes.textField}
-                  type="password"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={this.handleChange('password')}
-                />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  className={classes.buttonModal}
-                  onClick={this.handleSubmit}
-                >
-                  Log In
-                </Button>
-              </form>
+                  <form onSubmit={this.handleSubmit}>
+                    <TextField
+                      label="Email"
+                      className={classes.textField}
+                      margin="normal"
+                      type="email"
+                      variant="outlined"
+                      onChange={this.handleChange('email')}
+                    />
+                    <TextField
+                      label="Password"
+                      className={classes.textField}
+                      type="password"
+                      margin="normal"
+                      variant="outlined"
+                      onChange={this.handleChange('password')}
+                    />
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                      className={classes.buttonModal}
+                      onClick={this.handleSubmit}
+                    >
+                      Log In
+                    </Button>
+                  </form>
+                </>
+              )}
             </div>
           ) : (
             <div className={classes.paper}>
-              <Typography component="h3" variant="h2" className={classes.text}>
-                Sign Up
-              </Typography>
-              <form onSubmit={this.handleSubmit}>
-                <TextField
-                  label="Email"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                  onChange={this.handleChange('emailLI')}
-                />
-                <TextField
-                  label="Password"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                  onChange={this.handleChange('passwordLI')}
-                />
-                <TextField
-                  label="Password Again"
-                  className={classes.textField}
-                  margin="normal"
-                  variant="outlined"
-                  onChange={this.handleChange('passwordAgainLI')}
-                />
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  type="submit"
-                  className={classes.buttonModal}
-                  onClick={this.handleSubmit}
-                >
-                  Sign Up
-                </Button>
-              </form>
+              {this.state.loading ? (
+                <Typography>Loading...</Typography>
+              ) : (
+                <div>
+                  <Typography
+                    component="h3"
+                    variant="h2"
+                    className={classes.text}
+                  >
+                    Sign Up
+                  </Typography>
+                  <form onSubmit={this.handleSubmit}>
+                    <TextField
+                      label="Email"
+                      className={classes.textField}
+                      margin="normal"
+                      variant="outlined"
+                      onChange={this.handleChange('email')}
+                    />
+                    <TextField
+                      label="Password"
+                      className={classes.textField}
+                      margin="normal"
+                      type="password"
+                      variant="outlined"
+                      onChange={this.handleChange('password')}
+                    />
+                    <TextField
+                      label="Password Again"
+                      className={classes.textField}
+                      margin="normal"
+                      type="password"
+                      variant="outlined"
+                      onChange={this.handleChange('passwordAgainLI')}
+                    />
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                      className={classes.buttonModal}
+                      onClick={this.handleSubmit}
+                    >
+                      Sign Up
+                    </Button>
+                  </form>
+                </div>
+              )}
             </div>
           )}
         </Modal>

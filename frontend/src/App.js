@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'reactn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PrintPage from './components/PrintPage';
 import HomePage from './components/HomePage';
@@ -8,27 +8,26 @@ import RecipePage from './components/RecipePage';
 import SearchPage from './components/SearchPage';
 import firebase from './config/firebaseConfig';
 
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: null,
-    };
+    this.setGlobal({ user: null });
   }
 
   componentDidMount() {
-    this.authListener();
-  }
-
-  authListener() {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.setState({ user });
+        this.setGlobal({
+          user,
+        });
         console.log(user);
       } else {
-        this.setState({ user: null });
+        this.setGlobal({
+          user: null,
+        });
       }
     });
+    console.log(this.global.user);
   }
 
   render() {
@@ -48,5 +47,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

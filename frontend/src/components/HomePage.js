@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
+import firebase from '../config/firebaseConfig.js';
 
 const url_restaurants = 'http://localhost:8338/restaurants';
 const url_recipes = 'http://localhost:8338/recipes';
@@ -70,48 +71,57 @@ class HomePage extends React.Component {
     });
   };
   handleClick = async () => {
-    const response = await axios.get(url_restaurants, {
-      withCredentials: true,  
-      params: {
+    const response = await axios.get(
+      url_restaurants,
+      {
+        withCredentials: true,
+        params: {
           query: this.state.searchVal,
           radius: this.state.distance,
-          limit: this.state.limit
-        }
-      }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-     })
+          limit: this.state.limit,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+      },
+    );
     this.setState({
-      restaurants: response.data
+      restaurants: response.data,
     });
 
-    const res = await axios.get(url_recipes, {
-      withCredentials: true,
-      params: {
-        query: this.state.searchVal,
-        radius: this.state.distance,
-        limit: this.state.limit
-      }
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin' : '*',
-        'Access-Control-Allow-Methods' : 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      }
-    })
+    const res = await axios.get(
+      url_recipes,
+      {
+        withCredentials: true,
+        params: {
+          query: this.state.searchVal,
+          radius: this.state.distance,
+          limit: this.state.limit,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+      },
+    );
     this.setState({
-      recipes: res.data
-    })
+      recipes: res.data,
+    });
     this.props.history.push({
       pathname: '/search',
-      state: { 
+      state: {
         name: this.state.searchVal,
         restaurants: this.state.restaurants,
-        recipes: this.state.recipes
-      }})
+        recipes: this.state.recipes,
+      },
+    });
   };
 
   render() {
@@ -119,7 +129,28 @@ class HomePage extends React.Component {
     return (
       <div className={classes.root}>
         <div className={classes.nav}>
-          <UserSignIn />
+          {this.global.user === null ? (
+            <UserSignIn />
+          ) : (
+            <Button
+              onClick={() => {
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(resp => {
+                    this.setGlobal({ user: null });
+                    console.log(this.global.user);
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
+              }}
+              variant="contained"
+              color="secondary"
+            >
+              Sign Out
+            </Button>
+          )}
         </div>
         <div className={classes.main}>
           <Typography
