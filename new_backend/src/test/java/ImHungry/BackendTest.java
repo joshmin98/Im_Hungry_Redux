@@ -52,6 +52,24 @@ public class BackendTest extends PippoTest {
     
   }
 
+  @Test
+  public void testRestaurantRadius() {
+    Response response = get("/restaurants?query=burgers&limit=5&radius=10");
+    response.then()
+        .statusCode(200)
+        .contentType(ContentType.JSON); 
+
+    assertEquals("[]",
+                    response.asString());
+    response = get("/restaurants?query=burgers&limit=5&radius=8500");
+    response.then()
+        .statusCode(200)
+        .contentType(ContentType.JSON); 
+    assertEquals(4836, 
+                    response.asString().length());
+
+  }
+
 //    @Test
 //   public void testRestaurantsEmpty() {
 //     Response response = get("/restaurants?query=&limit=&radius=");
