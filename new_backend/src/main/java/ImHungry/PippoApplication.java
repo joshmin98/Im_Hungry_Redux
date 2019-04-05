@@ -167,7 +167,10 @@ public class PippoApplication extends Application {
             String query = routeContext.getParameter("query").toString();
             String limit = routeContext.getParameter("limit").toString();
             String radius = routeContext.getParameter("radius").toString();
+            radius = ConvertfromMilestoMeters(radius);
             String restaurantJSONstring = "";
+
+
             try {
                 restaurantJSONstring = (!query.isEmpty() || !limit.isEmpty() || !radius.isEmpty())
                         ? yelp.getRestaurantInfo(query, limit, radius)
@@ -276,5 +279,11 @@ public class PippoApplication extends Application {
         routeContext.getResponse().header("Access-Control-Allow-Methods", method);
 
         return routeContext;
+    }
+
+    private String ConvertfromMilestoMeters(string radius){
+        int newRadius = Integer.parseInt(radius);
+        newRadius =  1609 * radius;
+        return Integer.toString(newRadius);
     }
 }
