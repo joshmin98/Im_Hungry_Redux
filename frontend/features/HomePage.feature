@@ -31,4 +31,29 @@ Scenario: Logging out
   Then I will be logged in to the application
   And when I click the "Log Out" button
   Then I will be logged out of the application
+
+Scenario: Searching for food When radius is zero
+  Given that I am on the homepage
+  When I enter "burger" into the text box labeled: Enter Food
+  And I enter "0" into the text box labeled: Distance
+  And I enter "5" into the text box labeled: Limit
+  And I click the button with the label: Feed Me!
+  Then I will see an error message
+
+Scenario: Searching for food When limit is zero
+  Given that I am on the homepage
+  When I enter "burger" into the text box labeled: Enter Food
+  And I enter "1000" into the text box labeled: Distance
+  And I enter "0" into the text box labeled: Limit
+  And I click the button with the label: Feed Me!
+  Then I will see an error message
+
+Scenario: Searching for invalid food
+  Given that I am on the homepage
+  When I enter "asdfghj" into the text box labeled: Enter Food
+  And I enter "1000" into the text box labeled: Distance
+  And I enter "5" into the text box labeled: Limit
+  And I click the button with the label: Feed Me!
+  Then I will see an error message
+
  

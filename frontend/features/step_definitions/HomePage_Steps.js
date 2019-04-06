@@ -75,3 +75,94 @@ Then(
     return 'pending';
   },
 );
+
+Given('that I am on the homepage', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Enter Food', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Distance', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Limit', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I click the button with the label: Feed Me!', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('I will see an error message', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Given('that I am on the homepage', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Enter Food', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Distance', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Limit', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I click the button with the label: Feed Me!', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('I will see an error message', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Given('that I am on the homepage', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Enter Food', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Distance', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I enter {string} into the text box labeled: Limit', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I click the button with the label: Feed Me!', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('I will see an error message', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+

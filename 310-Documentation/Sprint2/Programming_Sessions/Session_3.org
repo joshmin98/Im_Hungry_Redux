@@ -1,0 +1,3 @@
+Who: Josh Min, Nhan Tran
+Where: RTH 2nd floor, 04/06/2019, 9:00PM start time, approx 10:10PM end time
+We both work together to come up with extra test cases we need for HomePage
