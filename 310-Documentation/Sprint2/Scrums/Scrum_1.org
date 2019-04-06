@@ -1,0 +1,18 @@
+#+TITLE: Scrum 1 Meeting Notes
+
+* Joshua Min
+  - I have worked on user authentication, storing user data in Firebase, and testing the sign-in/sign-up feature on the front-end using Cucumber and Pupeteer.
+  - A full integrating with Firebase is keeping me from working on the user's previous search terms functionality.
+  - By next meeting I will write more tests for error handling on malformed form inputs, as well as write more test cases for user sign-in/sign-up functionality. I will also get Travis CI up and running in the repo I will also get Travis CI up and running in the repo.
+* Patrick Pacheco
+  - The team did a sprint planning before our first scrum to delegate what tasks need to be done for this sprint.
+  - N/A
+  - For next meeting, I will be working on storing the current user’s searched queries in the backend.
+* Tanay Shah
+  - Since the last meeting (sprint planning session), I worked on user authentication and storing user data in Firebase with Josh.
+  - N/A
+  - By the next meeting, I will work on creating database schema and storing user list data in Firebase with Patrick.
+* Nhan Tran
+  - Since the last meeting (sprint planning session), I worked on adding more test case, and error handling for HomePage
+  - N/A
+  - By next meeting I’ll have the new UI done based on feedback from TA.
