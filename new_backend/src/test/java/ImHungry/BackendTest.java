@@ -41,7 +41,7 @@ public class BackendTest extends PippoTest {
   @Test
   /* User searches for Query: Burgers, Limit: 5 results, Radius: 8500 m */
   public void testRestaurants() {
-    Response response = get("/restaurants?query=burgers&limit=5&radius=8500");
+    Response response = get("/restaurants?query=burgers&limit=5&radius=5");
     System.out.println(response.toString());
     response.then()
         .statusCode(200)
@@ -100,7 +100,7 @@ public class BackendTest extends PippoTest {
     SessionFilter sessionFilter = new SessionFilter();
     given()
         .filter(sessionFilter)
-        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .get("/restaurants?query=pizza&limit=5&radius=5")// sessionId("testFavoritesList")
         .then().statusCode(200)
         .contentType(ContentType.JSON);
     Response response = given()
@@ -156,7 +156,7 @@ public class BackendTest extends PippoTest {
     SessionFilter sessionFilter = new SessionFilter();
     given()
         .filter(sessionFilter)
-        .get("/restaurants?query=pizza&limit=5&radius=8500")// sessionId("testFavoritesList")
+        .get("/restaurants?query=pizza&limit=5&radius=5")// sessionId("testFavoritesList")
         .then().statusCode(200)
         .contentType(ContentType.JSON);
 
@@ -202,7 +202,7 @@ public class BackendTest extends PippoTest {
     SessionFilter sessionFilter = new SessionFilter();
     given()
         .filter(sessionFilter)
-        .get("/restaurants?query=pizza&limit=5&radius=8500")
+        .get("/restaurants?query=pizza&limit=5&radius=5")
         .then().statusCode(200)
         .contentType(ContentType.JSON);
 
@@ -281,7 +281,7 @@ public class BackendTest extends PippoTest {
     SessionFilter sessionFilter = new SessionFilter();
     given()
         .filter(sessionFilter)
-        .get("/restaurants?query=pizza&limit=5&radius=8500")
+        .get("/restaurants?query=pizza&limit=5&radius=5")
         .then().statusCode(200)
         .contentType(ContentType.JSON);
 
@@ -363,5 +363,15 @@ public class BackendTest extends PippoTest {
         .contentType(ContentType.JSON);
   }
  
+    // Start of user authentication testing
+    @Test
+    public void userLoginTest() {
+        Response response = get("/user?email=test@usc.edu");
+        response.then()
+            .statusCode(200);
+            assertEquals("test@usc.edu",
+                            response.asString());
+    }
+
 
 }
