@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/joshmin98/Im_Hungry_Redux.svg?branch=master)](https://travis-ci.org/joshmin98/Im_Hungry_Redux)
+
 # Build Instructions
 
 ## If you're coming from a "cold-start" (i.e. you restarted your computer) 
