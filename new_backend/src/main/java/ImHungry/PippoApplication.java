@@ -281,9 +281,9 @@ public class PippoApplication extends Application {
         return routeContext;
     }
 
-    private String ConvertfromMilestoMeters(string radius){
+    private String ConvertfromMilestoMeters(String radius){
         int newRadius = Integer.parseInt(radius);
-        newRadius =  1609 * radius;
+        newRadius =  1609 * newRadius;
         return Integer.toString(newRadius);
     }
 }
