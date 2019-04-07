@@ -19,14 +19,17 @@ const styles = theme => ({
     marginTop: 10,
   },
   main: {
-    marginTop: 150,
+    marginTop: 200,
   },
   alignCenter: {
     textAlign: 'center',
-    fontFamily: "'Arvo', serif",
+    color: '#2B3252',
+    fontWeight: 'bold'
   },
   textField: {
     width: '100%',
+    backgroundColor: 'white',
+    borderRadius: '8px'
   },
   form: {
     width: '80%',
@@ -38,6 +41,11 @@ const styles = theme => ({
     width: '100%',
     height: '45px',
     marginTop: '20px',
+  },
+  smallerDiv: {
+    width: '30%',
+    marginLeft: 'auto',
+    marginRight: 'auto'
   },
   nav: {
     width: '20%',
@@ -172,7 +180,7 @@ class HomePage extends React.Component {
               onChange={this.handleSearchChange}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <TextField
               label="Distance"
               id="distance"
@@ -182,7 +190,7 @@ class HomePage extends React.Component {
               onChange={this.handleDistanceChange}
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <TextField
               label="Limit"
               id="limit"
@@ -192,17 +200,17 @@ class HomePage extends React.Component {
               onChange={this.handleLimit}
             />
           </Grid>
-          <Grid item xs={2}>
-            <Button
-              id="feedME"
-              variant="contained"
-              color="secondary"
-              className={classes.button}
-              onClick={this.handleClick}
-            >
-              Feed Me!
-            </Button>
-          </Grid>
+        </Grid>
+        <Grid className={classes.smallerDiv}>
+          <Button
+            id="feedME"
+            variant="contained"
+            color="secondary"
+            className={classes.button}
+            onClick={this.handleClick}
+          >
+            Feed Me!
+          </Button>
         </Grid>
       </div>
     );
