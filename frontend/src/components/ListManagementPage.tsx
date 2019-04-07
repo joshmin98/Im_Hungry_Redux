@@ -9,7 +9,6 @@ import {
   createStyles,
   withStyles,
 } from '@material-ui/core';
-import * as http from 'http';
 import Header from './sub-components/Header';
 import * as axios from 'axios';
 
@@ -39,13 +38,6 @@ const styles = (theme: Theme) =>
     },
   });
 
-const httpAgent = new http.Agent({ keepAlive: true });
-
-/* const instance = axios.default.create({
- *   httpAgent,
- * });
- *  */
-
 const ListManagementPage: React.FC<any> = props => {
   useEffect(() => {
     axios.default
@@ -58,6 +50,7 @@ const ListManagementPage: React.FC<any> = props => {
         },
       })
       .then(resp => {
+        console.log(resp);
         axios.default
           .get('http://localhost:8338/list', {
             withCredentials: true,
