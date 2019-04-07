@@ -13,6 +13,6 @@
   - I was also supposed to add the session based on user login implementation in the backend with Patrick, but due to conflicting schedules we could not meet. 
   - For next meeting, me and Patrick should be able to complete the storing of the user’s current session id, as well as, save recently searched queries.
 * Nhan Tran
-  - Since the last meeting (sprint planning session), I worked on adding more test case, and error handling for HomePage
+  - I finished the UI based on Feed back from TA.
   - N/A
-  - By next meeting I’ll have the new UI done based on feedback from TA.
+  - Error handling when user input invalid value
