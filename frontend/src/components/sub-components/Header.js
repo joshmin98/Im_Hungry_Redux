@@ -68,20 +68,15 @@ class Header extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <AppBar position="static">
-          <ToolBar>
-            <Typography variant="h6" color="inherit">
-              I'm Hungry
-            </Typography>
-            <IconButton
-              color="inherit"
-              className={classes.button}
-              onClick={this.handleDrawerOpen}
-              id="menuBtn"
-            >
-              <MenuIcon />
-            </IconButton>
-          </ToolBar>
+        <AppBar position="static" className={classes.Header}>
+            <ToolBar>
+                <Typography variant="h6" color="inherit">
+                    I'm Hungry
+                </Typography>
+                <IconButton color="inherit" className={classes.button} onClick={this.handleDrawerOpen} id="menuBtn">
+                    <MenuIcon />
+                </IconButton>
+            </ToolBar>
         </AppBar>
         <Drawer variant="persistent" anchor="right" open={this.state.open}>
           <div>

@@ -238,6 +238,17 @@ public class PippoApplication extends Application {
             routeContext.json().send(recipes);
             // routeContext.json().send(recipeJSONstring);
         });
+
+        GET("/user", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
+
+            String email = routeContext.getParameter("email").toString();
+
+            routeContext.setSession("user", email);
+
+            routeContext.send(email);
+        });
+        
     }
 
     // specify type of item, restaurant or recipe

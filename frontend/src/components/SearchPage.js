@@ -12,7 +12,6 @@ import Pagination from 'material-ui-flat-pagination';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: 'white',
     width: '100%'
   },
   drawerHeader: {
@@ -91,7 +90,7 @@ class SearchPage extends React.Component {
         <Header />
         <Typography component="h1" variant="h2" className={classes.title} id="headerTitle">
           
-          {this.props.location.state.name}
+          Results For: {this.props.location.state.name}
           
         </Typography>
         <PhotoCollage photos={this.state.photos} />
