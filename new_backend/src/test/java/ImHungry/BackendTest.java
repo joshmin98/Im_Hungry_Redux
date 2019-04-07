@@ -366,8 +366,12 @@ public class BackendTest extends PippoTest {
     // Start of user authentication testing
     @Test
     public void userLoginTest() {
-        Response response = get("/db");
-
+        Response response = get("/user?email=test@usc.edu");
+        response.then()
+            .statusCode(200);
+            assertEquals("test@usc.edu",
+                            response.asString());
     }
+
 
 }
