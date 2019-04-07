@@ -44,3 +44,8 @@ Scenario: Trying to navigate to the list management page with nothing selected
   Given I am on the Results Page
   When I click the "Manage List" button
   Then I will transition to the Results Page
+
+Scenario: Logging out from Results page
+  Given I am on the Results Page
+  When I click on the "Log Out" button
+  Then I will be logged out of the application if I am logged in already
