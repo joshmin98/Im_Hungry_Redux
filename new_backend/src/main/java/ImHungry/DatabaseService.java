@@ -1,12 +1,15 @@
 package ImHungry;
 
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.core.ApiFuture;
 import com.google.api.services.storage.Storage.Buckets.List;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -17,6 +20,9 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DatabaseService {
 	private static Firestore database; 
@@ -32,7 +38,8 @@ public class DatabaseService {
     	if(databaseInitialized == false) {
     		initializeDatabase();
     	}
-		pushDataToDatabase();
+    	String json = "{\"ID\":1,\"Name\":\"Tanay Shah\",\"age\":22,\"location\":\"Los Angeles\"}";
+		pushDataToDatabase(json);
     }
     
     private void initializeDatabase() {
@@ -86,11 +93,33 @@ public class DatabaseService {
 		}
     }
     
-    public void pushDataToDatabase() {
+    public void pushDataToDatabase(String inputJSON) {
+    	
+    	//convert JSON string to HashMap
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	try {
+			ObjectMapper mapper = new ObjectMapper();
+			
+			// convert JSON string to Map
+			//map = mapper.readValue(json, new TypeReference<Map<String, String>>(){});
+			map = mapper.readValue(inputJSON, new TypeReference<Map<String, String>>(){});
+		} catch (JsonGenerationException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     	Map<String, String> myMap = new HashMap<String, String>() {{
 	        put("1", "Italian");
-	        put("2", "Burgers");
+	        put("2", "Thai");
 	    }};
-		ApiFuture<WriteResult> future = database.collection("tanaynsh@usc.edu").document("Search Terms").set(myMap);
+	    
+	    //Push the HashMap to the database
+		ApiFuture<WriteResult> future = database.collection("tanaynsh@usc.edu").document("Search Terms").set(map);
+				//.update(map); 
+				
     }
 }
+

@@ -65,6 +65,14 @@
         <artifactId>firebase-admin</artifactId>
         <version>6.8.0</version>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.9.8</version>
+	</dependency>
+    
 
     <!-- <dependency> // might need this for json testing.
     <groupId>ro.pippo</groupId>
