@@ -8,7 +8,7 @@ import GridListTile from '@material-ui/core/GridListTile';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 10,
+    marginBottom: '15px',
   },
   gridList: {
     width: '100%',
