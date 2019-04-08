@@ -29,13 +29,18 @@ const styles = theme => ({
     height: "140px"
   },
   gray: {
-    backgroundColor: 'lightgray'
+    backgroundColor: '#6BA368'
   },
   title: {
     textAlign: 'center',
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: 70
+    marginTop: 15,
+    marginBottom: 15,
+    fontSize: 70,
+    fontWeight: 'bold',
+    color: '#2B3252'
+  },
+  actionArea: {
+    height: '100%'
   }
 });
 
@@ -89,9 +94,7 @@ class SearchPage extends React.Component {
       <div className={classes.root} id="searchPage">
         <Header />
         <Typography component="h1" variant="h2" className={classes.title} id="headerTitle">
-          
           Results For: {this.props.location.state.name}
-          
         </Typography>
         <PhotoCollage photos={this.state.photos} />
         <Grid container spacing={16} className={classes.main}>
@@ -99,7 +102,7 @@ class SearchPage extends React.Component {
             {pagRestaurant.map((e,i) => {
               return (
                 <Card key={e.id} className={i%2 !== 0 ? [classes.card, classes.gray] : classes.card}>
-                  <CardActionArea onClick={this.handleClickRestaurant.bind(this, e)}>
+                  <CardActionArea onClick={this.handleClickRestaurant.bind(this, e)} className={classes.actionArea}>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                       <b>{e.name}</b>
@@ -117,7 +120,7 @@ class SearchPage extends React.Component {
             {pagRecipe.map((e,i) => {
               return (
                 <Card key={e.id} className={i%2 !== 0 ? [classes.card, classes.gray] : classes.card}>
-                  <CardActionArea onClick={this.handleClickRecipe.bind(this, e)}>
+                  <CardActionArea onClick={this.handleClickRecipe.bind(this, e)} className={classes.actionArea}>
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
                       <b>{e.title}</b>
