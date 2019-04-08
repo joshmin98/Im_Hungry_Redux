@@ -1,0 +1,9 @@
+#+TITLE: Scrum 3 Meeting Notes
+
+* Joshua Min
+  - Since last meeting I added Travis CI to the project repo.
+  - Unfamiliarity with using travis in a multi-language monorepo is keeping me from implementing CI checks on the backend
+  - By next meeting I will add our backend and backend tests to Travis.
+* Patrick Pacheco
+* PJ Hernandez
+* Tanay Shah
