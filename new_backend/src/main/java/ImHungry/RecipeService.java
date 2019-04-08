@@ -44,7 +44,7 @@ public class RecipeService extends HttpServlet {
             InputStream is = new FileInputStream(res.getFile());
             prop.load(is);
             API_KEY = prop.getProperty("RECIPE_API_KEY");
-        } catch (IOException e) {
+        } catch (IOException e) { // Testing doesn't cover catch statement - "config.properties always going to be there."
             e.printStackTrace();
         }
     }
@@ -60,7 +60,7 @@ public class RecipeService extends HttpServlet {
         try {
             jsonResponse = Unirest.get(URL).header("X-RapidAPI-Key", API_KEY).asJson();
         } catch (UnirestException ue) {
-            System.out.println("Unirest Exception");
+            System.out.println("Unirest Exception"); 
         } finally {
         }
 
