@@ -215,7 +215,7 @@ public class PippoApplication extends Application {
         });
 
         GET("/db", routeContext -> {
-            // DatabaseService db = new DatabaseService();
+            DatabaseService db = new DatabaseService();
             routeContext.json().send("db");
         });
 
