@@ -355,8 +355,9 @@ public class BackendTest extends PippoTest {
    public void dbRouteTest() {
       Response response = get("/db");
       response.then()
-        .statusCode(200)
-        .contentType(ContentType.JSON);
+        .statusCode(200);
+      //DatabaseService db = new DatabaseService();
+      
   }
  
     // Start of user authentication testing
