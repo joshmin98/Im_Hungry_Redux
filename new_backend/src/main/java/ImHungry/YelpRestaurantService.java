@@ -40,7 +40,7 @@ public class YelpRestaurantService {
                         InputStream is = new FileInputStream(res.getFile());
                         prop.load(is);
                         API_KEY = prop.getProperty("YELP_API_KEY");
-                } catch (IOException e) {
+                } catch (IOException e) { // Testing doesn't cover catch statement - "config.properties always going to be there."
                         e.printStackTrace();
                 }
         }
@@ -74,7 +74,7 @@ public class YelpRestaurantService {
 
                         while ((output = reader.readLine()) != null)
                                 sb.append(output);
-                } catch (MalformedURLException e) {
+                } catch (MalformedURLException e) { 
                         e.printStackTrace();
                 } catch (IOException e) {
                         e.printStackTrace();

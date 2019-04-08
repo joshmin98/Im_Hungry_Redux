@@ -167,6 +167,18 @@ public class PippoApplication extends Application {
             String query = routeContext.getParameter("query").toString();
             String limit = routeContext.getParameter("limit").toString();
             String radius = routeContext.getParameter("radius").toString();
+            // store the query in list of queries
+            /*
+             * {"query": "val", "limit": val, "radius": val }
+             */
+            if (routeContext.getSession("Searches") == null) {
+                routeContext.setSession("Searches", new ArrayList<JsonObject>());
+            }
+            String search = "{\"query\":\"" + query + "\", \"limit\": " + limit + ", \"radius\": " + radius + "}";
+            log.info(search);
+            ArrayList<JsonObject> searches = routeContext.getSession("Searches");
+            searches.add((JsonObject) (new JsonParser()).parse(search));
+
             radius = ConvertfromMilestoMeters(radius);
             String restaurantJSONstring = "";
             try {
@@ -177,7 +189,9 @@ public class PippoApplication extends Application {
                 System.out.println(e.getMessage());
             }
 
-            // store the query in list of queries
+            
+
+            
 
             JsonObject restaurantsJO = (JsonObject) (new JsonParser()).parse(restaurantJSONstring);
             JsonArray restaurantsJA = restaurantsJO.get("businesses").getAsJsonArray();
@@ -248,6 +262,32 @@ public class PippoApplication extends Application {
 
             routeContext.send(email);
         });
+
+        GET("/searches", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
+            String email = routeContext.getParameter("email").toString() != null 
+                        ? routeContext.getParameter("email").toString()
+                        : "empty";
+            log.info(email);
+            // get current user
+            String user = null;
+            if(!email.equals("empty")) {
+                user = routeContext.getSession("user");
+            }
+            // get previous queries 
+            // get from user from db is not null
+            ArrayList<JsonObject> searches = routeContext.getSession("Searches");
+            // send back
+            if(searches != null) {
+                log.info(searches.toString());
+                routeContext.json().send(searches.toString());
+            }
+            else {
+                log.info("empty");
+                routeContext.json().send("[]");
+            }
+            // routeContext.json().send("{\"searches\": [{ \"query\": \"pizza\", \"limit\": 5,\"distance\": 5}] }");
+        });
         
     }
 
@@ -287,6 +327,7 @@ public class PippoApplication extends Application {
         routeContext.getResponse().header("Access-Control-Allow-Origin", "http://localhost:3000");
         routeContext.getResponse().header("Access-Control-Allow-Credentials", "true");
         routeContext.getResponse().header("Access-Control-Allow-Methods", method);
+        // routeContext.getResponse().header("Content-type", "application/json; charset=utf-8");
 
         return routeContext;
     }

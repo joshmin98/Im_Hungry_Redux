@@ -16,6 +16,10 @@ const styles = theme => ({
   },
   button: {
     width: '100%',
+    backgroundColor: '#fad744',
+    color: '#2B3252',
+    fontSize: '15px',
+    fontWeight: 'bold'
   },
   paper: {
     //width: theme.spacing.unit * 50,
@@ -37,6 +41,10 @@ const styles = theme => ({
     width: '30%',
     marginLeft: '35%',
     marginTop: 20,
+    backgroundColor: '#fad744',
+    color: '#2B3252',
+    fontSize: '15px',
+    fontWeight: 'bold'
   },
 });
 

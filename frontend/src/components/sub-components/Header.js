@@ -29,6 +29,14 @@ const styles = theme => ({
     position: 'absolute',
     right: 20,
   },
+  Header: {
+    backgroundColor: '#E6FAFC',
+    color: '#2B3252',
+    boxShadow: 'none'
+  },
+  fontCss: {
+    fontWeight: 'bold'
+  }
 });
 
 class Header extends React.Component {
@@ -70,7 +78,7 @@ class Header extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" className={classes.Header}>
             <ToolBar>
-                <Typography variant="h6" color="inherit">
+                <Typography variant="h6" color="inherit" className={classes.fontCss}>
                     I'm Hungry
                 </Typography>
                 <IconButton color="inherit" className={classes.button} onClick={this.handleDrawerOpen} id="menuBtn">

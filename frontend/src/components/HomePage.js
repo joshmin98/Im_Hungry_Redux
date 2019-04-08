@@ -28,8 +28,8 @@ const styles = theme => ({
   },
   textField: {
     width: '100%',
-    backgroundColor: 'white',
-    borderRadius: '8px'
+    backgroundColor: '#E6FAFC',
+    //borderRadius: '5px'
   },
   form: {
     width: '80%',
@@ -41,6 +41,10 @@ const styles = theme => ({
     width: '100%',
     height: '45px',
     marginTop: '20px',
+    backgroundColor: '#fad744',
+    color: '#2B3252',
+    fontSize: '15px',
+    fontWeight: 'bold'
   },
   smallerDiv: {
     width: '30%',
@@ -58,8 +62,8 @@ const styles = theme => ({
 class HomePage extends React.Component {
   state = {
     searchVal: '',
-    distance: 8000,
-    limit: 5,
+    distance: 0,
+    limit: 0,
     restaurants: [],
     recipes: [],
   };
@@ -79,6 +83,16 @@ class HomePage extends React.Component {
     });
   };
   handleClick = async () => {
+    if (this.state.searchVal === '') {
+      alert("Please Enter A Food or Restaurant name!!");
+      return;
+    } else if (this.state.distance === 0 || isNaN(this.state.distance)) {
+      alert("Please Enter A Distance That Is Greater Than 0!!");
+      return;
+    } else if (this.state.limit === 0 || isNaN(this.state.limit)) {
+      alert("Please Enter A Limit That Is Greater Than 0!!");
+      return;
+    }
     const response = await axios.get(
       url_restaurants,
       {
@@ -122,6 +136,10 @@ class HomePage extends React.Component {
     this.setState({
       recipes: res.data,
     });
+    if (this.state.restaurants.length === 0 || this.state.recipes.length === 0) {
+      alert("Sorry, We can't find any restaurants or recipes for " + this.state.searchVal);
+      return;
+    }
     this.props.history.push({
       pathname: '/search',
       state: {
@@ -165,6 +183,7 @@ class HomePage extends React.Component {
             component="h2"
             variant="h1"
             className={classes.alignCenter}
+            id="header"
           >
             I'm Hungry
           </Typography>
@@ -178,6 +197,7 @@ class HomePage extends React.Component {
               margin="normal"
               variant="outlined"
               onChange={this.handleSearchChange}
+              required={true}
             />
           </Grid>
           <Grid item xs={3}>
@@ -188,6 +208,7 @@ class HomePage extends React.Component {
               margin="normal"
               variant="outlined"
               onChange={this.handleDistanceChange}
+              required={true}
             />
           </Grid>
           <Grid item xs={3}>
@@ -198,6 +219,7 @@ class HomePage extends React.Component {
               margin="normal"
               variant="outlined"
               onChange={this.handleLimit}
+              required={true}
             />
           </Grid>
         </Grid>

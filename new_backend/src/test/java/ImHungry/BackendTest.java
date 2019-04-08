@@ -29,7 +29,7 @@ public class BackendTest extends PippoTest {
   //   response.then()
   //       .statusCode(200)
   //       .contentType(ContentType.JSON);
-  // }
+  // }  
 
   @Test
   public void testDefault() {
@@ -58,15 +58,12 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON); 
-
-    // assertEquals("[]",
-    //                 response.asString());
+    
     response = get("/restaurants?query=burgers&limit=5&radius=5");
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON); 
-    assertEquals(4836, 
-                    response.asString().length());
+    assertEquals(4836, response.asString().length());
 
   }
 
@@ -85,7 +82,6 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200)
         .contentType(ContentType.JSON);
-    // Add asserts for json here
   }
 
   @Test
@@ -371,7 +367,38 @@ public class BackendTest extends PippoTest {
             .statusCode(200);
             assertEquals("test@usc.edu",
                             response.asString());
+                
     }
+
+    // Start of recently searched query test 
+    @Test
+    public void recentlySearchTestEmpty() {
+        Response response = get("/searches?email=test@usc.edu");
+        response.then()
+            .statusCode(200);
+            assertEquals("[]", response.asString());
+    }
+
+    @Test
+    public void recentlySearchTest() {
+        SessionFilter sessionFilter = new SessionFilter();
+        given()
+            .filter(sessionFilter)
+            .get("/restaurants?query=pizza&limit=5&radius=5")
+            .then().statusCode(200)
+            .contentType(ContentType.JSON);
+        Response response = given().filter(sessionFilter).get("/searches?email=test@usc.edu");
+        response.then().statusCode(200);
+        assertEquals("[{\"query\": \"pizza\", \"limit\": 5, \"radius\": 5 }]"
+        , response.asString());
+
+    }
+
+
+
+
+
+    
 
 
 }
