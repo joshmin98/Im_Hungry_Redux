@@ -5,5 +5,15 @@
   - Unfamiliarity with using travis in a multi-language monorepo is keeping me from implementing CI checks on the backend
   - By next meeting I will add our backend and backend tests to Travis.
 * Patrick Pacheco
+  - Since last meeting, i wrote the code implementation for creating the user session and storing user’s recently searched items.
+  - I need to fix some logic in the backend.
+  - By next meeting, I will be working with Tanay to implement firebase in our backend routes. Also, I will assist PJ with the backend design for maintaining the grocery list.I
 * PJ Hernandez
+  - Since last meeting, I worked on writing up Junit tests for the “adding session to the backend” and the “recently searched items” tasks. The tests have achieved above a 90% coverage. 
+  - The logic for the recently searched items were pretty tricky to implement. 
+  - For next meeting, me and Patrick will work on identifying and implementing the backend components for “maintaining a grocery list”. 
 * Tanay Shah
+* Nhan Tran
+  - Since last meeting, I wrote the code for checking error when users put in invalid input.
+  - N/A
+  - By next meeting, I will be working with Josh to implement the previous search terms functionality.
