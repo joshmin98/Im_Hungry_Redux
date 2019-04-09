@@ -67,6 +67,11 @@ class HomePage extends React.Component {
     restaurants: [],
     recipes: [],
   };
+  componentDidMount() {
+    this.props.location.state !== undefined && this.setState({
+      searchVal: this.props.location.state.term
+    })
+  }
   handleSearchChange = e => {
     this.setState({
       searchVal: e.target.value,
@@ -198,6 +203,7 @@ class HomePage extends React.Component {
               variant="outlined"
               onChange={this.handleSearchChange}
               required={true}
+              value={this.state.searchVal}
             />
           </Grid>
           <Grid item xs={3}>

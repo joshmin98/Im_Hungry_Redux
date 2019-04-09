@@ -155,3 +155,29 @@ Then(
     return 'pending';
   },
 );
+
+Given('I am on the Results Page', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I click on the dropdown labeled {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+When('I click on {string}', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('I am on the homepage', function () {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+
+Then('{string} is appear in the search bar', function (string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'pending';
+});
+

@@ -29,7 +29,7 @@ const styles = theme => ({
     height: "140px"
   },
   gray: {
-    backgroundColor: '#6BA368'
+    backgroundColor: '#FFF275'
   },
   title: {
     textAlign: 'center',

@@ -49,3 +49,10 @@ Scenario: Logging out from Results page
   Given I am on the Results Page
   When I click on the "Log Out" button
   Then I will be logged out of the application if I am logged in already
+
+Scenario: Trying to get my previous search terms
+  Given I am on the Results Page
+  When I click on the dropdown labeled "previous search term"
+  And I click on "burger"
+  Then I am on the homepage
+  And "burger" is appear in the search bar

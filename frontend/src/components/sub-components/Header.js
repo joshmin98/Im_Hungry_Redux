@@ -36,6 +36,16 @@ const styles = theme => ({
   },
   fontCss: {
     fontWeight: 'bold'
+  },
+  dropdown: {
+    width: '100%'
+  },
+  noPadding: {
+    paddingTop: 0,
+    paddingBottom: 0
+  },
+  marginTop: {
+    paddingTop: 10
   }
 });
 
@@ -43,6 +53,7 @@ class Header extends React.Component {
   state = {
     open: false,
     list: '',
+    terms: ''
   };
 
   handleDrawerOpen = () => {
@@ -71,6 +82,15 @@ class Header extends React.Component {
     this.props.history.push('/');
   };
 
+  handleTermChange = e => {
+    console.log(e.target.value);
+    this.props.history.push({
+      pathname: '/',
+      state: { 
+        term: e.target.value
+    }})
+  }
+
   handleLogout = () => {};
   render() {
     const { classes } = this.props;
@@ -93,8 +113,29 @@ class Header extends React.Component {
             </IconButton>
             <Divider />
             <List>
-              <ListItem>
-                <FormControl>
+              <ListItem className={classes.noPadding}>
+                <FormControl className={classes.dropdown}>
+                  <InputLabel>Search Terms</InputLabel>
+                <Select
+                  value={this.state.terms}
+                  onChange={this.handleTermChange}
+                  input={<Input name="terms" id="terms" />}
+                  id="termDropdown"
+                >
+                  <MenuItem id="" value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem id="Burger" value="Burger">
+                    Burger
+                  </MenuItem>
+                  <MenuItem id="Ramen" value="Ramen">
+                    Ramen
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              </ListItem>
+              <ListItem className={classes.noPadding}>
+                <FormControl className={classes.dropdown}>
                   <InputLabel>List</InputLabel>
                   <Select
                     value={this.state.list}
@@ -118,7 +159,7 @@ class Header extends React.Component {
                 </FormControl>
               </ListItem>
               <ListItem button>
-                <ListItemText primary="Manage List" onClick={this.handleList} />
+                <ListItemText primary="Manage List" onClick={this.handleList} className={classes.marginTop}/>
               </ListItem>
               <ListItem button>
                 <ListItemText
