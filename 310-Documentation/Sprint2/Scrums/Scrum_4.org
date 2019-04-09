@@ -1,0 +1,22 @@
+#+TITLE: Scrum 4 Meeting Notes
+
+* Josh Min
+  - Since last meeting I worked with Nhan to implement the previous search terms functionality and test cases
+  - N/A
+  - By next meeting I will make more progress with Travis, as well as the implementation and testing of the grocery list feature
+* Patrick Pacheco
+  - Since last meeting, Tanay and I had a programming session to implement the database into our backend.
+  - I need to find time to replace the backend session calls with our database calls.
+  - By next meeting, PJ and I are still working on the backend design for maintaining the grocery list. I will should have most of the routes that should have database calls done.
+* Tanay Shah
+  - Since last meeting, Patrick and I had a programming session to implement the Firebase database into our backend.
+  - N/A.
+  - By next meeting, I will have more work done on storing user list data and fixing the bugs we found in the last programming session.
+* PJ Hernandez
+  - The tests for the database route and prior search terms are failing for some reason. So since last meeting, I have been working on patching those up. 
+  - I wasn’t able to meet with Patrick to work on the grocery list backend due to conflicting schedules
+  - By next meeting, me and Patrick should have some working backend code for the grocery list functionality in the backend.
+* Nhan Tran
+  - Since last meeting, I worked with Josh to implement the previous search terms functionality, and test cases for it.
+  - N/A
+  - By next meeting, I will have some bugs that we found fixed on Search Page fixed.
