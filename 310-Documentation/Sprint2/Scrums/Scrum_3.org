@@ -13,6 +13,9 @@
   - The logic for the recently searched items were pretty tricky to implement. 
   - For next meeting, me and Patrick will work on identifying and implementing the backend components for “maintaining a grocery list”. 
 * Tanay Shah
+  - Since the last meeting, I met with Patrick and worked on storing user list data in the backend Firebase database.
+  - Need to look into better methods to update the database without pulling all the data.
+  - By next meeting, I will have more work done on storing user list data. 
 * Nhan Tran
   - Since last meeting, I wrote the code for checking error when users put in invalid input.
   - N/A
