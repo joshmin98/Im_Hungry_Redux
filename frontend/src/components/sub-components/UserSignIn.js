@@ -19,7 +19,7 @@ const styles = theme => ({
     backgroundColor: '#fad744',
     color: '#2B3252',
     fontSize: '15px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   paper: {
     //width: theme.spacing.unit * 50,
@@ -44,7 +44,7 @@ const styles = theme => ({
     backgroundColor: '#fad744',
     color: '#2B3252',
     fontSize: '15px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
 
@@ -175,10 +175,12 @@ class UserSignIn extends React.Component {
                       className={classes.textField}
                       margin="normal"
                       type="email"
+                      id="email"
                       variant="outlined"
                       onChange={this.handleChange('email')}
                     />
                     <TextField
+                      id="password"
                       label="Password"
                       className={classes.textField}
                       type="password"
@@ -214,6 +216,7 @@ class UserSignIn extends React.Component {
                   </Typography>
                   <form onSubmit={this.handleSubmit}>
                     <TextField
+                      id="email"
                       label="Email"
                       className={classes.textField}
                       margin="normal"
@@ -221,6 +224,7 @@ class UserSignIn extends React.Component {
                       onChange={this.handleChange('email')}
                     />
                     <TextField
+                      id="password"
                       label="Password"
                       className={classes.textField}
                       margin="normal"
@@ -229,6 +233,7 @@ class UserSignIn extends React.Component {
                       onChange={this.handleChange('password')}
                     />
                     <TextField
+                      id="password-again"
                       label="Password Again"
                       className={classes.textField}
                       margin="normal"

@@ -24,7 +24,7 @@ const styles = theme => ({
   alignCenter: {
     textAlign: 'center',
     color: '#2B3252',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   textField: {
     width: '100%',
@@ -44,12 +44,12 @@ const styles = theme => ({
     backgroundColor: '#fad744',
     color: '#2B3252',
     fontSize: '15px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   smallerDiv: {
     width: '30%',
     marginLeft: 'auto',
-    marginRight: 'auto'
+    marginRight: 'auto',
   },
   nav: {
     width: '20%',
@@ -66,11 +66,13 @@ class HomePage extends React.Component {
     limit: 0,
     restaurants: [],
     recipes: [],
+    loading: false,
   };
   componentDidMount() {
-    this.props.location.state !== undefined && this.setState({
-      searchVal: this.props.location.state.term
-    })
+    this.props.location.state !== undefined &&
+      this.setState({
+        searchVal: this.props.location.state.term,
+      });
   }
   handleSearchChange = e => {
     this.setState({
@@ -88,14 +90,18 @@ class HomePage extends React.Component {
     });
   };
   handleClick = async () => {
+    this.setState({ loading: true });
     if (this.state.searchVal === '') {
-      alert("Please Enter A Food or Restaurant name!!");
+      alert('Please enter a Food or Restaurant name!!!');
+      this.setState({ loading: false });
       return;
     } else if (this.state.distance === 0 || isNaN(this.state.distance)) {
-      alert("Please Enter A Distance That Is Greater Than 0!!");
+      alert('Please enter a Distance that is greater than 0!!');
+      this.setState({ loading: false });
       return;
     } else if (this.state.limit === 0 || isNaN(this.state.limit)) {
-      alert("Please Enter A Limit That Is Greater Than 0!!");
+      alert('Please enter a Limit that is greater than 0!!');
+      this.setState({ loading: false });
       return;
     }
     const response = await axios.get(
@@ -141,10 +147,18 @@ class HomePage extends React.Component {
     this.setState({
       recipes: res.data,
     });
-    if (this.state.restaurants.length === 0 || this.state.recipes.length === 0) {
-      alert("Sorry, We can't find any restaurants or recipes for " + this.state.searchVal);
+    if (
+      this.state.restaurants.length === 0 ||
+      this.state.recipes.length === 0
+    ) {
+      alert(
+        "Sorry, We can't find any restaurants or recipes for " +
+          this.state.searchVal,
+      );
+      this.setState({ loading: false });
       return;
     }
+    this.setState({ loading: false });
     this.props.history.push({
       pathname: '/search',
       state: {
@@ -183,63 +197,77 @@ class HomePage extends React.Component {
             </Button>
           )}
         </div>
-        <div className={classes.main}>
-          <Typography
-            component="h2"
-            variant="h1"
-            className={classes.alignCenter}
-            id="header"
-          >
-            I'm Hungry
-          </Typography>
+        <div>
+          <div className={classes.main}>
+            <Typography
+              component="h2"
+              variant="h1"
+              className={classes.alignCenter}
+              id="header"
+            >
+              I'm Hungry 🍽
+            </Typography>
+          </div>
+          <Grid container spacing={16} className={classes.form}>
+            <Grid item xs={6}>
+              <TextField
+                label="Enter Food"
+                id="food"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleSearchChange}
+                required={true}
+                value={this.state.searchVal}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Distance"
+                id="distance"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleDistanceChange}
+                required={true}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Limit"
+                id="limit"
+                className={classes.textField}
+                margin="normal"
+                variant="outlined"
+                onChange={this.handleLimit}
+                required={true}
+              />
+            </Grid>
+          </Grid>
+          <Grid className={classes.smallerDiv}>
+            {this.state.loading ? (
+              <Button
+                id="feedME"
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                disabled={true}
+              >
+                Loading...
+              </Button>
+            ) : (
+              <Button
+                id="feedME"
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={this.handleClick}
+              >
+                Feed Me!
+              </Button>
+            )}
+          </Grid>
         </div>
-        <Grid container spacing={16} className={classes.form}>
-          <Grid item xs={6}>
-            <TextField
-              label="Enter Food"
-              id="food"
-              className={classes.textField}
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleSearchChange}
-              required={true}
-              value={this.state.searchVal}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Distance"
-              id="distance"
-              className={classes.textField}
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleDistanceChange}
-              required={true}
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Limit"
-              id="limit"
-              className={classes.textField}
-              margin="normal"
-              variant="outlined"
-              onChange={this.handleLimit}
-              required={true}
-            />
-          </Grid>
-        </Grid>
-        <Grid className={classes.smallerDiv}>
-          <Button
-            id="feedME"
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={this.handleClick}
-          >
-            Feed Me!
-          </Button>
-        </Grid>
       </div>
     );
   }

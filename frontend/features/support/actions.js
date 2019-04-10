@@ -84,6 +84,10 @@ const checkFirstBelowSecond = async item1Name => {
   assert(parseInt(data) == 1, 'Object was not moved!');
 };
 
+const clickOnButtonWithText = async text => {
+  await scope.context.currentPage.click(text);
+};
+
 module.exports = {
   visitListManagementPage,
   dragAndDropOneBelowOther,
@@ -95,4 +99,5 @@ module.exports = {
   checkTitle,
   checkList,
   checkDropdown,
+  clickOnButtonWithText,
 };

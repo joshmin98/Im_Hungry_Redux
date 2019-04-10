@@ -12,7 +12,8 @@ import Pagination from 'material-ui-flat-pagination';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    width: '100%'
+    marginRight: '5%',
+    marginLeft: '5%',
   },
   drawerHeader: {
     display: 'flex',
@@ -26,10 +27,10 @@ const styles = theme => ({
   },
   card: {
     marginBottom: 10,
-    height: "140px"
+    height: '140px',
   },
   gray: {
-    backgroundColor: '#FFF275'
+    // backgroundColor: '#FFF275',
   },
   title: {
     textAlign: 'center',
@@ -37,11 +38,15 @@ const styles = theme => ({
     marginBottom: 15,
     fontSize: 70,
     fontWeight: 'bold',
-    color: '#2B3252'
+    color: '#2B3252',
   },
   actionArea: {
-    height: '100%'
-  }
+    height: '100%',
+  },
+  photobox: {
+    marginRight: '2%',
+    marginLeft: '2%',
+  },
 });
 
 class SearchPage extends React.Component {
@@ -49,96 +54,151 @@ class SearchPage extends React.Component {
     offset: 0,
     restaurants: [],
     recipes: [],
-    photos: []
-  }
+    photos: [],
+  };
   componentDidMount() {
     var photos = [];
     this.props.location.state.restaurants.forEach(e => {
-      photos.push({src: e.image_url})
-    })
+      photos.push({ src: e.image_url });
+    });
     this.props.location.state.recipes.forEach(e => {
-      photos.push({src: e.image})
-    })
+      photos.push({ src: e.image });
+    });
     this.setState({
       restaurants: this.props.location.state.restaurants,
-      recipes: this.props.location.state.recipes.sort((a,b) => (a.readyInMinutes > b.readyInMinutes) ? 1 : ((b.readyInMinutes > a.readyInMinutes)? -1 : 0)),
-      photos: photos
-    })
+      recipes: this.props.location.state.recipes.sort((a, b) =>
+        a.readyInMinutes > b.readyInMinutes
+          ? 1
+          : b.readyInMinutes > a.readyInMinutes
+          ? -1
+          : 0,
+      ),
+      photos: photos,
+    });
   }
   handleClick(offset) {
     this.setState({ offset });
   }
-  handleClickRestaurant(element,event) {
+  handleClickRestaurant(element, event) {
     console.log(element);
     this.props.history.push({
       pathname: '/restaurant',
-      state: { 
-        restaurant: element
-    }})
+      state: {
+        restaurant: element,
+      },
+    });
   }
-  handleClickRecipe(element,event) {
+  handleClickRecipe(element, event) {
     console.log(element);
     this.props.history.push({
       pathname: '/recipe',
-      state: { 
-        recipe: element
-    }})
+      state: {
+        recipe: element,
+      },
+    });
   }
   render() {
     console.log(this.props.location);
     const { classes } = this.props;
-    var pagRestaurant = this.state.restaurants.slice(this.state.offset,this.state.offset+5);
-    var pagRecipe = this.state.recipes.slice(this.state.offset,this.state.offset+5);
+    var pagRestaurant = this.state.restaurants.slice(
+      this.state.offset,
+      this.state.offset + 5,
+    );
+    var pagRecipe = this.state.recipes.slice(
+      this.state.offset,
+      this.state.offset + 5,
+    );
 
     return (
-      <div className={classes.root} id="searchPage">
+      <div>
         <Header />
-        <Typography component="h1" variant="h2" className={classes.title} id="headerTitle">
-          Results For: {this.props.location.state.name}
+        <Typography
+          component="h1"
+          variant="h2"
+          className={classes.title}
+          id="headerTitle"
+        >
+          Results for "{this.props.location.state.name}"
         </Typography>
-        <PhotoCollage photos={this.state.photos} />
-        <Grid container spacing={16} className={classes.main}>
-          <Grid item xs={6}>
-            {pagRestaurant.map((e,i) => {
-              return (
-                <Card key={e.id} className={i%2 !== 0 ? [classes.card, classes.gray] : classes.card}>
-                  <CardActionArea onClick={this.handleClickRestaurant.bind(this, e)} className={classes.actionArea}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      <b>{e.name}</b>
-                    </Typography>
-                    <Typography component="p"><b>Estimate Driving Time: </b>{Math.ceil((e.distance / 4.4704) / 60) + " minutes"}</Typography>
-                    <Typography component="p"><b>Address: </b>{e.location.address1 + ", " + e.location.city + ", " + e.location.state + e.location.zip_code}</Typography>
-                    <Typography component="p"><b>Phone: </b>{e.phone}</Typography>
-                  </CardContent>
-                  </CardActionArea>
-                </Card>
-              );
-            })}
+        <div className={classes.photobox}>
+          <PhotoCollage photos={this.state.photos} />
+        </div>
+        <div className={classes.root} id="searchPage">
+          <Grid container spacing={16} className={classes.main}>
+            <Grid item xs={6}>
+              {pagRestaurant.map((e, i) => {
+                return (
+                  <Card
+                    key={e.id}
+                    className={
+                      i % 2 !== 0 ? [classes.card, classes.gray] : classes.card
+                    }
+                  >
+                    <CardActionArea
+                      onClick={this.handleClickRestaurant.bind(this, e)}
+                      className={classes.actionArea}
+                    >
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          <b>{e.name}</b>
+                        </Typography>
+                        <Typography component="p">
+                          <b>Estimate Driving Time: </b>
+                          {Math.ceil(e.distance / 4.4704 / 60) + ' minutes'}
+                        </Typography>
+                        <Typography component="p">
+                          <b>Address: </b>
+                          {e.location.address1 +
+                            ', ' +
+                            e.location.city +
+                            ', ' +
+                            e.location.state +
+                            e.location.zip_code}
+                        </Typography>
+                        <Typography component="p">
+                          <b>Phone: </b>
+                          {e.phone}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                );
+              })}
+            </Grid>
+            <Grid item xs={6}>
+              {pagRecipe.map((e, i) => {
+                return (
+                  <Card
+                    key={e.id}
+                    className={
+                      i % 2 !== 0 ? [classes.card, classes.gray] : classes.card
+                    }
+                  >
+                    <CardActionArea
+                      onClick={this.handleClickRecipe.bind(this, e)}
+                      className={classes.actionArea}
+                    >
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          <b>{e.title}</b>
+                        </Typography>
+                        <Typography component="p">
+                          <b>Cook Time: </b> {e.readyInMinutes}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                );
+              })}
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            {pagRecipe.map((e,i) => {
-              return (
-                <Card key={e.id} className={i%2 !== 0 ? [classes.card, classes.gray] : classes.card}>
-                  <CardActionArea onClick={this.handleClickRecipe.bind(this, e)} className={classes.actionArea}>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      <b>{e.title}</b>
-                    </Typography>
-                    <Typography component="p"><b>Cook Time: </b> {e.readyInMinutes}</Typography>
-                  </CardContent>
-                  </CardActionArea>
-                </Card>
-              );
-            })}
-          </Grid>
-        </Grid>
-        <Pagination
-        limit={5}
-        offset={this.state.offset}
-        total={10}
-        onClick={(e, offset) => this.handleClick(offset)}
-        />
+          <Pagination
+            limit={5}
+            offset={this.state.offset}
+            total={10}
+            onClick={(e, offset) => this.handleClick(offset)}
+          />
+        </div>
       </div>
     );
   }

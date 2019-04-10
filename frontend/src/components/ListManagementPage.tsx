@@ -39,31 +39,22 @@ const styles = (theme: Theme) =>
   });
 
 const ListManagementPage: React.FC<any> = props => {
+  const [list, setList]: any = useState([]);
+  const { classes } = props;
+
   useEffect(() => {
     axios.default
-      .get('http://localhost:8338/restaurants', {
+      .get('http://localhost:8338/list', {
         withCredentials: true,
         params: {
-          query: 'burger',
-          limit: 5,
-          radius: 8500,
+          listName: 'Favorites',
         },
       })
       .then(resp => {
-        console.log(resp);
-        axios.default
-          .get('http://localhost:8338/list', {
-            withCredentials: true,
-            params: {
-              listName: 'Favorites',
-            },
-          })
-          .then(resp => console.log(resp));
+        console.log('LIST', resp.data);
+        setList(resp.data);
       });
   }, []);
-
-  const [list, setList]: any = useState([1, 3, 5, 7, 9]);
-  const { classes } = props;
 
   const reorder = (list: any, startIdx: number, endIdx: number) => {
     if (endIdx === -1) {
@@ -85,18 +76,56 @@ const ListManagementPage: React.FC<any> = props => {
       <div className={classes.container}>
         <h1>{props.location.pathname.slice(7)}</h1>
         {list.map((item: any, idx: number) => (
-          <Card className={classes.card} key={`item-${item}`}>
+          <Card className={classes.card} key={`item-${item.id}`}>
             <CardContent>
-              <div id={`listPlace-${idx}`}>{item}</div>
+              {item.type === 'restaurant' ? (
+                <div>
+                  <h2>{item.name}</h2>
+                  <p>
+                    <span>
+                      <b>Estimated Driving Time:</b>
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      <b>Address:</b>
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      <b>Phone:</b>
+                    </span>
+                  </p>
+                </div>
+              ) : (
+                  <div>
+                    <h2>{item.title}</h2>
+                    <p>
+                      <span>
+                        <b>Cook Time:</b> {item.cookingMinutes}
+                      </span>
+                    </p>
+                    <p>
+                      <span>
+                        <b>Prep Time:</b> {item.preparationMinutes}
+                      </span>
+                    </p>
+                    <p>
+                      <span>
+                        <b>Price Per Serving:</b> ${item.pricePerServing / 100}
+                      </span>
+                    </p>
+                  </div>
+                )}
             </CardContent>
             <Button
-              id={`item-${item}-up`}
+              id={`item-${item.id}-up`}
               onClick={() => reorder(list, idx, idx - 1)}
             >
               Up
             </Button>
             <Button
-              id={`item-${item}-down`}
+              id={`item-${item.id}-down`}
               onClick={() => reorder(list, idx, idx + 1)}
             >
               Down

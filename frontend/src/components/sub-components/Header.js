@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -21,6 +21,8 @@ import {
   Input,
 } from '@material-ui/core';
 
+import firebase from '../../config/firebaseConfig.js';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -32,28 +34,28 @@ const styles = theme => ({
   Header: {
     backgroundColor: '#E6FAFC',
     color: '#2B3252',
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   fontCss: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   dropdown: {
-    width: '100%'
+    width: '100%',
   },
   noPadding: {
     paddingTop: 0,
-    paddingBottom: 0
+    paddingBottom: 0,
   },
   marginTop: {
-    paddingTop: 10
-  }
+    paddingTop: 10,
+  },
 });
 
 class Header extends React.Component {
   state = {
     open: false,
     list: '',
-    terms: ''
+    terms: '',
   };
 
   handleDrawerOpen = () => {
@@ -75,7 +77,9 @@ class Header extends React.Component {
   };
 
   handleList = () => {
-    this.props.history.push('/lists/' + this.state.list);
+    if (this.state.list !== '') {
+      this.props.history.push('/lists/' + this.state.list);
+    }
   };
 
   handleBack = () => {
@@ -86,25 +90,47 @@ class Header extends React.Component {
     console.log(e.target.value);
     this.props.history.push({
       pathname: '/',
-      state: { 
-        term: e.target.value
-    }})
-  }
+      state: {
+        term: e.target.value,
+      },
+    });
+  };
 
-  handleLogout = () => {};
+  handleLogout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(resp => {
+        this.setGlobal({ user: null });
+        console.log(this.global.user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.Header}>
-            <ToolBar>
-                <Typography variant="h6" color="inherit" className={classes.fontCss}>
-                    I'm Hungry
-                </Typography>
-                <IconButton color="inherit" className={classes.button} onClick={this.handleDrawerOpen} id="menuBtn">
-                    <MenuIcon />
-                </IconButton>
-            </ToolBar>
+          <ToolBar>
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={classes.fontCss}
+            >
+              I'm Hungry 🍽
+            </Typography>
+            <IconButton
+              color="inherit"
+              className={classes.button}
+              onClick={this.handleDrawerOpen}
+              id="menuBtn"
+            >
+              <MenuIcon />
+            </IconButton>
+          </ToolBar>
         </AppBar>
         <Drawer variant="persistent" anchor="right" open={this.state.open}>
           <div>
@@ -116,23 +142,23 @@ class Header extends React.Component {
               <ListItem className={classes.noPadding}>
                 <FormControl className={classes.dropdown}>
                   <InputLabel>Search Terms</InputLabel>
-                <Select
-                  value={this.state.terms}
-                  onChange={this.handleTermChange}
-                  input={<Input name="terms" id="terms" />}
-                  id="termDropdown"
-                >
-                  <MenuItem id="" value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem id="Burger" value="Burger">
-                    Burger
-                  </MenuItem>
-                  <MenuItem id="Ramen" value="Ramen">
-                    Ramen
-                  </MenuItem>
-                </Select>
-              </FormControl>
+                  <Select
+                    value={this.state.terms}
+                    onChange={this.handleTermChange}
+                    input={<Input name="terms" id="terms" />}
+                    id="termDropdown"
+                  >
+                    <MenuItem id="" value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem id="Burger" value="Burger">
+                      Burger
+                    </MenuItem>
+                    <MenuItem id="Ramen" value="Ramen">
+                      Ramen
+                    </MenuItem>
+                  </Select>
+                </FormControl>
               </ListItem>
               <ListItem className={classes.noPadding}>
                 <FormControl className={classes.dropdown}>
@@ -155,11 +181,18 @@ class Header extends React.Component {
                     <MenuItem id="DoNotSow" value={'Do Not Show'}>
                       Do Not Show
                     </MenuItem>
+                    <MenuItem id="Grocery" value={'Grocery'}>
+                      Grocery
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </ListItem>
               <ListItem button>
-                <ListItemText primary="Manage List" onClick={this.handleList} className={classes.marginTop}/>
+                <ListItemText
+                  primary="Manage List"
+                  onClick={this.handleList}
+                  className={classes.marginTop}
+                />
               </ListItem>
               <ListItem button>
                 <ListItemText
@@ -167,7 +200,7 @@ class Header extends React.Component {
                   onClick={this.handleBack}
                 />
               </ListItem>
-              <ListItem button onClick={this.handleLogout}>
+              <ListItem id="logout" button onClick={this.handleLogout}>
                 <ListItemText primary="Log Out" />
               </ListItem>
             </List>
