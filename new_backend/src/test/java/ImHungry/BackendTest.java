@@ -388,12 +388,14 @@ public class BackendTest extends PippoTest {
             .get("/restaurants?query=pizza&limit=5&radius=5")
             .then().statusCode(200)
             .contentType(ContentType.JSON);
+
         Response response = given().filter(sessionFilter).get("/searches?email=test@usc.edu");
         response.then().statusCode(200);
-        assertEquals("[{\"query\": \"pizza\", \"limit\": 5, \"radius\": 5 }]"
-        , response.asString());
+        assertEquals("[{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]", response.asString());
 
     }
+
+    
 
 
 
