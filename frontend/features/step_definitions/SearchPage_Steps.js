@@ -106,11 +106,6 @@ When('I select {string} from the dropdown', function(string) {
   return 'pending';
 });
 
-When('I click the {string} button', function(string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
-});
-
 Then('I will be on the {string} list page', function(string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
@@ -156,28 +151,27 @@ Then(
   },
 );
 
-Given('I am on the Results Page', function () {
+Given('I am on the Results Page', function() {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-When('I click on the dropdown labeled {string}', function (string) {
+When('I click on the dropdown labeled {string}', function(string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-When('I click on {string}', function (string) {
+When('I click on {string}', function(string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-Then('I am on the homepage', function () {
+Then('I am on the homepage', function() {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
 
-Then('{string} is appear in the search bar', function (string) {
+Then('{string} is appear in the search bar', function(string) {
   // Write code here that turns the phrase above into concrete actions
   return 'pending';
 });
-

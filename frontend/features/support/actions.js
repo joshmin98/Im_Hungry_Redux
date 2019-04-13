@@ -38,7 +38,7 @@ const checkTitle = async (e, val) => {
   // });
   // assert(data !== val, 'Incorrect Vale');
   //await scope.context.currentPage.waitForSelector('h1',{timeout: 0});
-  await scope.context.currentPage.waitFor(5000);
+  await scope.context.currentPage.waitFor(1000);
   const element = await scope.context.currentPage.$('#headerTitle');
   const text = await scope.context.currentPage.evaluateHandle(
     element => element.textContent,
@@ -85,7 +85,12 @@ const checkFirstBelowSecond = async item1Name => {
 };
 
 const clickOnButtonWithText = async text => {
-  await scope.context.currentPage.click(text);
+  const [button] = await scope.context.currentPage.$x(
+    `//button[contains(., '${text}')]`,
+  );
+  if (button) {
+    await button.click();
+  }
 };
 
 module.exports = {
