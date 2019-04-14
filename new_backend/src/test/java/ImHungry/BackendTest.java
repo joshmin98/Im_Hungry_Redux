@@ -126,7 +126,7 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200);
 
-    // // finditem coverage
+    // // // finditem coverage
     response = given()
         .filter(sessionFilter)
         // .queryParam("listName", "Do Not Show")
@@ -136,7 +136,7 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200);
 
-    // // item already in list
+    // // // item already in list
     response = given()
         .filter(sessionFilter)
         // .queryParam("listName", "Favorites")
@@ -173,7 +173,7 @@ public class BackendTest extends PippoTest {
         .get("list/delete?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
     response.then()
         .statusCode(200);
-    
+     
     response = given()
         .filter(sessionFilter)
         .get("/list?listName=Favorites");
@@ -395,7 +395,76 @@ public class BackendTest extends PippoTest {
 
     }
 
-    
+    @Test
+    public void userTest() {
+        SessionFilter sessionFilter = new SessionFilter();
+        given()
+            .filter(sessionFilter)
+            .get("/user?email=blah@usc.edu")
+            .then()
+            .statusCode(200);
+    }
+
+    //start of grovery list testing
+    @Test
+    public void groceryListAdd() {
+      SessionFilter sessionFilter = new SessionFilter();
+      given()
+          .filter(sessionFilter)
+          .get("/recipes?query=pizza&limit=5")
+          .then().statusCode(200)
+          .contentType(ContentType.JSON);
+      Response response = given()
+          .filter(sessionFilter)
+          // .queryParam("listName", "Favorites")
+          // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+          // .post("/list/add");
+          // id = 559251 first recipe that was suggested 
+          .get("list/add?listName=Grocery List&id=559251");
+      response.then()
+          .statusCode(200);
+    }
+
+    @Test
+    public void groceryListDelete() {
+      SessionFilter sessionFilter = new SessionFilter();
+      given()
+          .filter(sessionFilter)
+          .get("/recipes?query=pizza&limit=5")
+          .then().statusCode(200)
+          .contentType(ContentType.JSON);
+      Response response = given()
+          .filter(sessionFilter)
+          // .queryParam("listName", "Favorites")
+          // .queryParam("id", "v5Eiu0WaNhDXBSNsAdjmUw")
+          // .post("/list/add");
+          // id = 559251 first recipe that was suggested 
+          .get("list/delete?listName=Grocery List&id=559251");
+      response.then()
+          .statusCode(200);
+
+       response = given()
+          .filter(sessionFilter)
+          .get("/list?listName=Grocery List");
+      response.then()
+          .statusCode(200);
+      JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+      assertEquals(0, result.size());
+
+       // item not in list
+      response = given()
+        .filter(sessionFilter)
+        // .queryParam("listName", "Favorites")
+        // .queryParam("id", "missing")
+        // .queryParam("moveList", "To Explore")
+        // .post("/list/move");
+        .get("list/delete?listName=Grocery List&id=missing");
+      response.then()
+        .statusCode(200);
+
+    }
+
+
 
 
 

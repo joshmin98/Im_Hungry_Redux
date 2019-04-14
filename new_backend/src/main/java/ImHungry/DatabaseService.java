@@ -26,27 +26,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DatabaseService {
 	private static Firestore database; 
-	private static Boolean databaseInitialized;
+	private static Boolean databaseInitialized = false;
  
 	/**
      * Default constructor.
 	 * @throws FileNotFoundException 
      */
     public DatabaseService() {
-    	
-    	databaseInitialized = false;
     	if(databaseInitialized == false) {
     		initializeDatabase();
     	}
-    	String json = "{\"ID\":1,\"Name\":\"Tanay Shah\",\"age\":22,\"location\":\"Los Angeles\"}";
-		pushDataToDatabase(json);
+    	// String json = "{\"ID\":2,\"Name\":\"Patrick Pacheco\",\"age\":21,\"location\":\"Los Angeles\"}";
+			// pushDataToDatabase("ppacheco@usc.edu", "Test", json);
     }
     
     private void initializeDatabase() {
 		// TODO Auto-generated method stub
     	FileInputStream serviceAccount = null;
 		try {
-			serviceAccount = new FileInputStream("/Users/tanayshah/Downloads/csci310project2-e2908-firebase-adminsdk-zz730-a1a036dd8d.json");
+			serviceAccount = new FileInputStream("/Users/pjhernandez/Downloads/csci310project2-e2908-firebase-adminsdk-zz730-a1a036dd8d.json");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -70,19 +68,21 @@ public class DatabaseService {
 		databaseInitialized = true;
 	}
     
-    public void getDataFromDatabase() {
-    	DocumentReference docRef = database.collection("tanaynsh@usc.edu").document("Search Terms");
+    public String getDataFromDatabase(String email, String something) {
+    	DocumentReference docRef = database.collection(email).document(something);
 		ApiFuture<DocumentSnapshot> futureTwo = docRef.get();
 		DocumentSnapshot document;
 		try {
 			document = futureTwo.get();
 			if(document.exists()) {
 				//Map<String, Object> myTestMap = document.getData();
-				String testString = document.getString("a");
+				String testString = document.getString("Object1");
 				System.out.println(testString);
+				return testString;
 			} 
 			else {
 				System.out.println("Document does not exist. ");
+				return "FAILED";
 			}
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -91,9 +91,10 @@ public class DatabaseService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "FAILED";
     }
     
-    public void pushDataToDatabase(String inputJSON) {
+    public void pushDataToDatabase(String email, String something, String inputJSON) {
     	
     	//convert JSON string to HashMap
     	Map<String, Object> map = new HashMap<String, Object>();
@@ -112,12 +113,12 @@ public class DatabaseService {
 		}
     	
     	Map<String, String> myMap = new HashMap<String, String>() {{
-	        put("1", "Italian");
-	        put("2", "Thai");
+	        put("Object1", inputJSON);
+	        put("Object2", "Thai");
 	    }};
 	    
 	    //Push the HashMap to the database
-		ApiFuture<WriteResult> future = database.collection("tanaynsh@usc.edu").document("Search Terms").set(map);
+		ApiFuture<WriteResult> future = database.collection(email).document(something).set(myMap);
 				//.update(map); 
 				
     }
