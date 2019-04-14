@@ -302,6 +302,17 @@ public class PippoApplication extends Application {
 
             String email = routeContext.getParameter("email").toString();
             
+            log.info(db.getDataFromDatabase(email, "Favorites"));
+            if (db.getDataFromDatabase(email, "Favorites").equals("FAILED")) {
+                db.pushDataToDatabase(email, "Favorites", "[]");
+                db.pushDataToDatabase(email, "To Explore", "[]");
+                db.pushDataToDatabase(email, "Do Not Show", "[]");
+                db.pushDataToDatabase(email, "Searches", "[]");
+                log.info("user created");
+            } else {
+                log.info("user exist");
+            }
+            
             routeContext.setSession("user", email);
 
             routeContext.send(email);

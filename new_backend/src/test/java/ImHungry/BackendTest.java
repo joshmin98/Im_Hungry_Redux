@@ -395,6 +395,15 @@ public class BackendTest extends PippoTest {
 
     }
 
+    @Test
+    public void userTest() {
+        SessionFilter sessionFilter = new SessionFilter();
+        given()
+            .filter(sessionFilter)
+            .get("/user?email=blah@usc.edu")
+            .then()
+            .statusCode(200);
+    }
     
 
 
