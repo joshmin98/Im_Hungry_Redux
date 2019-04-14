@@ -126,7 +126,7 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200);
 
-    // // finditem coverage
+    // // // finditem coverage
     response = given()
         .filter(sessionFilter)
         // .queryParam("listName", "Do Not Show")
@@ -136,7 +136,7 @@ public class BackendTest extends PippoTest {
     response.then()
         .statusCode(200);
 
-    // // item already in list
+    // // // item already in list
     response = given()
         .filter(sessionFilter)
         // .queryParam("listName", "Favorites")
