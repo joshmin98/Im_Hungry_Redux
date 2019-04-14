@@ -1,0 +1,21 @@
+#+TITLE: Scrum 5 Meeting Notes
+* Josh
+  - Since last meeting, I worked with Nhan and PJ to fix some bugs that we found on Search Page.
+  - Issues with Puppeteer are making black-box testing of the login page difficult
+  - By next meeting, I try to fix some bugs to pass all test cases
+* PJ 
+  - Since last meeting, I’ve updated all the tests for the backend and have made sure each test is passing consistently.
+  - I wasn’t able to meet with Patrick to work on the grocery list backend due to conflicting schedules. So that task will have to be pushed back. 
+  - By next meeting, I will have refactored the backend to follow our database protocol and services. 
+* Patrick
+  - Since last meeting, I have replaced where we used session to store our data with the database to have our application extend beyond a single session.
+  - N/A
+  - By next meeting, I will create  endpoints for the setting a user session and receiving recently searched terms.
+* Nhan
+  - Since last meeting, I worked with Josh to fix some bugs that we found on Search Page.
+  - N/A
+  - By next meeting, I try to fix some bugs to pass all test cases
+* Tanay
+  - Since last meeting, I worked on fixing the bugs we found in the last programming session, and created tests for the implemented features.
+  - N/A.
+  - By next meeting, we will work on finishing the migration from session storage to database. 
