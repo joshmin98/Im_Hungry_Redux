@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import axios from 'axios';
 import { List, ListItemText, InputLabel, Select, MenuItem } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';

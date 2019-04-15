@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import RestaurantInfo from './sub-components/RestaurantInfo';
-import ButtonGroup from './sub-components/ButtonGroup';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
