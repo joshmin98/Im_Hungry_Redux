@@ -1,0 +1,3 @@
+Who: Josh Min, Nhan Tran
+Where: Cafe 84, 04/13/2019, 10:00PM start time, approx 11:00PM end time
+We work on fixing some bugs together as well as refactoring some code for the front end

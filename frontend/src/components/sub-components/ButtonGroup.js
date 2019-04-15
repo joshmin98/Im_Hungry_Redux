@@ -1,27 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import axios from 'axios';
+import { List, ListItemText, InputLabel, Select, MenuItem } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    paddingRight: 30,
   },
   button: {
-    marginBottom: 10,
     width: '100%',
   },
   dropdown: {
-    marginBottom: 10,
     width: '100%',
   },
   form: {
     width: '100%',
   },
+  noPadding: {
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  center: {
+    paddingRight: 0,
+    textAlign: 'center'
+  }
 });
 
 class ButtonGroup extends React.Component {
@@ -58,7 +63,14 @@ class ButtonGroup extends React.Component {
       });
   };
   handBack = () => {
-    this.props.history.push('/search');
+    this.props.history.push({
+      pathname: '/search',
+      state: {
+        name: localStorage.getItem('name'),
+        restaurants: JSON.parse(localStorage.getItem('restaurants')),
+        recipes: JSON.parse(localStorage.getItem('recipes')),
+      },
+    });
   };
   printDocument = () => {
     this.props.restaurant
@@ -77,50 +89,56 @@ class ButtonGroup extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    console.log(this.props.info);
+    console.log(localStorage.getItem('name'));
+    console.log(JSON.parse(localStorage.getItem('restaurants')));
+    console.log(JSON.parse(localStorage.getItem('recipes')));
     return (
       <div className={classes.root}>
-        <div>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={this.printDocument}
-          >
-            Printable View
-          </Button>
-        </div>
-        <div>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={this.handBack}
-          >
-            Back to Result
-          </Button>
-        </div>
-        <div>
-          <FormControl className={classes.form}>
-            <NativeSelect
-              value={this.state.value}
-              onChange={this.handleChange}
-              className={classes.dropdown}
-            >
-              <option value="" disabled />
-              <option value={'Favorites'}>Favorites</option>
-              <option value={'To Explore'}>To Explore</option>
-              <option value={'Do Not Show'}>Do Not Show</option>
-            </NativeSelect>
-          </FormControl>
-        </div>
-        <div>
-          <Button
-            className={classes.button}
-            variant="contained"
-            onClick={this.addToList}
-          >
-            Add to List
-          </Button>
-        </div>
+        <List>
+          <ListItem className={classes.button} button>
+            <ListItemText 
+              primary="Printable View"
+              onClick={this.printDocument}
+              className={classes.center}
+            />
+          </ListItem>
+          <ListItem className={classes.button} button>
+            <ListItemText 
+              primary="Back to Result"
+              onClick={this.handBack}
+              className={classes.center}
+            />
+          </ListItem>
+          <ListItem className={classes.noPadding}>
+            <FormControl className={classes.dropdown}>
+              <InputLabel>List</InputLabel>
+              <Select
+                value={this.state.value}
+                onChange={this.handleChange}
+              >
+                <MenuItem id="" value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem id="Favorites" value={'Favorites'}>
+                  Favorites
+                </MenuItem>
+                <MenuItem id="ToExplore" value={'To Explore'}>
+                  To Explore
+                </MenuItem>
+                <MenuItem id="DoNotSow" value={'Do Not Show'}>
+                  Do Not Show
+                </MenuItem>
+              </Select>
+            </FormControl>
+          </ListItem>
+          <ListItem className={classes.button} button>
+            <ListItemText 
+              primary="Add to List"
+              onClick={this.addToList}
+              className={classes.center}
+            />
+          </ListItem>
+        </List>
       </div>
     );
   }
