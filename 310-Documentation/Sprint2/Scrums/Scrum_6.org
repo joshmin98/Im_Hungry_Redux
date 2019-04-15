@@ -1,0 +1,18 @@
+#+TITLE: Scrum 6 Meeting Notes
+* Josh
+  - Since last meeting, I worked with Nhan to fix some bugs and write tests for Pagination, as well as the recent search terms feature
+  - Issues with Puppeteer are making black-box testing of the login page difficult
+  - N/A End of Sprint.
+* PJ
+* Patrick
+  - Since last meeting, I have created endpoints for setting a user session and retrieving recently searched terms.
+  - Need to update tests after implementing database in backend.
+  - End of Sprint.
+* Nhan
+  - Since last meeting, I worked with Josh to fix some bugs that we found on Search Page to pass all of the test cases .
+  - We had some problem to with Cucumber on getting some elements’ detail.
+  - By next meeting, I will try to get the front-end code to pass all Cucumber test cases.
+* Tanay
+  - Since last meeting, I worked on testing the implemented database features and the documentation for Sprint 2.
+  - N/A.
+  - By next meeting, we will finish and submit the final documentation for Sprint 2. 
