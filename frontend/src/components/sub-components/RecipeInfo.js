@@ -67,7 +67,7 @@ class RecipeInfo extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <h1 className={classes.header}>{this.state.name}</h1>
+        <h1 className={classes.header} id={this.state.name}>{this.state.name}</h1>
         <img
           src={this.state.img}
           alt={this.state.name}

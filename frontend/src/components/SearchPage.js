@@ -108,7 +108,7 @@ class SearchPage extends React.Component {
       this.state.offset,
       this.state.offset + 5,
     );
-
+    console.log(pagRecipe);
     return (
       <div>
         <Header searchPage={true} />
@@ -116,16 +116,16 @@ class SearchPage extends React.Component {
           component="h1"
           variant="h2"
           className={classes.title}
-          id="headerTitle"
+          id="header"
         >
-          Results for "{this.props.location.state.name}"
+          {this.props.location.state !== undefined && this.props.location.state.name}
         </Typography>
         <div className={classes.photobox}>
           <PhotoCollage photos={this.state.photos} />
         </div>
         <div className={classes.root} id="searchPage">
           <Grid container spacing={16} className={classes.main}>
-            <Grid item xs={6}>
+            <Grid item xs={6} id="column1">
               {pagRestaurant.map((e, i) => {
                 return (
                   <Card
@@ -137,16 +137,17 @@ class SearchPage extends React.Component {
                     <CardActionArea
                       onClick={this.handleClickRestaurant.bind(this, e)}
                       className={classes.actionArea}
+                      id={e.name}
                     >
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h5" component="h2" className="restaurantName">
                           <b>{e.name}</b>
                         </Typography>
-                        <Typography component="p">
+                        <Typography component="p" className="drivingTime">
                           <b>Estimate Driving Time: </b>
                           {Math.ceil(e.distance / 4.4704 / 60) + ' minutes'}
                         </Typography>
-                        <Typography component="p">
+                        <Typography component="p" className="restaurantAddrress">
                           <b>Address: </b>
                           {e.location.address1 +
                             ', ' +
@@ -155,7 +156,7 @@ class SearchPage extends React.Component {
                             e.location.state +
                             e.location.zip_code}
                         </Typography>
-                        <Typography component="p">
+                        <Typography component="p" className="restaurantPhoneNumber">
                           <b>Phone: </b>
                           {e.phone}
                         </Typography>
@@ -165,7 +166,7 @@ class SearchPage extends React.Component {
                 );
               })}
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} id="column2">
               {pagRecipe.map((e, i) => {
                 return (
                   <Card
@@ -177,12 +178,13 @@ class SearchPage extends React.Component {
                     <CardActionArea
                       onClick={this.handleClickRecipe.bind(this, e)}
                       className={classes.actionArea}
+                      id={e.cuisines[0]}
                     >
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h5" component="h2" className="recipeName">
                           <b>{e.title}</b>
                         </Typography>
-                        <Typography component="p">
+                        <Typography component="p" className="cookTime">
                           <b>Cook Time: </b> {e.readyInMinutes}
                         </Typography>
                       </CardContent>

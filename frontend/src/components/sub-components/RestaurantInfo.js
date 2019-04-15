@@ -49,7 +49,7 @@ class RestaurantInfo extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
-        <h1 className={classes.header}>{this.state.name}</h1>
+        <h1 className={classes.header} id={this.state.name}>{this.state.name}</h1>
         <p id="address">
           <strong>Address:</strong>{" "}
           <p onClick={this.openGoogle} className={classes.hoverText}>

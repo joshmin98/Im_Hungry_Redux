@@ -170,7 +170,7 @@ class Header extends React.Component {
                         value={this.state.list}
                         onChange={this.handleChange}
                         input={<Input name="list" id="list" />}
-                        id="dropdown"
+                        id="listDropdown"
                       >
                         <MenuItem id="" value="">
                           <em>None</em>
