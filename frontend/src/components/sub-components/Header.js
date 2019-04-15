@@ -12,6 +12,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ButtonGroup from './ButtonGroup';
 import {
   ListItemText,
   FormControl,
@@ -138,72 +139,85 @@ class Header extends React.Component {
               <ChevronRightIcon />
             </IconButton>
             <Divider />
-            <List>
-              <ListItem className={classes.noPadding}>
-                <FormControl className={classes.dropdown}>
-                  <InputLabel>Search Terms</InputLabel>
-                  <Select
-                    value={this.state.terms}
-                    onChange={this.handleTermChange}
-                    input={<Input name="terms" id="terms" />}
-                    id="termDropdown"
-                  >
-                    <MenuItem id="" value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem id="Burger" value="Burger">
-                      Burger
-                    </MenuItem>
-                    <MenuItem id="Ramen" value="Ramen">
-                      Ramen
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </ListItem>
-              <ListItem className={classes.noPadding}>
-                <FormControl className={classes.dropdown}>
-                  <InputLabel>List</InputLabel>
-                  <Select
-                    value={this.state.list}
-                    onChange={this.handleChange}
-                    input={<Input name="list" id="list" />}
-                    id="dropdown"
-                  >
-                    <MenuItem id="" value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem id="Favorites" value={'Favorites'}>
-                      Favorites
-                    </MenuItem>
-                    <MenuItem id="ToExplore" value={'To Explore'}>
-                      To Explore
-                    </MenuItem>
-                    <MenuItem id="DoNotSow" value={'Do Not Show'}>
-                      Do Not Show
-                    </MenuItem>
-                    <MenuItem id="Grocery" value={'Grocery'}>
-                      Grocery
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </ListItem>
-              <ListItem button>
-                <ListItemText
-                  primary="Manage List"
-                  onClick={this.handleList}
-                  className={classes.marginTop}
+            {this.props.searchPage ? 
+              (
+                <List>
+                  <ListItem className={classes.noPadding}>
+                    <FormControl className={classes.dropdown}>
+                      <InputLabel>Search Terms</InputLabel>
+                      <Select
+                        value={this.state.terms}
+                        onChange={this.handleTermChange}
+                        input={<Input name="terms" id="terms" />}
+                        id="termDropdown"
+                      >
+                        <MenuItem id="" value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem id="Burger" value="Burger">
+                          Burger
+                        </MenuItem>
+                        <MenuItem id="Ramen" value="Ramen">
+                          Ramen
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  </ListItem>
+                  <ListItem className={classes.noPadding}>
+                    <FormControl className={classes.dropdown}>
+                      <InputLabel>List</InputLabel>
+                      <Select
+                        value={this.state.list}
+                        onChange={this.handleChange}
+                        input={<Input name="list" id="list" />}
+                        id="dropdown"
+                      >
+                        <MenuItem id="" value="">
+                          <em>None</em>
+                        </MenuItem>
+                        <MenuItem id="Favorites" value={'Favorites'}>
+                          Favorites
+                        </MenuItem>
+                        <MenuItem id="ToExplore" value={'To Explore'}>
+                          To Explore
+                        </MenuItem>
+                        <MenuItem id="DoNotSow" value={'Do Not Show'}>
+                          Do Not Show
+                        </MenuItem>
+                        <MenuItem id="Grocery" value={'Grocery'}>
+                          Grocery
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemText
+                      primary="Manage Lists"
+                      onClick={this.handleList}
+                      className={classes.marginTop}
+                      id="Manage Lists"
+                    />
+                  </ListItem>
+                  <ListItem button>
+                    <ListItemText
+                      primary="Return to Search"
+                      onClick={this.handleBack}
+                      id="Return to Search"
+                    />
+                  </ListItem>
+                  <ListItem id="logout" button onClick={this.handleLogout}>
+                    <ListItemText primary="Log Out" />
+                  </ListItem>
+                </List>
+              ) 
+              : 
+              (
+                <ButtonGroup 
+                  restaurant={this.props.restaurant}
+                  info={this.props.info}
+                  history={this.props.history}
                 />
-              </ListItem>
-              <ListItem button>
-                <ListItemText
-                  primary="Return to Search"
-                  onClick={this.handleBack}
-                />
-              </ListItem>
-              <ListItem id="logout" button onClick={this.handleLogout}>
-                <ListItemText primary="Log Out" />
-              </ListItem>
-            </List>
+              )}
           </div>
         </Drawer>
       </div>

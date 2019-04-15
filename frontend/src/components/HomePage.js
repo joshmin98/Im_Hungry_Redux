@@ -159,6 +159,9 @@ class HomePage extends React.Component {
       return;
     }
     this.setState({ loading: false });
+    localStorage.setItem('name', this.state.searchVal);
+    localStorage.setItem('restaurants',JSON.stringify(this.state.restaurants));
+    localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
     this.props.history.push({
       pathname: '/search',
       state: {

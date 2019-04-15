@@ -111,7 +111,7 @@ class SearchPage extends React.Component {
 
     return (
       <div>
-        <Header />
+        <Header searchPage={true} />
         <Typography
           component="h1"
           variant="h2"

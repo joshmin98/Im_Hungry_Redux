@@ -25,18 +25,18 @@ class RestaurantPage extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root} id="restaurantPrint">
-        <Header />
+        <Header 
+          searchPage={false} 
+          restaurant={true}
+          info={this.props.location.state.restaurant}
+          history={this.props.history}
+        />
         <Grid container spacing={24}>
           <Grid item xs={10} className={classes.left}>
             <RestaurantInfo info={this.props.location.state.restaurant} />
           </Grid>
           <Grid item xs={2} className={classes.right}>
-            <ButtonGroup
-              passId="restaurantPrint"
-              restaurant={true}
-              info={this.props.location.state.restaurant}
-              history={this.props.history}
-            />
+
           </Grid>
         </Grid>
       </div>
