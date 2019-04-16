@@ -1,0 +1,19 @@
+#+TITLE: Sprint 3 Planning - Review and Retrospective
+* Notes from Demo
+** Testing:
+    - More frontend test for pagination (need to show actual clicking and results page of paginated items)
+    - Backend test NEEDS to have pagination test as well
+    - The radius backend test needs to be more robust- can't simply just compare the length of the JSON response given back
+    - Tests for prior search terms need to be present
+    - More complete tests for the UI -- idk what that means?
+** Random:
+    - Put the error message in the results page if someone searches a garbage query
+    - Security:
+    - A person can’t access any feature of the application without logging in - redirect them to a login
+    - Passwords needs to be hashed - show next time in Firebase
+    - Only accessible through SSL (https)
+** UI Elements:
+    - Page numbers for results need to be bigger
+    - Actual pagination is good; For next time, 5 max pages appear one time. "Prev" and "next" button to cycle through pages. Sliding window policy for more than 5 pages. --> need to figure that out in the frontend
+* Review
+  - 
