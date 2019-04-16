@@ -46,6 +46,9 @@ public class PippoApplication extends Application {
             // String response = (listName != null) ? routeContext.getSession(listName).toString()
             //         : "{\"error\":\"missing listName parameter\"}";
             // DatabaseService db = new DatabaseService();
+
+            // // get current user
+            // String user = routeContext.getSession("user");
             String response = (listName != null) ? db.getDataFromDatabase("test@usc.edu", listName)
                     : "{\"error\":\"missing listName parameter\"}";
 
@@ -63,7 +66,8 @@ public class PippoApplication extends Application {
             
             JsonParser parser = new JsonParser();
             JsonObject item = null;
-            
+            // get current user
+            // String user = routeContext.getSession("user");
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
 
             String restaurantsString = routeContext.getSession("restaurants");
@@ -172,6 +176,8 @@ public class PippoApplication extends Application {
 
             // ArrayList<JsonObject> list = routeContext.getSession(listName);
             JsonParser parser = new JsonParser();
+            // get current user
+            // String user = routeContext.getSession("user");
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
             if (list.size() > 0) {
                 // Reordering of list by removing item at current position
@@ -189,7 +195,7 @@ public class PippoApplication extends Application {
                     log.error(iobe.getMessage());
                 }
             }
-
+            db.pushDataToDatabase("test@usc.edu", listName, list.toString());
             routeContext.send("reorder");
         });
 
@@ -204,14 +210,26 @@ public class PippoApplication extends Application {
             /*
              * {"query": "val", "limit": val, "radius": val }
              */
-            if (routeContext.getSession("Searches") == null) {
-                routeContext.setSession("Searches", new ArrayList<JsonObject>());
+            // if (routeContext.getSession("Searches") == null) {
+            //     routeContext.setSession("Searches", new ArrayList<JsonObject>());
+            // }
+            JsonParser parser = new JsonParser();
+            JsonArray searches = null;
+            // get current user
+            // String user = routeContext.getSession("user");
+            if(db.getDataFromDatabase("test@usc.edu", "Searches").equals("FAILED")) {
+                log.info("searches DOES NOT exist");
+                db.pushDataToDatabase("test@usc.edu", "Searches", "[]");
             }
+            else {
+                log.info("searches exist");
+            }
+            searches = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", "Searches"));
             String search = "{\"query\":\"" + query + "\", \"limit\": " + limit + ", \"radius\": " + radius + "}";
             log.info(search);
-            ArrayList<JsonObject> searches = routeContext.getSession("Searches");
-            searches.add((JsonObject) (new JsonParser()).parse(search));
-
+            JsonElement terms = (JsonElement) parser.parse(search);
+            searches.add(terms);
+            db.pushDataToDatabase("test@usc.edu", "Searches", searches.toString());
             /*
             // get current user
             String email = routeContext.getSession("user");;
@@ -253,7 +271,7 @@ public class PippoApplication extends Application {
             routeContext.setSession("Favorites", new ArrayList<JsonObject>());
             routeContext.setSession("To Explore", new ArrayList<JsonObject>());
             routeContext.setSession("Do Not Show", new ArrayList<JsonObject>());
-            db.pushDataToDatabase("test@usc.edu", "To Explore", "[]");
+            // db.pushDataToDatabase("test@usc.edu", "To Explore", "[]");
             routeContext.json().send(restaurants);
         });
 
@@ -301,8 +319,8 @@ public class PippoApplication extends Application {
             routeContext = setHeaders(routeContext, "GET");
 
             String email = routeContext.getParameter("email").toString();
-            
-            log.info(db.getDataFromDatabase(email, "Favorites"));
+            // when loading a new user populate all collections with empty arrays
+            log.info(db.getDataFromDatabase(email, "Favorites")); 
             if (db.getDataFromDatabase(email, "Favorites").equals("FAILED")) {
                 db.pushDataToDatabase(email, "Favorites", "[]");
                 db.pushDataToDatabase(email, "To Explore", "[]");
@@ -314,6 +332,7 @@ public class PippoApplication extends Application {
             }
             
             routeContext.setSession("user", email);
+            db.pushDataToDatabase("current", "user", email);
 
             routeContext.send(email);
         });
@@ -329,7 +348,11 @@ public class PippoApplication extends Application {
                         ? user = routeContext.getSession("user")
                         : null;
             // get previous queries and get from user from db is not null
-            ArrayList<JsonObject> searches = routeContext.getSession("Searches");
+            // ArrayList<JsonObject> searches = routeContext.getSession("Searches");
+            JsonParser parser = new JsonParser();
+            // get current user
+            // String user = routeContext.getSession("user");
+            JsonArray searches = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", "Searches"));
             /*
              * get searches from db
              * String searches = db.getDataFromDatabase(user, "Searches");
@@ -351,24 +374,20 @@ public class PippoApplication extends Application {
             // routeContext.json().send("{\"searches\": [{ \"query\": \"pizza\", \"limit\": 5,\"distance\": 5}] }");
         });
         
-        GET("/convert", routeContext -> {
-            String data = "[{\"id\":\"DXFhzx94myitMxmBhsdz8A\",\"alias\":\"traditions-los-angeles\",\"name\":\"Traditions\",\"image_url\":\"https://s3-media4.fl.yelpcdn.com/bphoto/ushDMhbnoOhefTJQf1z5mQ/o.jpg\",\"is_closed\":false,\"url\":\"https://www.yelp.com/biz/traditions-los-angeles?adjust_creative=TDGLRk9p6uqlW-mfLx7Skw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=TDGLRk9p6uqlW-mfLx7Skw\",\"review_count\":116,\"categories\":[{\"alias\":\"divebars\",\"title\":\"Dive Bars\"},{\"alias\":\"sportsbars\",\"title\":\"Sports Bars\"},{\"alias\":\"burgers\",\"title\":\"Burgers\"}],\"rating\":3.5,\"coordinates\":{\"latitude\":34.019963,\"longitude\":-118.286161},\"transactions\":[],\"price\":\"$$\",\"location\":{\"address1\":\"3607 Trousdale Pkwy\",\"address3\":\"\",\"city\":\"Los Angeles\",\"zip_code\":\"90089\",\"country\":\"US\",\"state\":\"CA\",\"display_address\":[\"3607 Trousdale Pkwy\",\"Los Angeles, CA 90089\"]},\"phone\":\"+12138213445\",\"display_phone\":\"(213) 821-3445\",\"distance\":99.67984174213088,\"type\":\"restaurant\"}]";
-            log.info(data);
-            JsonParser parser = new JsonParser();
-            // log.info(restaurantsString);
-            JsonArray test = (JsonArray) parser.parse(data);
-
-            for(JsonElement item : test) {
-                JsonObject i = item.getAsJsonObject();
-                log.info(i.toString());
-            }
-            test.add((JsonElement) parser.parse("{\"hi\":\"bye\"}"));
-            JsonElement temp = test.get(0);
-            test.set(0, test.get(1));
-            test.set(1, temp);
-
-            routeContext.json().send(test.toString());
+        GET("/curruser", routeContext -> {
+            String user = db.getDataFromDatabase("current", "user");
+            String u = routeContext.getSession("user");
+            routeContext.json().send(user + u);
         });
+
+        GET("/reset", routeContext -> {
+            String name = routeContext.getParameter("name").toString();
+            db.pushDataToDatabase("test@usc.edu", name, "[]");
+            // db.pushDataToDatabase("current", "user", "empty");
+            routeContext.send(name);
+        });
+
+        
     }
 
     

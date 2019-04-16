@@ -13,6 +13,7 @@ import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ButtonGroup from './ButtonGroup';
+import axios from 'axios';
 import {
   ListItemText,
   FormControl,
@@ -23,6 +24,8 @@ import {
 } from '@material-ui/core';
 
 import firebase from '../../config/firebaseConfig.js';
+
+const url = 'http://localhost:8338/searches';
 
 const styles = theme => ({
   root: {
@@ -57,8 +60,31 @@ class Header extends React.Component {
     open: false,
     list: '',
     terms: '',
+    searchTerm: []
   };
-
+  componentDidMount() {
+    const res = axios.get(
+      url,
+      {
+        withCredentials: true,
+        params: {
+          query: this.state.searchVal,
+          radius: this.state.distance,
+          limit: this.state.limit,
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+      },
+    ).then (res => {
+      console.log(res);
+      this.setState({searchTerm: res.data});
+    });
+  }
   handleDrawerOpen = () => {
     this.setState({
       open: true,
@@ -112,6 +138,17 @@ class Header extends React.Component {
 
   render() {
     const { classes } = this.props;
+    console.log(this.state.searchTerm);
+    let prevSearchQuery = new Set();
+    this.state.searchTerm !== [] && (
+      this.state.searchTerm.forEach(el => {
+        console.log(el.query);
+        prevSearchQuery.add(el.query)
+      })
+    );
+    console.log(prevSearchQuery);
+    let myArr = Array.from(prevSearchQuery);
+    console.log(myArr);
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.Header}>
@@ -154,12 +191,15 @@ class Header extends React.Component {
                         <MenuItem id="" value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem id="Burger" value="Burger">
-                          Burger
-                        </MenuItem>
-                        <MenuItem id="Ramen" value="Ramen">
-                          Ramen
-                        </MenuItem>
+                        {
+                          myArr.map(el => {
+                            return (
+                              <MenuItem id={el} value={el} key={el}>
+                                {el}
+                              </MenuItem>
+                            );
+                          })
+                        }
                       </Select>
                     </FormControl>
                   </ListItem>
