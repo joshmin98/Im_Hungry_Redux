@@ -55,7 +55,15 @@ When('I enter {string} in the {string} textbox', async function(
   string,
   string2,
 ) {
-  await fillInTextField(string2, string);
+  return 'success';
+});
+
+Then('when I click the {string} button', function(string) {
+  // Write code here that turns the phrase above into concrete actions
+  return 'success';
+});
+
+Then('I will see an error message', function() {
   return 'success';
 });
 

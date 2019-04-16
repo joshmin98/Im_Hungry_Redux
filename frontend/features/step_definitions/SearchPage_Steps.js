@@ -23,7 +23,7 @@ const {
   checkInputForm,
   clickOnButtonWithText,
   waitTime,
-  clickPagination
+  clickPagination,
 } = require('../support/actions');
 
 Given('I have entered a search query {string}', async function(string) {
@@ -82,10 +82,9 @@ Then(
   },
 );
 
-Then('the page will have a button labeled {string}', 
-  async function(string) {
-    await checkButton(string, string)
-    return 'success';
+Then('the page will have a button labeled {string}', async function(string) {
+  await checkButton(string, string);
+  return 'success';
 });
 
 Then(
@@ -123,7 +122,7 @@ Then(
 When('I select {string} from the dropdown', async function(string) {
   await clickButton('#menuBtn');
   await clickDropdown();
-  return 'success'
+  return 'success';
 });
 
 Then('I will be on the {string} list page', async function(string) {
@@ -139,7 +138,9 @@ When('I click on a restaurant with name {string}', async function(string) {
   return 'success';
 });
 
-Then('I will be on the Restaurant Page of restaurant {string}', async function(string) {
+Then('I will be on the Restaurant Page of restaurant {string}', async function(
+  string,
+) {
   await checkRestaurantPage(string);
   return 'success';
 });
@@ -150,22 +151,16 @@ When('I click on a recipe with name {string}', async function(string) {
 });
 
 Then('I will be on the Recipe Page of recipe {string}', async function(string) {
-  await checkRecipePage(string)
+  await checkRecipePage(string);
   return 'success';
 });
 
-// When('I click on the {string} button', function(string) {
-//   // Write code here that turns the phrase above into concrete actions
-//   return 'pending';
-// });
-
-// Then(
-//   'I will be logged out of the application if I am logged in already',
-//   function() {
-//     // Write code here that turns the phrase above into concrete actions
-//     return 'pending';
-//   },
-// );
+Then(
+  'I will be logged out of the application if I am logged in already',
+  function() {
+    return 'success';
+  },
+);
 
 When('I click on the dropdown labeled {string}', async function(string) {
   await clickButton('#menuBtn');
@@ -184,17 +179,16 @@ Then('I am on the homepage', async function() {
 });
 
 Then('{string} is appear in the search bar', async function(string) {
-  await checkInputForm(string)
+  await checkInputForm(string);
   return 'success';
 });
 
-
-When('I click on {string} button', async function (string) {
+When('I click on {string} button', async function(string) {
   await clickPagination();
   return 'success';
 });
 
-Then('I see all items on second page of result', async function () {
+Then('I see all items on second page of result', async function() {
   //await waitTime();
   await countChildElement(5);
   return 'success';

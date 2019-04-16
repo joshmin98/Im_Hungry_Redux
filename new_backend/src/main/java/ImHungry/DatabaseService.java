@@ -44,7 +44,7 @@ public class DatabaseService {
 		// TODO Auto-generated method stub
     	FileInputStream serviceAccount = null;
 		try {
-			serviceAccount = new FileInputStream("/Users/pjhernandez/Downloads/csci310project2-e2908-firebase-adminsdk-zz730-a1a036dd8d.json");
+			serviceAccount = new FileInputStream("/home/joshmin/firebase.json");
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

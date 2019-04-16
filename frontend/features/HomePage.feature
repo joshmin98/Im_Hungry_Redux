@@ -2,10 +2,10 @@ Feature: Search Page
 
 Scenario: Searching for food
   Given that I am on the homepage
-  When I enter "burger" into the text box labeled: Enter Food
-  And I enter a number greater than or equal to "1000" into the text box labeled: Distance
-  And I enter a number greater than or euqal to "5" into the text box labeled: Limit
-  And I click the button with the label: Feed Me!
+  And I have entered a search query "burger"
+  And "10" for distance
+  And "10" for the number of results to be displayed
+  And I clicked the "Feed Me!" button
   Then I will transition to the Results Page
 
 Scenario: Logging in
@@ -34,26 +34,26 @@ Scenario: Logging out
 
 Scenario: Searching for food When radius is zero
   Given that I am on the homepage
-  When I enter "burger" into the text box labeled: Enter Food
-  And I enter "0" into the text box labeled: Distance
-  And I enter "5" into the text box labeled: Limit
-  And I click the button with the label: Feed Me!
+  And I have entered a search query "burger"
+  And "0" for distance
+  And "10" for the number of results to be displayed
+  And I clicked the "Feed Me!" button
   Then I will see an error message
 
 Scenario: Searching for food When limit is zero
   Given that I am on the homepage
-  When I enter "burger" into the text box labeled: Enter Food
-  And I enter "1000" into the text box labeled: Distance
-  And I enter "0" into the text box labeled: Limit
-  And I click the button with the label: Feed Me!
+  And I have entered a search query "burger"
+  And "10" for distance
+  And "0" for the number of results to be displayed
+  And I clicked the "Feed Me!" button
   Then I will see an error message
 
 Scenario: Searching for invalid food
   Given that I am on the homepage
-  When I enter "asdfghj" into the text box labeled: Enter Food
-  And I enter "1000" into the text box labeled: Distance
-  And I enter "5" into the text box labeled: Limit
-  And I click the button with the label: Feed Me!
+  And I have entered a search query "asdjfg"
+  And "10" for distance
+  And "0" for the number of results to be displayed
+  And I clicked the "Feed Me!" button
   Then I will see an error message
 
  
