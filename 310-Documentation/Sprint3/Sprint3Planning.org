@@ -16,4 +16,11 @@
     - Page numbers for results need to be bigger
     - Actual pagination is good; For next time, 5 max pages appear one time. "Prev" and "next" button to cycle through pages. Sliding window policy for more than 5 pages. --> need to figure that out in the frontend
 * Review
-  - 
+  - We need to make *way* more robust tests for our features
+  - We still need to implement the grocery list feature
+  - There were some features that we were unaware of:
+    - Sliding window policy for pagination
+    - Having the buttons for pagination be "previous" and "next"
+    - SSL (https certificate)
+* Planning
+  - See picture
