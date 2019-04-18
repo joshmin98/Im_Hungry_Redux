@@ -1,5 +1,9 @@
 const { Given, When, Then } = require('cucumber');
-import { visitPage, clickButton, enterToTextbox } from '../support/actions.js';
+const {
+  visitPage,
+  clickButton,
+  enterToTextbox,
+} = require('../support/actions.js');
 
 Given('I am logged in and on the home page', async function() {
   visitPage('');
