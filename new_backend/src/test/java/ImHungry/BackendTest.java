@@ -1,6 +1,7 @@
 package ImHungry;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jayway.restassured.filter.session.SessionFilter;
 import com.jayway.restassured.http.ContentType;
@@ -41,15 +42,41 @@ public class BackendTest extends PippoTest {
 
     }
 
+    // bad query should return an empty results
+    @Test
+    public void testRestaurantsBadQuery() {
+        Response response = get("/restaurants?query=asdf&limit=5&radius=5");
+        System.out.println(response.toString());
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
+        assertEquals("[]", response.asString());
+    }
+
     @Test
     public void testRestaurantRadius() {
         Response response = get("/restaurants?query=burgers&limit=5&radius=0");
-        response.then().statusCode(200).contentType(ContentType.JSON);
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
 
         response = get("/restaurants?query=burgers&limit=5&radius=5");
-        response.then().statusCode(200).contentType(ContentType.JSON);
-        assertEquals(4836, response.asString().length());
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
 
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        JsonObject item0 = result.get(0).getAsJsonObject();
+        String id0 = item0.get("id").getAsString();
+        String name0 = item0.get("name").getAsString();
+        assertEquals("DXFhzx94myitMxmBhsdz8A", id0);
+        assertEquals("Traditions", name0);
+        
+        JsonObject item1 = result.get(1).getAsJsonObject();
+        String id1 = item1.get("id").getAsString();
+        String name1 = item1.get("name").getAsString();
+        assertEquals("cgMqbKO7UGLfijRqfg9kjw", id1);
+        assertEquals("The Habit Burger Grill", name1);
     }
 
     @Test
@@ -68,7 +95,7 @@ public class BackendTest extends PippoTest {
     public void testListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
         empty();
-        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")// sessionId("testFavoritesList")
+        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")
                 .then().statusCode(200).contentType(ContentType.JSON);
         Response response = given().filter(sessionFilter)
                 .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
@@ -228,17 +255,30 @@ public class BackendTest extends PippoTest {
     public void recentlySearchTestEmpty() {
         empty();
         Response response = get("/searches");
-        response.then().statusCode(200).contentType(ContentType.JSON);
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
         assertEquals("[]", response.asString());
     }
 
-    // user session test
+    // login test
     @Test
-    public void userTest() {
-        SessionFilter sessionFilter = new SessionFilter();
-        Response response = given().filter(sessionFilter).get("/user?email=blah@usc.edu");
-        response.then().statusCode(200);
+    public void loginTest() {
+        Response response = get("/login?email=blah@usc.edu");
+        response.then()
+            .statusCode(200);
+        response = get("/curruser");
         assertEquals("blah@usc.edu", response.asString());
+    }
+
+    // logout test
+    @Test
+    public void logoutTest() {
+        Response response = get("/logout");
+        response.then()
+            .statusCode(200);
+        response = get("/curruser");
+        assertEquals("empty", response.asString());
     }
 
     // start of grovery list testing
