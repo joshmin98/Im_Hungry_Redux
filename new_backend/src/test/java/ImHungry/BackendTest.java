@@ -50,6 +50,7 @@ public class BackendTest extends PippoTest {
         response.then().statusCode(200).contentType(ContentType.JSON);
         assertEquals(4836, response.asString().length());
 
+        // Compare actual results so that they match
     }
 
     @Test
@@ -211,26 +212,26 @@ public class BackendTest extends PippoTest {
     }
 
     // Start of recently searched query test
-    @Test
-    public void recentlySearchTest() {
-        empty();
-        Response response = get("/restaurants?query=burger&limit=5&radius=5");
-        response.then().statusCode(200);
-        response = get("/restaurants?query=pizza&limit=5&radius=5");
-        response.then().statusCode(200);
-        response = get("/searches");
-        response.then().statusCode(200).contentType(ContentType.JSON);
-        assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]",
-                response.asString());
-    }
+    // @Test
+    // public void recentlySearchTest() {
+    //     empty();
+    //     Response response = get("/restaurants?query=burger&limit=5&radius=5");
+    //     response.then().statusCode(200);
+    //     response = get("/restaurants?query=pizza&limit=5&radius=5");
+    //     response.then().statusCode(200);
+    //     response = get("/searches");
+    //     response.then().statusCode(200).contentType(ContentType.JSON);
+    //     assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]",
+    //             response.asString());
+    // }
     
-    @Test
-    public void recentlySearchTestEmpty() {
-        empty();
-        Response response = get("/searches");
-        response.then().statusCode(200).contentType(ContentType.JSON);
-        assertEquals("[]", response.asString());
-    }
+    // @Test
+    // public void recentlySearchTestEmpty() {
+    //     empty();
+    //     Response response = get("/searches");
+    //     response.then().statusCode(200).contentType(ContentType.JSON);
+    //     assertEquals("[]", response.asString());
+    // }
 
     // user session test
     @Test
