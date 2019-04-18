@@ -1,0 +1,22 @@
+#+TITLE: Scrum 1
+* Josh
+  - N/A
+  - N/A
+  - By next meeting I will have gotten started on writing more robust test cases for previous features (previous search terms, searching for an item, errors or search terms), and new features (grocery list manipulation)
+* PJ
+  - N/A
+  - N/A
+  - By next meeting, I will have more complete test cases for both the radius and the pagination results. Also I’ll be working on implementing security.
+* Patrick
+  - n/a
+  - n/a
+  - By next meeting, I’ll continually modify our tests to be more robust and I’ll be working with josh to implement beyond a multiple session.
+* Tanay
+  - N/A (Sprint Planning Session)
+  - N/A
+  - By next meeting, I will work on writing more robust test cases for the database push and pull methods. I will also start working on implementing the grocery list feature. 
+* Nhan
+  - N/A (Sprint planning session)
+  - N/A
+  - By next meeting, I will work on writing more robust test cases for the front-end based on the feedback from our demo.
+
