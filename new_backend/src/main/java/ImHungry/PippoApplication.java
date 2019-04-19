@@ -412,8 +412,15 @@ public class PippoApplication extends Application {
     // specify type of item, restaurant or recipe
     private String specifyType(JsonArray result, String type) {
         log.info("specifyType");
+        int page = 1;
+        int counter = 1;
         for (JsonElement item : result) {
             item.getAsJsonObject().addProperty("type", type);
+            item.getAsJsonObject().addProperty("page", page);
+            if(counter % 5 == 0) {
+                page++;
+            }
+            counter++;
         }
 
         return result.toString();
