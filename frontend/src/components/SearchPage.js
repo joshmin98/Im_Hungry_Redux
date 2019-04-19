@@ -128,7 +128,7 @@ class SearchPage extends React.Component {
         </div>
         <div className={classes.root} id="searchPage">
           <Grid container spacing={16} className={classes.main}>
-            <Grid item xs={6} id="column1">
+            <Grid item xs={6} id="restaurants">
               {pagRestaurant.map((e, i) => {
                 return (
                   <Card
@@ -140,7 +140,7 @@ class SearchPage extends React.Component {
                     <CardActionArea
                       onClick={this.handleClickRestaurant.bind(this, e)}
                       className={classes.actionArea}
-                      id={e.name}
+                      id={e.id}
                     >
                       <CardContent>
                         <Typography
@@ -180,7 +180,7 @@ class SearchPage extends React.Component {
                 );
               })}
             </Grid>
-            <Grid item xs={6} id="column2">
+            <Grid item xs={6} id="recipes">
               {pagRecipe.map((e, i) => {
                 return (
                   <Card
@@ -192,7 +192,7 @@ class SearchPage extends React.Component {
                     <CardActionArea
                       onClick={this.handleClickRecipe.bind(this, e)}
                       className={classes.actionArea}
-                      id={e.cuisines[0]}
+                      id={e.id}
                     >
                       <CardContent>
                         <Typography

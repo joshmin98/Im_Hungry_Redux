@@ -330,7 +330,6 @@ public class PippoApplication extends Application {
 
         GET("/login", routeContext -> {
             routeContext = setHeaders(routeContext, "GET");
-
             String email = routeContext.getParameter("email").toString();
             // when loading a new user populate all collections with empty arrays
             log.info(db.getDataFromDatabase(email, "Favorites")); 
@@ -351,6 +350,7 @@ public class PippoApplication extends Application {
         });
 
         GET("/logout", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
             db.pushDataToDatabase("current", "user", "empty");
             routeContext.send("logged out");
         });

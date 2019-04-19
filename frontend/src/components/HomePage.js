@@ -10,6 +10,8 @@ import UserSignIn from './sub-components/UserSignIn';
 import axios from 'axios';
 import firebase from '../config/firebaseConfig.js';
 
+import SignOutButton from './sub-components/SignOutButton';
+
 const url_restaurants = 'http://localhost:8338/restaurants';
 const url_recipes = 'http://localhost:8338/recipes';
 
@@ -56,6 +58,11 @@ const styles = theme => ({
     position: 'absolute',
     top: 10,
     right: 10,
+  },
+  flexEnd: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    flexDirection: 'row-reverse',
   },
 });
 
@@ -175,106 +182,85 @@ class HomePage extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <div className={classes.nav}>
-          {this.global.user === null ? (
-            <UserSignIn />
-          ) : (
-            <Button
-              onClick={() => {
-                firebase
-                  .auth()
-                  .signOut()
-                  .then(resp => {
-                    this.setGlobal({ user: null });
-                    console.log(this.global.user);
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  });
-              }}
-              variant="contained"
-              color="secondary"
-            >
-              Sign Out
-            </Button>
-          )}
+      <>
+        <div className={classes.flexEnd}>
+          <SignOutButton />
         </div>
-        <div>
-          <div className={classes.main}>
-            <Typography
-              component="h2"
-              variant="h1"
-              className={classes.alignCenter}
-              id="header"
-            >
-              I'm Hungry 🍽
-            </Typography>
+        <div className={classes.root}>
+          <div className={classes.nav} />
+          <div>
+            <div className={classes.main}>
+              <Typography
+                component="h2"
+                variant="h1"
+                className={classes.alignCenter}
+                id="header"
+              >
+                I'm Hungry 🍽
+              </Typography>
+            </div>
+            <Grid container spacing={16} className={classes.form}>
+              <Grid item xs={6}>
+                <TextField
+                  label="Enter Food"
+                  id="food"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  onChange={this.handleSearchChange}
+                  required={true}
+                  value={this.state.searchVal}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Distance"
+                  id="distance"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  onChange={this.handleDistanceChange}
+                  required={true}
+                />
+              </Grid>
+              <Grid item xs={3}>
+                <TextField
+                  label="Limit"
+                  id="limit"
+                  className={classes.textField}
+                  margin="normal"
+                  variant="outlined"
+                  onChange={this.handleLimit}
+                  required={true}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.smallerDiv}>
+              {this.state.loading ? (
+                <Button
+                  id="feedME"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  disabled={true}
+                >
+                  Loading...
+                </Button>
+              ) : (
+                <Button
+                  id="feedME"
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                  onClick={this.handleClick}
+                >
+                  Feed Me!
+                </Button>
+              )}
+            </Grid>
           </div>
-          <Grid container spacing={16} className={classes.form}>
-            <Grid item xs={6}>
-              <TextField
-                label="Enter Food"
-                id="food"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                onChange={this.handleSearchChange}
-                required={true}
-                disabled={this.global.user === null}
-                value={this.state.searchVal}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                label="Distance"
-                id="distance"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                disabled={this.global.user === null}
-                onChange={this.handleDistanceChange}
-                required={true}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <TextField
-                label="Limit"
-                id="limit"
-                className={classes.textField}
-                margin="normal"
-                variant="outlined"
-                disabled={this.global.user === null}
-                onChange={this.handleLimit}
-                required={true}
-              />
-            </Grid>
-          </Grid>
-          <Grid className={classes.smallerDiv}>
-            {this.state.loading ? (
-              <Button
-                id="feedME"
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                disabled={true}
-              >
-                Loading...
-              </Button>
-            ) : (
-              <Button
-                id="feedME"
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                onClick={this.handleClick}
-              >
-                Feed Me!
-              </Button>
-            )}
-          </Grid>
         </div>
-      </div>
+      </>
     );
   }
 }

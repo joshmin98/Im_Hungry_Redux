@@ -67,7 +67,14 @@ const ListManagementPage: React.FC<any> = props => {
     const [removed] = result.splice(startIdx, 1);
     result.splice(endIdx, 0, removed);
     console.log(startIdx, endIdx);
-    setList(result);
+    axios.default
+      .get(
+        `http://localhost:8338/reorder?listName=Favorites&oldPosition=${startIdx}&newPosition=${endIdx}`,
+      )
+      .then(resp => {
+        console.log(resp);
+        setList(result);
+      });
   };
 
   return (

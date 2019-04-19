@@ -1,9 +1,7 @@
 const { After, Before, AfterAll } = require('cucumber');
 const scope = require('./support/scope');
 
-Before(async () => {
-  // clean up database models, etc. here
-});
+Before(async () => {});
 
 After(async () => {
   if (scope.browser && scope.context.currentPage) {

@@ -1,11 +1,14 @@
 import React, { Component } from 'reactn';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import PrintPage from './components/PrintPage';
 import HomePage from './components/HomePage';
 import ListManagementPage from './components/ListManagementPage.tsx';
 import RestaurantPage from './components/RestaurantPage';
 import RecipePage from './components/RecipePage';
 import SearchPage from './components/SearchPage';
+import AuthPage from './components/AuthPage';
+
 import firebase from './config/firebaseConfig';
 
 export default class App extends Component {
@@ -33,7 +36,8 @@ export default class App extends Component {
       <div className="App">
         <Router>
           <>
-            <Route exact path="/" component={HomePage} />
+            <Route exact path="/" component={AuthPage} />
+            <Route exact path="/homepage" component={HomePage} />
             <Route path="/lists/:list" component={ListManagementPage} />
             <Route path="/restaurant" component={RestaurantPage} />
             <Route path="/recipe" component={RecipePage} />
