@@ -77,6 +77,12 @@ public class BackendTest extends PippoTest {
         String name1 = item1.get("name").getAsString();
         assertEquals("cgMqbKO7UGLfijRqfg9kjw", id1);
         assertEquals("The Habit Burger Grill", name1);
+
+        JsonObject item2 = result.get(2).getAsJsonObject();
+        String id2 = item2.get("id").getAsString();
+        String name2 = item2.get("name").getAsString();
+        assertEquals("dQI2N7qVsjrQ4BxnyR0pHg", id2);
+        assertEquals("Wahlburgers", name2);
     }
 
     @Test
