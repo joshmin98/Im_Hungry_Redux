@@ -1,23 +1,18 @@
 #+TITLE: Scrum 1
-4/17/2019 - RTH - 6:50PM
+4/19/2019 - RTH - 3:00 PM
 * Josh
+  - Since last meeting I started to refactor and rewrite all of the Cucumber tests. 
   - N/A
-  - N/A
-  - By next meeting I will have gotten started on writing more robust test cases for previous features (previous search terms, searching for an item, errors or search terms), and new features (grocery list manipulation)
+  - By next meeting I will have all of our Cucumber tests completed, and will have refactored the login modal into separate login/signup pages.
 * PJ
-  - N/A
-  - N/A
-  - By next meeting, I will have more complete test cases for both the radius and the pagination results. Also I’ll be working on implementing security.
+  - Since last meeting, I have added more robust test cases for the radius restaurant search.
+  - No obstacles really stopped me from meeting this goal; took only a few lines of code.
+  - By next meeting, I will have implemented complete backend test cases for the pagination results. Also I’ll be working on implementing security.
 * Patrick
-  - n/a
-  - n/a
+  - Since last meeting, I have added pagination test and implementation in the backend.
+  - N/A
   - By next meeting, I’ll continually modify our tests to be more robust and I’ll be working with josh to implement beyond a multiple session.
 * Tanay
   - N/A (Sprint Planning Session)
   - N/A
   - By next meeting, I will work on writing more robust test cases for the database push and pull methods. I will also start working on implementing the grocery list feature. 
-* Nhan
-  - N/A (Sprint planning session)
-  - N/A
-  - By next meeting, I will work on writing more robust test cases for the front-end based on the feedback from our demo.
-
