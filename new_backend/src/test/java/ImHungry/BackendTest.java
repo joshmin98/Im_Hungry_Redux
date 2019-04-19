@@ -65,9 +65,9 @@ public class BackendTest extends PippoTest {
             .statusCode(200)
             .contentType(ContentType.JSON);
 
-<<<<<<< HEAD
+
         // Compare actual results so that they match
-=======
+
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
         JsonObject item0 = result.get(0).getAsJsonObject();
         String id0 = item0.get("id").getAsString();
@@ -80,7 +80,13 @@ public class BackendTest extends PippoTest {
         String name1 = item1.get("name").getAsString();
         assertEquals("cgMqbKO7UGLfijRqfg9kjw", id1);
         assertEquals("The Habit Burger Grill", name1);
->>>>>>> f5b306e76a7fb84e5c1530d7046f4591ea9eb7d2
+
+        JsonObject item2 = result.get(2).getAsJsonObject();
+        String id2 = item2.get("id").getAsString();
+        String name2 = item2.get("name").getAsString();
+        assertEquals("dQI2N7qVsjrQ4BxnyR0pHg", id2);
+        assertEquals("Wahlburgers", name2);
+
     }
 
     @Test
@@ -255,7 +261,6 @@ public class BackendTest extends PippoTest {
     //             response.asString());
     // }
     
-<<<<<<< HEAD
     // @Test
     // public void recentlySearchTestEmpty() {
     //     empty();
@@ -263,7 +268,6 @@ public class BackendTest extends PippoTest {
     //     response.then().statusCode(200).contentType(ContentType.JSON);
     //     assertEquals("[]", response.asString());
     // }
-=======
     @Test
     public void recentlySearchTestEmpty() {
         empty();
@@ -273,7 +277,6 @@ public class BackendTest extends PippoTest {
             .contentType(ContentType.JSON);
         assertEquals("[]", response.asString());
     }
->>>>>>> f5b306e76a7fb84e5c1530d7046f4591ea9eb7d2
 
     // login test
     @Test
@@ -293,6 +296,27 @@ public class BackendTest extends PippoTest {
             .statusCode(200);
         response = get("/curruser");
         assertEquals("empty", response.asString());
+    }
+
+    // pagination test
+    @Test
+    public void paginationTest() {
+        Response response = get("/restaurants?query=burger&limit=10&radius=5");
+        response.then()
+            .statusCode(200);
+
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        int currPage = 1;
+        int counter = 1;
+        for(int i = 0; i < result.size(); ++i) {
+            JsonObject item = result.get(i).getAsJsonObject();
+            int page = item.get("page").getAsInt();
+            assertEquals(currPage, page);
+            if (counter % 5 == 0) {
+                currPage++;
+            }
+            counter++;
+        }
     }
 
     // start of grovery list testing
