@@ -298,6 +298,27 @@ public class BackendTest extends PippoTest {
         assertEquals("empty", response.asString());
     }
 
+    // pagination test
+    @Test
+    public void paginationTest() {
+        Response response = get("/restaurants?query=burger&limit=10&radius=5");
+        response.then()
+            .statusCode(200);
+
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        int currPage = 1;
+        int counter = 1;
+        for(int i = 0; i < result.size(); ++i) {
+            JsonObject item = result.get(i).getAsJsonObject();
+            int page = item.get("page").getAsInt();
+            assertEquals(currPage, page);
+            if (counter % 5 == 0) {
+                currPage++;
+            }
+            counter++;
+        }
+    }
+
     // start of grovery list testing
     // @Test
     // public void groceryListAdd() {
