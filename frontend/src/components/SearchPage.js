@@ -118,7 +118,10 @@ class SearchPage extends React.Component {
           className={classes.title}
           id="header"
         >
-          {this.props.location.state !== undefined && this.props.location.state.name}
+          Results for "
+          {this.props.location.state !== undefined &&
+            this.props.location.state.name}
+          "
         </Typography>
         <div className={classes.photobox}>
           <PhotoCollage photos={this.state.photos} />
@@ -140,14 +143,22 @@ class SearchPage extends React.Component {
                       id={e.name}
                     >
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2" className="restaurantName">
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="h2"
+                          className="restaurantName"
+                        >
                           <b>{e.name}</b>
                         </Typography>
                         <Typography component="p" className="drivingTime">
                           <b>Estimate Driving Time: </b>
                           {Math.ceil(e.distance / 4.4704 / 60) + ' minutes'}
                         </Typography>
-                        <Typography component="p" className="restaurantAddrress">
+                        <Typography
+                          component="p"
+                          className="restaurantAddrress"
+                        >
                           <b>Address: </b>
                           {e.location.address1 +
                             ', ' +
@@ -156,7 +167,10 @@ class SearchPage extends React.Component {
                             e.location.state +
                             e.location.zip_code}
                         </Typography>
-                        <Typography component="p" className="restaurantPhoneNumber">
+                        <Typography
+                          component="p"
+                          className="restaurantPhoneNumber"
+                        >
                           <b>Phone: </b>
                           {e.phone}
                         </Typography>
@@ -181,7 +195,12 @@ class SearchPage extends React.Component {
                       id={e.cuisines[0]}
                     >
                       <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2" className="recipeName">
+                        <Typography
+                          gutterBottom
+                          variant="h5"
+                          component="h2"
+                          className="recipeName"
+                        >
                           <b>{e.title}</b>
                         </Typography>
                         <Typography component="p" className="cookTime">

@@ -23,6 +23,7 @@ public class PippoApplication extends Application {
 
     private final static Logger log = LoggerFactory.getLogger(PippoApplication.class);
     private final DatabaseService db = new DatabaseService();
+    private String user = null;
 
     @Override
     protected void onInit() {
@@ -49,7 +50,9 @@ public class PippoApplication extends Application {
 
             // // get current user
             // String user = routeContext.getSession("user");
-            String response = (listName != null) ? db.getDataFromDatabase("test@usc.edu", listName)
+            // String response = (listName != null) ? db.getDataFromDatabase("test@usc.edu", listName)
+            //         : "{\"error\":\"missing listName parameter\"}";
+            String response = (listName != null) ? db.getDataFromDatabase(this.user, listName)
                     : "{\"error\":\"missing listName parameter\"}";
 
             routeContext.json().send(response);
@@ -61,14 +64,16 @@ public class PippoApplication extends Application {
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
             // DatabaseService db = new DatabaseService();
-            log.info(listName + ": " + db.getDataFromDatabase("test@usc.edu", listName));
+            // log.info(listName + ": " + db.getDataFromDatabase("test@usc.edu", listName));
+            log.info(listName + ": " + db.getDataFromDatabase(this.user, listName));
             // ArrayList<JsonObject> list = routeContext.getSession(listName);
             
             JsonParser parser = new JsonParser();
             JsonObject item = null;
             // get current user
             // String user = routeContext.getSession("user");
-            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
             String restaurantsString = routeContext.getSession("restaurants");
             // log.info(restaurantsString);
@@ -90,8 +95,10 @@ public class PippoApplication extends Application {
                 list.add(item);
             }
             
-            db.pushDataToDatabase("test@usc.edu", listName, list.toString());
-            log.info(db.getDataFromDatabase("test@usc.edu", listName));
+            // db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            // log.info(db.getDataFromDatabase("test@usc.edu", listName));
+            db.pushDataToDatabase(this.user, listName, list.toString());
+            log.info(db.getDataFromDatabase(this.user, listName));
             routeContext.send("list/add");
         });
 
@@ -107,7 +114,8 @@ public class PippoApplication extends Application {
             // get current user
             // String user = routeContext.getSession("user");
             // get list to delete from
-            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
             // get restaurant and recipe information of current query
             String restaurantsString = routeContext.getSession("restaurants");
@@ -121,7 +129,8 @@ public class PippoApplication extends Application {
                 log.info("deleted from " + listName);
                 list.remove(item);
             }
-            db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            // db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            db.pushDataToDatabase(this.user, listName, list.toString());
             // routeContext.setSession(listName, list);
             routeContext.send("list/delete");
         });
@@ -139,7 +148,8 @@ public class PippoApplication extends Application {
             // get current user
             // String user = routeContext.getSession("user");
             // get list to delete from
-            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
             // get restaurant and recipe information of current query
             String restaurantsString = routeContext.getSession("restaurants");
@@ -151,7 +161,8 @@ public class PippoApplication extends Application {
 
             if (list.contains(item)) {
                 // ArrayList<JsonObject> otherList = (ArrayList<JsonObject>) routeContext.getSession(moveList);
-                JsonArray otherList = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", moveList));
+                // JsonArray otherList = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", moveList));
+                JsonArray otherList = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, moveList));
 
                 otherList.add(item);
                 list.remove(item);
@@ -159,11 +170,13 @@ public class PippoApplication extends Application {
                 log.info("moved from " + listName + " to " + moveList);
 
                 // routeContext.setSession(moveList, otherList);
-                db.pushDataToDatabase("test@usc.edu", moveList, otherList.toString());
+                // db.pushDataToDatabase("test@usc.edu", moveList, otherList.toString());
+                db.pushDataToDatabase(this.user, moveList, otherList.toString());
             }
 
             routeContext.setSession(listName, list);
-            db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            // db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            db.pushDataToDatabase(this.user, listName, list.toString());
             routeContext.send("list/move");
         });
 
@@ -178,8 +191,10 @@ public class PippoApplication extends Application {
             JsonParser parser = new JsonParser();
             // get current user
             // String user = routeContext.getSession("user");
-            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+            JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
             if (list.size() > 0) {
+                // Reordering of list by removing item at current position
                 // Reordering of list by removing item at current position
                 // then adding it back at the new position
                 int oldPos = Integer.parseInt(oldPosition);
@@ -195,7 +210,8 @@ public class PippoApplication extends Application {
                     log.error(iobe.getMessage());
                 }
             }
-            db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            // db.pushDataToDatabase("test@usc.edu", listName, list.toString());
+            db.pushDataToDatabase(this.user, listName, list.toString());
             routeContext.send("reorder");
         });
 
@@ -215,21 +231,18 @@ public class PippoApplication extends Application {
             // }
             JsonParser parser = new JsonParser();
             JsonArray searches = null;
+
             // get current user
-            // String user = routeContext.getSession("user");
-            if(db.getDataFromDatabase("test@usc.edu", "Searches").equals("FAILED")) {
-                log.info("searches DOES NOT exist");
-                db.pushDataToDatabase("test@usc.edu", "Searches", "[]");
+            String user = db.getDataFromDatabase("current", "user");
+            if(user.equals("empty")) {
+                user = "test@usc.edu";
             }
-            else {
-                log.info("searches exist");
-            }
-            searches = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", "Searches"));
+            searches = (JsonArray) parser.parse(db.getDataFromDatabase(user, "Searches"));
             String search = "{\"query\":\"" + query + "\", \"limit\": " + limit + ", \"radius\": " + radius + "}";
             log.info(search);
             JsonElement terms = (JsonElement) parser.parse(search);
             searches.add(terms);
-            db.pushDataToDatabase("test@usc.edu", "Searches", searches.toString());
+            db.pushDataToDatabase(user, "Searches", searches.toString());
             /*
             // get current user
             String email = routeContext.getSession("user");;
@@ -315,7 +328,7 @@ public class PippoApplication extends Application {
             // routeContext.json().send(recipeJSONstring);
         });
 
-        GET("/user", routeContext -> {
+        GET("/login", routeContext -> {
             routeContext = setHeaders(routeContext, "GET");
 
             String email = routeContext.getParameter("email").toString();
@@ -333,8 +346,13 @@ public class PippoApplication extends Application {
             
             routeContext.setSession("user", email);
             db.pushDataToDatabase("current", "user", email);
+            this.user = email;
+            routeContext.send(email + " logged in");
+        });
 
-            routeContext.send(email);
+        GET("/logout", routeContext -> {
+            db.pushDataToDatabase("current", "user", "empty");
+            routeContext.send("logged out");
         });
 
         GET("/searches", routeContext -> {
@@ -344,15 +362,17 @@ public class PippoApplication extends Application {
                         : "empty";
             log.info(email);
             // get current user
-            String user = !email.equals("empty") 
-                        ? user = routeContext.getSession("user")
-                        : null;
+            // String user = !email.equals("empty") 
+            //             ? user = routeContext.getSession("user")
+            //             : null;
             // get previous queries and get from user from db is not null
             // ArrayList<JsonObject> searches = routeContext.getSession("Searches");
             JsonParser parser = new JsonParser();
-            // get current user
+            // get current user 
+            // should be stored when calling the /login endpoint
             // String user = routeContext.getSession("user");
-            JsonArray searches = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", "Searches"));
+            log.info(this.user);
+            JsonArray searches = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, "Searches"));
             /*
              * get searches from db
              * String searches = db.getDataFromDatabase(user, "Searches");
@@ -362,22 +382,19 @@ public class PippoApplication extends Application {
             String response;
             if(searches != null) {
                 log.info(searches.toString());
-                // routeContext.json().send(searches.toString());
                 response = searches.toString();
             }
             else {
                 log.info("empty");
-                // routeContext.json().send("[]");
                 response = "[]";
             }
             routeContext.json().send(response);
-            // routeContext.json().send("{\"searches\": [{ \"query\": \"pizza\", \"limit\": 5,\"distance\": 5}] }");
         });
         
         GET("/curruser", routeContext -> {
             String user = db.getDataFromDatabase("current", "user");
-            String u = routeContext.getSession("user");
-            routeContext.json().send(user + u);
+            // String u = routeContext.getSession("user");
+            routeContext.send(user);
         });
 
         GET("/reset", routeContext -> {

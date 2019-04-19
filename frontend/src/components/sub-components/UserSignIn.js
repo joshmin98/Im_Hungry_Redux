@@ -8,6 +8,7 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import firebase from '../../config/firebaseConfig';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -92,9 +93,9 @@ class UserSignIn extends React.Component {
         .auth()
         .signInWithEmailAndPassword(this.state.email, this.state.password)
         .then(resp => {
-          this.setGlobal({ user: resp });
+          this.setGlobal({ user: resp.user.email });
           this.setState({ open: false });
-          console.log('LOGGED IN');
+          console.log(this.global.user);
         })
         .catch(error => {
           console.log(error);

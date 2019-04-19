@@ -18,16 +18,14 @@ export default class App extends Component {
     firebase.auth().onAuthStateChanged(user => {
       if (user) {
         this.setGlobal({
-          user,
+          user: user.email,
         });
-        console.log(user);
       } else {
         this.setGlobal({
           user: null,
         });
       }
     });
-    console.log(this.global.user);
   }
 
   render() {

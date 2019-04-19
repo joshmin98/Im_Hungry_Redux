@@ -60,30 +60,33 @@ class Header extends React.Component {
     open: false,
     list: '',
     terms: '',
-    searchTerm: []
+    searchTerm: [],
   };
   componentDidMount() {
-    const res = axios.get(
-      url,
-      {
-        withCredentials: true,
-        params: {
-          query: this.state.searchVal,
-          radius: this.state.distance,
-          limit: this.state.limit,
+    const res = axios
+      .get(
+        url,
+        {
+          withCredentials: true,
+          params: {
+            query: this.state.searchVal,
+            radius: this.state.distance,
+            limit: this.state.limit,
+          },
         },
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+          },
         },
-      },
-    ).then (res => {
-      console.log(res);
-      this.setState({searchTerm: res.data});
-    });
+      )
+      .then(res => {
+        console.log(res);
+        this.setState({ searchTerm: res.data });
+      });
+    console.log(res);
   }
   handleDrawerOpen = () => {
     this.setState({
@@ -140,12 +143,11 @@ class Header extends React.Component {
     const { classes } = this.props;
     console.log(this.state.searchTerm);
     let prevSearchQuery = new Set();
-    this.state.searchTerm !== [] && (
+    this.state.searchTerm !== [] &&
       this.state.searchTerm.forEach(el => {
         console.log(el.query);
-        prevSearchQuery.add(el.query)
-      })
-    );
+        prevSearchQuery.add(el.query);
+      });
     console.log(prevSearchQuery);
     let myArr = Array.from(prevSearchQuery);
     console.log(myArr);
@@ -176,88 +178,83 @@ class Header extends React.Component {
               <ChevronRightIcon />
             </IconButton>
             <Divider />
-            {this.props.searchPage ? 
-              (
-                <List>
-                  <ListItem className={classes.noPadding}>
-                    <FormControl className={classes.dropdown}>
-                      <InputLabel>Search Terms</InputLabel>
-                      <Select
-                        value={this.state.terms}
-                        onChange={this.handleTermChange}
-                        input={<Input name="terms" id="terms" />}
-                        id="termDropdown"
-                      >
-                        <MenuItem id="" value="">
-                          <em>None</em>
-                        </MenuItem>
-                        {
-                          myArr.map(el => {
-                            return (
-                              <MenuItem id={el} value={el} key={el}>
-                                {el}
-                              </MenuItem>
-                            );
-                          })
-                        }
-                      </Select>
-                    </FormControl>
-                  </ListItem>
-                  <ListItem className={classes.noPadding}>
-                    <FormControl className={classes.dropdown}>
-                      <InputLabel>List</InputLabel>
-                      <Select
-                        value={this.state.list}
-                        onChange={this.handleChange}
-                        input={<Input name="list" id="list" />}
-                        id="listDropdown"
-                      >
-                        <MenuItem id="" value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem id="Favorites" value={'Favorites'}>
-                          Favorites
-                        </MenuItem>
-                        <MenuItem id="ToExplore" value={'To Explore'}>
-                          To Explore
-                        </MenuItem>
-                        <MenuItem id="DoNotSow" value={'Do Not Show'}>
-                          Do Not Show
-                        </MenuItem>
-                        <MenuItem id="Grocery" value={'Grocery'}>
-                          Grocery
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemText
-                      primary="Manage Lists"
-                      onClick={this.handleList}
-                      className={classes.marginTop}
-                      id="Manage Lists"
-                    />
-                  </ListItem>
-                  <ListItem button>
-                    <ListItemText
-                      primary="Return to Search"
-                      onClick={this.handleBack}
-                      id="Return to Search"
-                    />
-                  </ListItem>
-                  <ListItem id="logout" button onClick={this.handleLogout}>
-                    <ListItemText primary="Log Out" />
-                  </ListItem>
-                </List>
-              ) 
-              : 
-              (
-                <ButtonGroup 
-                  restaurant={this.props.restaurant}
-                  info={this.props.info}
-                  history={this.props.history}
-                />
-              )}
+            {this.props.searchPage ? (
+              <List>
+                <ListItem className={classes.noPadding}>
+                  <FormControl className={classes.dropdown}>
+                    <InputLabel>Search Terms</InputLabel>
+                    <Select
+                      value={this.state.terms}
+                      onChange={this.handleTermChange}
+                      input={<Input name="terms" id="terms" />}
+                      id="termDropdown"
+                    >
+                      <MenuItem id="" value="">
+                        <em>None</em>
+                      </MenuItem>
+                      {myArr.map(el => {
+                        return (
+                          <MenuItem id={el} value={el} key={el}>
+                            {el}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  </FormControl>
+                </ListItem>
+                <ListItem className={classes.noPadding}>
+                  <FormControl className={classes.dropdown}>
+                    <InputLabel>List</InputLabel>
+                    <Select
+                      value={this.state.list}
+                      onChange={this.handleChange}
+                      input={<Input name="list" id="list" />}
+                      id="listDropdown"
+                    >
+                      <MenuItem id="" value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem id="Favorites" value={'Favorites'}>
+                        Favorites
+                      </MenuItem>
+                      <MenuItem id="ToExplore" value={'To Explore'}>
+                        To Explore
+                      </MenuItem>
+                      <MenuItem id="DoNotSow" value={'Do Not Show'}>
+                        Do Not Show
+                      </MenuItem>
+                      <MenuItem id="Grocery" value={'Grocery'}>
+                        Grocery
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                </ListItem>
+                <ListItem button>
+                  <ListItemText
+                    primary="Manage Lists"
+                    onClick={this.handleList}
+                    className={classes.marginTop}
+                    id="Manage Lists"
+                  />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText
+                    primary="Return to Search"
+                    onClick={this.handleBack}
+                    id="Return to Search"
+                  />
+                </ListItem>
+                <ListItem id="logout" button onClick={this.handleLogout}>
+                  <ListItemText primary="Log Out" />
+                </ListItem>
+              </List>
+            ) : (
+              <ButtonGroup
+                restaurant={this.props.restaurant}
+                info={this.props.info}
+                history={this.props.history}
+              />
+            )}
           </div>
         </Drawer>
       </div>

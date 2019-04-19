@@ -160,7 +160,7 @@ class HomePage extends React.Component {
     }
     this.setState({ loading: false });
     localStorage.setItem('name', this.state.searchVal);
-    localStorage.setItem('restaurants',JSON.stringify(this.state.restaurants));
+    localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));
     localStorage.setItem('recipes', JSON.stringify(this.state.recipes));
     this.props.history.push({
       pathname: '/search',
@@ -221,6 +221,7 @@ class HomePage extends React.Component {
                 variant="outlined"
                 onChange={this.handleSearchChange}
                 required={true}
+                disabled={this.global.user === null}
                 value={this.state.searchVal}
               />
             </Grid>
@@ -231,6 +232,7 @@ class HomePage extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                disabled={this.global.user === null}
                 onChange={this.handleDistanceChange}
                 required={true}
               />
@@ -242,6 +244,7 @@ class HomePage extends React.Component {
                 className={classes.textField}
                 margin="normal"
                 variant="outlined"
+                disabled={this.global.user === null}
                 onChange={this.handleLimit}
                 required={true}
               />
