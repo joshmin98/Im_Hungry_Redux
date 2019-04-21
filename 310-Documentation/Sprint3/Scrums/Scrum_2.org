@@ -1,0 +1,18 @@
+#+TITLE: Scrum 1
+4/21/2019 - Cafe 84 - 3:00 PM
+* Josh
+  - Since last meeting I refactored all of our frontend tests, as well as refactoring the login/signup page (separating into components), and wrote new tests for the login/signup feature
+  - N/A
+  - By next meeting I will write tests for the new pagination feature
+* PJ
+  - Since last meeting I helped patrick develop tests for pagination in the backend. Both of us also planned what the grocery list implementation should look like. 
+  - There was some miscommunication at the start of the implementation but other than that everything went smoothly.
+  - By next meeting, we will have robust tests for the grocery list and its implementation.
+* Patrick
+  - Since last meeting, I worked with the backend team to plan out grocery list implementation, and started making necessary changes to the DatabaseService methods to implement the feature. 
+  - Since we are not entirely sure what the stakeholders are looking for in the grocery list feature, it is slowing us down. 
+  - By next meeting, I will work on the backend implementation for grocery list. 
+* Tanay
+  - Since last meeting I refactored frontend tests with Josh, and change the logic of Pagination from the feedback.
+  - N/A
+  - By next meeting I will have the front-end for the Grocery List done
