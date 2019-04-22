@@ -43,15 +43,7 @@ public class PippoApplication extends Application {
             String listName = (routeContext.getParameter("listName") != null)
                     ? routeContext.getParameter("listName").toString()
                     : null;
-            // ArrayList<JsonObject> list = routeContext.getSession(listName);
-            // String response = (listName != null) ? routeContext.getSession(listName).toString()
-            //         : "{\"error\":\"missing listName parameter\"}";
-            // DatabaseService db = new DatabaseService();
 
-            // // get current user
-            // String user = routeContext.getSession("user");
-            // String response = (listName != null) ? db.getDataFromDatabase("test@usc.edu", listName)
-            //         : "{\"error\":\"missing listName parameter\"}";
             String response = (listName != null) ? db.getDataFromDatabase(this.user, listName)
                     : "{\"error\":\"missing listName parameter\"}";
 
@@ -63,32 +55,16 @@ public class PippoApplication extends Application {
             log.info("list add");
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
-            // DatabaseService db = new DatabaseService();
             // log.info(listName + ": " + db.getDataFromDatabase("test@usc.edu", listName));
             log.info(listName + ": " + db.getDataFromDatabase(this.user, listName));
-            // ArrayList<JsonObject> list = routeContext.getSession(listName);
+
             
             JsonParser parser = new JsonParser();
             JsonObject item = null;
-            // get current user
-            // String user = routeContext.getSession("user");
-            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
-            String restaurantsString = routeContext.getSession("restaurants");
-            // log.info(restaurantsString);
-            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
-
-            String recipesString = routeContext.getSession("recipes");
-            JsonArray recipes = (JsonArray) parser.parse(recipesString);
-
-            item = findItem(restaurants, recipes, id);
-
-            // if (!list.contains(item)) {
-            //     log.info("added to " + listName);
-            //     list.add(item);
-            // }
-            // routeContext.setSession(listName, list);
+            item = findItem(routeContext, id);
 
             if(!list.contains(item)) {
                 log.info("added to " + listName);
@@ -108,22 +84,13 @@ public class PippoApplication extends Application {
             String listName = routeContext.getParameter("listName").toString();
             String id = routeContext.getParameter("id").toString();
             
-            // ArrayList<JsonObject> list = routeContext.getSession(listName);
             JsonParser parser = new JsonParser();
             JsonObject item = null;
-            // get current user
-            // String user = routeContext.getSession("user");
-            // get list to delete from
-            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
             // get restaurant and recipe information of current query
-            String restaurantsString = routeContext.getSession("restaurants");
-            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
-            String recipesString = routeContext.getSession("recipes");
-            JsonArray recipes = (JsonArray) parser.parse(recipesString);
-
-            item = findItem(restaurants, recipes, id);
+            item = findItem(routeContext, id);
 
             if (list.contains(item)) {
                 log.info("deleted from " + listName);
@@ -142,26 +109,15 @@ public class PippoApplication extends Application {
             String id = routeContext.getParameter("id").toString();
             String moveList = routeContext.getParameter("moveList").toString();
 
-            // ArrayList<JsonObject> list = routeContext.getSession(listName);
             JsonParser parser = new JsonParser();
             JsonObject item = null;
-            // get current user
-            // String user = routeContext.getSession("user");
-            // get list to delete from
-            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
 
             // get restaurant and recipe information of current query
-            String restaurantsString = routeContext.getSession("restaurants");
-            JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
-            String recipesString = routeContext.getSession("recipes");
-            JsonArray recipes = (JsonArray) parser.parse(recipesString);
-
-            item = findItem(restaurants, recipes, id);
+            item = findItem(routeContext, id);
 
             if (list.contains(item)) {
-                // ArrayList<JsonObject> otherList = (ArrayList<JsonObject>) routeContext.getSession(moveList);
-                // JsonArray otherList = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", moveList));
                 JsonArray otherList = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, moveList));
 
                 otherList.add(item);
@@ -169,8 +125,6 @@ public class PippoApplication extends Application {
 
                 log.info("moved from " + listName + " to " + moveList);
 
-                // routeContext.setSession(moveList, otherList);
-                // db.pushDataToDatabase("test@usc.edu", moveList, otherList.toString());
                 db.pushDataToDatabase(this.user, moveList, otherList.toString());
             }
 
@@ -187,14 +141,10 @@ public class PippoApplication extends Application {
             String oldPosition = routeContext.getParameter("oldPosition").toString();
             String newPosition = routeContext.getParameter("newPosition").toString();
 
-            // ArrayList<JsonObject> list = routeContext.getSession(listName);
             JsonParser parser = new JsonParser();
-            // get current user
-            // String user = routeContext.getSession("user");
-            // JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase("test@usc.edu", listName));
+
             JsonArray list = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, listName));
             if (list.size() > 0) {
-                // Reordering of list by removing item at current position
                 // Reordering of list by removing item at current position
                 // then adding it back at the new position
                 int oldPos = Integer.parseInt(oldPosition);
@@ -204,8 +154,6 @@ public class PippoApplication extends Application {
                     JsonElement item = list.get(oldPos);
                     list.set(oldPos, list.get(newPos));
                     list.set(newPos, item);
-                    // list.remove(oldPos);
-                    // list.add(newPos, item);
                 } catch (IndexOutOfBoundsException iobe) {
                     log.error(iobe.getMessage());
                 }
@@ -226,9 +174,7 @@ public class PippoApplication extends Application {
             /*
              * {"query": "val", "limit": val, "radius": val }
              */
-            // if (routeContext.getSession("Searches") == null) {
-            //     routeContext.setSession("Searches", new ArrayList<JsonObject>());
-            // }
+
             JsonParser parser = new JsonParser();
             JsonArray searches = null;
 
@@ -243,19 +189,6 @@ public class PippoApplication extends Application {
             JsonElement terms = (JsonElement) parser.parse(search);
             searches.add(terms);
             db.pushDataToDatabase(user, "Searches", searches.toString());
-            /*
-            // get current user
-            String email = routeContext.getSession("user");;
-            String user = !email.equals("empty") 
-                        ? user = routeContext.getSession("user")
-                        : null;
-            // get from db
-            String searches = db.getDataFromDatabase(user, "Searches");
-            // convert string into array list/ jsonarray
-            // add to list
-            // update the string in db
-            db.pushDataToDatabase(user, "Searches", inputJSON);
-            */
 
             radius = ConvertfromMilestoMeters(radius);
             String restaurantJSONstring = "";
@@ -361,16 +294,8 @@ public class PippoApplication extends Application {
                         ? routeContext.getParameter("email").toString()
                         : "empty";
             log.info(email);
-            // get current user
-            // String user = !email.equals("empty") 
-            //             ? user = routeContext.getSession("user")
-            //             : null;
-            // get previous queries and get from user from db is not null
-            // ArrayList<JsonObject> searches = routeContext.getSession("Searches");
+
             JsonParser parser = new JsonParser();
-            // get current user 
-            // should be stored when calling the /login endpoint
-            // String user = routeContext.getSession("user");
             log.info(this.user);
             JsonArray searches = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, "Searches"));
             /*
@@ -403,8 +328,6 @@ public class PippoApplication extends Application {
             // db.pushDataToDatabase("current", "user", "empty");
             routeContext.send(name);
         });
-
-        
     }
 
     
@@ -426,8 +349,16 @@ public class PippoApplication extends Application {
         return result.toString();
     }
 
-    private JsonObject findItem(JsonArray restaurants, JsonArray recipes, String id) {
+    // private JsonObject findItem(JsonArray restaurants, JsonArray recipes, String id) {
+    private JsonObject findItem(RouteContext routeContext, String id) {
         log.info("findItem");
+
+        JsonParser parser = new JsonParser();
+        String restaurantsString = routeContext.getSession("restaurants");
+        JsonArray restaurants = (JsonArray) parser.parse(restaurantsString);
+        String recipesString = routeContext.getSession("recipes");
+        JsonArray recipes = (JsonArray) parser.parse(recipesString);
+
         for (JsonElement item : restaurants) {
             JsonObject i = item.getAsJsonObject();
             log.info(i.get("id").getAsString());
