@@ -43,3 +43,7 @@ Then(
 Then('there will be a {string} alert', async function(string) {
   return 'success';
 });
+
+Then('I will not see the {string} button', function(string) {
+  return 'pending';
+});
