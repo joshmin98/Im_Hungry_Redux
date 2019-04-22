@@ -21,8 +21,10 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import java.util.Objects;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URL;
 
 public class DatabaseService {
 	private static Firestore database; 
@@ -44,11 +46,15 @@ public class DatabaseService {
 		// TODO Auto-generated method stub
     	FileInputStream serviceAccount = null;
 		try {
-			serviceAccount = new FileInputStream("/home/joshmin/firebase.json");
+                  ClassLoader classLoader = DatabaseService.class.getClassLoader();
+                  URL res = Objects.requireNonNull(classLoader.getResource("firebase.json"));
+                      serviceAccount = new FileInputStream(res.getFile());
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		} catch (IOException ioe) {
+                  ioe.printStackTrace();
+                }
 
 		FirebaseOptions options = null;
 		try {
