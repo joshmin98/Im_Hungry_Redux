@@ -287,6 +287,7 @@ public class PippoApplication extends Application {
         GET("/logout", routeContext -> {
             routeContext = setHeaders(routeContext, "GET");
             db.pushDataToDatabase("current", "user", "empty");
+            this.user = "empty";
             routeContext.send("logged out");
         });
 
@@ -321,7 +322,7 @@ public class PippoApplication extends Application {
         GET("/curruser", routeContext -> {
             String user = db.getDataFromDatabase("current", "user");
             // String u = routeContext.getSession("user");
-            routeContext.send("db: " + user + ", client" + this.user);
+            routeContext.send(this.user);
         });
 
         GET("/reset", routeContext -> {
@@ -331,12 +332,14 @@ public class PippoApplication extends Application {
         });
 
         GET("/grocery", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
             String response = db.getDataFromDatabase(this.user, "Grocery");
 
             routeContext.json().send(response);
         });
 
         GET("/grocery/add", routeContext -> {
+            routeContext = setHeaders(routeContext, "GET");
             String id = routeContext.getParameter("id").toString();
 
             JsonParser parser = new JsonParser();
@@ -365,7 +368,7 @@ public class PippoApplication extends Application {
         });
 
         GET("/grocery/delete", routeContext -> {
-
+            
         });
     }
 
