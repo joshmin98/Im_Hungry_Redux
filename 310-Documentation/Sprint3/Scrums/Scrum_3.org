@@ -1,0 +1,23 @@
+#+TITLE: Scrum 3 Notes
+King Hall, 4/22/2019, 5:15PM
+
+* Josh
+  - Since our last meeting I created tests for the grocery list feature. (To be implemented)
+  - N/A
+  - By next meeting I will improve tests for the pagination feature and work further on the grocery list feature
+* PJ
+  - Since last meeting, me and Josh sat down to write the backend test for the grocery list.
+  - Lots of assignments and deadlines from other classes
+  - By next meeting, we will integrate the Travis CI with all of the backend tests and also complete all backend functionality. 
+* Tanay
+  - Since last meeting, I updated the database schema  
+  - Since we are not entirely sure what the stakeholders are looking for in the grocery list feature, it is slowing us down. 
+  - By next meeting, I will work on the backend implementation for grocery list. 
+* Patrick
+  - Since last meeting, Josh and I tested the frontend and backend implementations for extending our application beyond one session.
+  - Travis-CI failing as we are implementing the grocery list.
+  - I will be working on the backend implementation of the grocery list.
+* Nhan
+  - Since last meeting I worked with PJ on the front end of Grocery List
+  - Lots of frontend logic that I have to figure out to make it fully working.
+  - By next meeting I will have the front-end for the Grocery List done.
