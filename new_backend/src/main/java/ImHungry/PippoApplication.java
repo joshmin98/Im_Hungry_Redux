@@ -271,6 +271,7 @@ public class PippoApplication extends Application {
                 db.pushDataToDatabase(email, "To Explore", "[]");
                 db.pushDataToDatabase(email, "Do Not Show", "[]");
                 db.pushDataToDatabase(email, "Searches", "[]");
+                db.pushDataToDatabase(email, "Grocery", "[]");
                 log.info("user created");
             } else {
                 log.info("user exist");
@@ -327,6 +328,44 @@ public class PippoApplication extends Application {
             db.pushDataToDatabase("test@usc.edu", name, "[]");
             // db.pushDataToDatabase("current", "user", "empty");
             routeContext.send(name);
+        });
+
+        GET("/grocery", routeContext -> {
+            String response = db.getDataFromDatabase(this.user, "Grocery");
+
+            routeContext.json().send(response);
+        });
+
+        GET("/grocery/add", routeContext -> {
+            String id = routeContext.getParameter("id").toString();
+
+            JsonParser parser = new JsonParser();
+            JsonObject item = null;
+            item = findItem(routeContext, id);
+            JsonArray groceryList = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, "Grocery"));
+            JsonArray ai = item.get("analyzedInstructions").getAsJsonArray();
+            JsonArray steps = ai.get(0).getAsJsonObject().get("steps").getAsJsonArray();
+            for(JsonElement el : steps) {
+                JsonArray ingredients = el.getAsJsonObject().get("ingredients").getAsJsonArray();
+                log.info(ingredients.toString());
+                for(JsonElement i : ingredients) {
+                    JsonObject groceryItem = new JsonObject();
+                    groceryItem.addProperty("recipe", item.get("title").toString());
+                    groceryItem.addProperty("name", i.getAsJsonObject().get("name").toString());
+                    log.info(groceryItem.toString());
+                    if(!groceryList.contains(groceryItem)) {
+                        groceryList.add(groceryItem);
+                    }
+                }
+            }
+            log.info(groceryList.toString());
+            db.pushDataToDatabase(this.user, "Grocery", groceryList.toString());
+            // log.info(item.toString());
+            routeContext.json().send("grocery add");
+        });
+
+        GET("/grocery/delete", routeContext -> {
+
         });
     }
 
