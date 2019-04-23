@@ -49,16 +49,16 @@ const styles = theme => ({
   },
   pagination: {
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
   },
   pagButtonInactive: {
     marginTop: 13,
-    color: 'darkgray'
+    color: 'darkgray',
   },
   pagButtonActive: {
     marginTop: 13,
-    color: '#3f51b5'
-  }
+    color: '#3f51b5',
+  },
 });
 
 class SearchPage extends React.Component {
@@ -67,7 +67,7 @@ class SearchPage extends React.Component {
     restaurants: [],
     recipes: [],
     photos: [],
-    size: 0
+    size: 0,
   };
   componentDidMount() {
     var photos = [];
@@ -87,7 +87,7 @@ class SearchPage extends React.Component {
           : 0,
       ),
       photos: photos,
-      size: this.props.location.state.restaurants.length
+      size: this.props.location.state.restaurants.length,
     });
   }
   handleClick(offset) {
@@ -113,13 +113,13 @@ class SearchPage extends React.Component {
   }
   handleBackToFist() {
     this.setState({
-      offset: 0
-    })
+      offset: 0,
+    });
   }
   handleToLast() {
     this.setState({
-      offset: (this.state.size-5)
-    })
+      offset: this.state.size - 5,
+    });
   }
   render() {
     console.log(this.props.location);
@@ -238,36 +238,53 @@ class SearchPage extends React.Component {
             </Grid>
           </Grid>
           <Grid container>
-              <Grid item>
-                <Button 
-                  className={this.state.offset !== 0 ? classes.pagButtonActive : classes.pagButtonInactive}
-                  disabled={this.state.offset === 0 ? true : false}
-                  onClick={this.state.offset !== 0 && this.handleBackToFist.bind(this)}
-                >
-                  First
-                </Button>
-              </Grid>
-              <Grid item>
+            <Grid item>
+              <Button
+                className={
+                  this.state.offset !== 0
+                    ? classes.pagButtonActive
+                    : classes.pagButtonInactive
+                }
+                disabled={this.state.offset === 0 ? true : false}
+                onClick={
+                  this.state.offset !== 0 && this.handleBackToFist.bind(this)
+                }
+              >
+                First
+              </Button>
+            </Grid>
+            <Grid item>
+              <div id="pagination">
                 <Pagination
                   className={classes.pagination}
                   limit={5}
                   offset={this.state.offset}
                   total={this.state.size}
                   onClick={(e, offset) => this.handleClick(offset)}
-                  size='large'
+                  size="large"
                   previousPageLabel="Previous"
                   nextPageLabel="next"
                 />
-              </Grid>
-              <Grid item>
-                <Button 
-                  className={this.state.offset === 0 ? classes.pagButtonActive : classes.pagButtonInactive}
-                  disabled={this.state.offset === (this.state.size-5) ? true : false}
-                  onClick={this.state.offset !== (this.state.size-5) && this.handleToLast.bind(this)}
-                >
-                  Last
-                </Button>
-              </Grid>
+              </div>
+            </Grid>
+            <Grid item>
+              <Button
+                className={
+                  this.state.offset === 0
+                    ? classes.pagButtonActive
+                    : classes.pagButtonInactive
+                }
+                disabled={
+                  this.state.offset === this.state.size - 5 ? true : false
+                }
+                onClick={
+                  this.state.offset !== this.state.size - 5 &&
+                  this.handleToLast.bind(this)
+                }
+              >
+                Last
+              </Button>
+            </Grid>
           </Grid>
         </div>
       </div>
