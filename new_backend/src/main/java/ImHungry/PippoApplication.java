@@ -23,7 +23,8 @@ public class PippoApplication extends Application {
 
     private final static Logger log = LoggerFactory.getLogger(PippoApplication.class);
     private final DatabaseService db = new DatabaseService();
-    private String user = null;
+    // private String user = null;
+    private String user = "test@usc.edu";
 
     @Override
     protected void onInit() {
@@ -183,7 +184,7 @@ public class PippoApplication extends Application {
             if(user.equals("empty")) {
                 user = "test@usc.edu";
             }
-            searches = (JsonArray) parser.parse(db.getDataFromDatabase(user, "Searches"));
+            searches = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, "Searches"));
             String search = "{\"query\":\"" + query + "\", \"limit\": " + limit + ", \"radius\": " + radius + "}";
             log.info(search);
             JsonElement terms = (JsonElement) parser.parse(search);
@@ -320,13 +321,12 @@ public class PippoApplication extends Application {
         GET("/curruser", routeContext -> {
             String user = db.getDataFromDatabase("current", "user");
             // String u = routeContext.getSession("user");
-            routeContext.send(user);
+            routeContext.send("db: " + user + ", client" + this.user);
         });
 
         GET("/reset", routeContext -> {
             String name = routeContext.getParameter("name").toString();
             db.pushDataToDatabase("test@usc.edu", name, "[]");
-            // db.pushDataToDatabase("current", "user", "empty");
             routeContext.send(name);
         });
 
@@ -361,7 +361,7 @@ public class PippoApplication extends Application {
             log.info(groceryList.toString());
             db.pushDataToDatabase(this.user, "Grocery", groceryList.toString());
             // log.info(item.toString());
-            routeContext.json().send("grocery add");
+            routeContext.send("grocery add");
         });
 
         GET("/grocery/delete", routeContext -> {
