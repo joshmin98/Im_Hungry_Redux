@@ -317,7 +317,6 @@ public class BackendTest extends PippoTest {
             counter++;
         }
     }
-
    
     @Test
     public void groceryListAdd() {
@@ -331,6 +330,7 @@ public class BackendTest extends PippoTest {
         response.then().statusCode(200);
         
         response = given().filter(sessionFilter).get("/grocery");
+        response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
         assertEquals("pizza dough", result.get(0).getAsJsonObject().get("name").getAsString());
@@ -342,26 +342,29 @@ public class BackendTest extends PippoTest {
         assertEquals("chives", result.get(6).getAsJsonObject().get("name").getAsString());
     }
 
-    // @Test
-    // public void groceryListDelete() {
-    //     SessionFilter sessionFilter = new SessionFilter();
-    //     init();
-    //     given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")// sessionId("testFavoritesList")
-    //             .then().statusCode(200).contentType(ContentType.JSON);
+    @Test
+    public void groceryListDelete() {
+        SessionFilter sessionFilter = new SessionFilter();
+        init();
+        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5")
+                .then().statusCode(200).contentType(ContentType.JSON);
 
-    //     Response response = given().filter(sessionFilter).get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-    //     response.then().statusCode(200);
+        Response response = given().filter(sessionFilter).get("/grocery/add?id=559251");
+        response.then().statusCode(200);
 
-    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-    //     response.then().statusCode(200);
+        response = given().filter(sessionFilter).get("/grocery");
+        response = given().filter(sessionFilter).get("/grocery");
+        response.then().statusCode(200);
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        int sizeBeforeDelete = result.size();
 
-    //     response = given().filter(sessionFilter).get("/list?listName=Grocery List");
-    //     response.then().statusCode(200);
-    //     JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
-    //     // assertEquals(0, result.size());
+        response = given().filter(sessionFilter).get("grocery/delete?index=0");
+        response.then().statusCode(200);
 
-    //     // item not in list
-    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=missing");
-    //     response.then().statusCode(200);
-    // }
+        response = given().filter(sessionFilter).get("/grocery");
+        response = given().filter(sessionFilter).get("/grocery");
+        response.then().statusCode(200);
+        result = (JsonArray) (new JsonParser()).parse(response.asString());
+        assertEquals(sizeBeforeDelete - 1, result.size());
+    }
 }
