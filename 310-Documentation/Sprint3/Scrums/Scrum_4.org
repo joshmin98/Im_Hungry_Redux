@@ -1,0 +1,21 @@
+#+TITLE: Scrum 4 Notes
+* Josh
+  - Since our last meeting I created more robust tests for pagination and grocery list. I also worked with Nhan on creating an initial implementation of the grocery list feature.
+  - N/A
+  - By next meeting I will write more tests for the grocery list feature.
+* PJ
+  - Since last meeting, me and Patrick worked on reinforcing the backend tests
+  - Not entirely sure what the stakeholders are looking for in terms of grocery list requirements
+  - By next meeting, all backend tests should robust and achieve 100% line coverage.
+* Tanay
+  - Since last meeting, I worked on writing robust tests for grocery list and planning the implementation for the page itself.  
+  - Since we are not entirely sure what the stakeholders are looking for in the grocery list feature, it is slowing us down. 
+  - By next meeting, I will try to finish the backend implementation for grocery list. 
+* Nhan
+  - Since last meeting I worked with Patrick to connect the front end of Grocery List to backend
+  - N/A
+  - By next meeting I will have the front-end for the Grocery List fully integrated with backend.
+* Patrick
+  - Since last meeting, I have implemented endpoints to retrieve the grocery list and adding to the grocery list
+  - Travis-CI failing as we are implementing the grocery list.
+  - By next meeting, I will have the endpoint to delete from the grocery list implemented.
