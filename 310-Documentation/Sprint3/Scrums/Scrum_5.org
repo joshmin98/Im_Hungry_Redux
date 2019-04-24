@@ -1,0 +1,22 @@
+#+TITLE: Scrum 5 Notes
+* Josh
+  - Since our last meeting I created more robust tests for grocery list. I also worked with Patrick on the grocery list backend.
+  - N/A
+  - By next meeting I will write more tests for the grocery list feature. And more tests/error handling for the search page.
+* PJ
+  - Since last meeting, I worked with Patrick and Josh to complete the backend tests for all backend functionality
+  - Still unfamiliar what the stakeholders exactly want for the grocery list functionality
+  - By next meeting, we should be polishing all tests and front end features
+* Tanay
+  - Since last meeting, I worked on making sure all the grocery list tests pass through Travis CI.  
+  - Other final projects and submissions are taking a lot of time as well. 
+  - By next meeting, we will work on polishing the frontend and backend to get all the features working. 
+* Nhan
+  - Since last meeting I worked with Patrick to connect the front end of Grocery List to backend
+  - N/A
+  - By next meeting, we should be polishing all tests and front end features
+* Patrick
+  - Since last meeting, I have added tests and implemented the route for deleting from the grocery list
+  - n/a
+  - By next meeting, I’ll make sure that the backend tests are still working. I will work on refactoring backend code.
+
