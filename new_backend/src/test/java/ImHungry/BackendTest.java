@@ -27,6 +27,16 @@ public class BackendTest extends PippoTest {
     // .contentType(ContentType.JSON);
     // }
 
+    // login with test account and empty all lists
+    public void init() {
+        given().get("/login?email=test@usc.edu");
+        given().get("/reset?name=Favorites");
+        given().get("/reset?name=To Explore");
+        given().get("/reset?name=Do Not Show");
+        given().get("/reset?name=Searches");
+        given().get("/reset?name=Grocery");
+    }
+
     @Test
     public void testDefault() {
         Response response = get("/");
@@ -36,6 +46,7 @@ public class BackendTest extends PippoTest {
     @Test
     /* User searches for Query: Burgers, Limit: 5 results, Radius: 8500 m */
     public void testRestaurants() {
+        init();
         Response response = get("/restaurants?query=burgers&limit=5&radius=5");
         System.out.println(response.toString());
         response.then().statusCode(200).contentType(ContentType.JSON);
@@ -55,6 +66,7 @@ public class BackendTest extends PippoTest {
 
     @Test
     public void testRestaurantRadius() {
+        init();
         Response response = get("/restaurants?query=burgers&limit=5&radius=0");
         response.then()
             .statusCode(200)
@@ -91,20 +103,23 @@ public class BackendTest extends PippoTest {
 
     @Test
     public void testRecipes() {
+        init();
         Response response = get("/recipes?query=pizza&limit=5");
         response.then().statusCode(200).contentType(ContentType.JSON);
     }
 
     @Test
     public void testListEmptyParam() {
+        init();
         Response response = given().get("/list");
         response.then().statusCode(200);
+        assertEquals("{\"error\":\"missing listName parameter\"}", response.asString());
     }
 
     @Test
     public void testListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
-        empty();
+        init();
         given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")
                 .then().statusCode(200).contentType(ContentType.JSON);
         Response response = given().filter(sessionFilter)
@@ -130,7 +145,7 @@ public class BackendTest extends PippoTest {
     @Test
     public void testListDelete() {
         SessionFilter sessionFilter = new SessionFilter();
-        empty();
+        init();
         given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")// sessionId("testFavoritesList")
                 .then().statusCode(200).contentType(ContentType.JSON);
 
@@ -153,14 +168,14 @@ public class BackendTest extends PippoTest {
     @Test
     public void testListMove() {
         SessionFilter sessionFilter = new SessionFilter();
-        empty();
-        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5").then().statusCode(200)
-                .contentType(ContentType.JSON);
+        init();
+        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")// sessionId("testFavoritesList")
+                .then().statusCode(200).contentType(ContentType.JSON);
 
         Response response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
 
-        response = given().filter(sessionFilter).get("/list?listName=Favorites");
+        response = get("list?listName=Favorites");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
         assertEquals(1, result.size());
@@ -169,17 +184,14 @@ public class BackendTest extends PippoTest {
                 .get("list/move?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw&moveList=To Explore");
         response.then().statusCode(200);
 
-        response = given().filter(sessionFilter).get("/list?listName=Favorites");
-        response.then().statusCode(200);
-        result = (JsonArray) (new JsonParser()).parse(response.asString());
-        // assertEquals(0, result.size());
 
+        response = given().filter(sessionFilter).get("/list?listName=To Explore");
         response = given().filter(sessionFilter).get("/list?listName=To Explore");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
-        // assertEquals(1, result.size());
+        assertEquals(1, result.size());
 
-        // item not in list
+        // // item not in list
         response = given().filter(sessionFilter)
                 .get("list/move?listName=Favorites&id=missing&moveList=To Explore");
         response.then().statusCode(200);
@@ -188,7 +200,7 @@ public class BackendTest extends PippoTest {
     @Test
     public void testListReorder() {
         SessionFilter sessionFilter = new SessionFilter();
-        empty();
+        init();
         given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5").then().statusCode(200)
                 .contentType(ContentType.JSON);
 
@@ -224,13 +236,6 @@ public class BackendTest extends PippoTest {
         response.then().statusCode(200);
     }
 
-    public void empty() {
-        given().get("/reset?name=Favorites");
-        given().get("/reset?name=To Explore");
-        given().get("/reset?name=Do Not Show");
-        given().get("/reset?name=Searches");
-    }
-
     // Start of database service testing
     @Test
     public void dbRouteTest() {
@@ -241,36 +246,29 @@ public class BackendTest extends PippoTest {
     // Start of user authentication testing
     @Test
     public void userLoginTest() {
-        Response response = get("/user?email=test@usc.edu");
+        Response response = get("/login?email=test@usc.edu");
         response.then().statusCode(200);
-        assertEquals("test@usc.edu", response.asString());
+        assertEquals("test@usc.edu logged in", response.asString());
 
     }
 
     // Start of recently searched query test
-    // @Test
-    // public void recentlySearchTest() {
-    //     empty();
-    //     Response response = get("/restaurants?query=burger&limit=5&radius=5");
-    //     response.then().statusCode(200);
-    //     response = get("/restaurants?query=pizza&limit=5&radius=5");
-    //     response.then().statusCode(200);
-    //     response = get("/searches");
-    //     response.then().statusCode(200).contentType(ContentType.JSON);
-    //     assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]",
-    //             response.asString());
-    // }
-    
-    // @Test
-    // public void recentlySearchTestEmpty() {
-    //     empty();
-    //     Response response = get("/searches");
-    //     response.then().statusCode(200).contentType(ContentType.JSON);
-    //     assertEquals("[]", response.asString());
-    // }
+    @Test
+    public void recentlySearchTest() {
+        init();
+        Response response = get("/restaurants?query=burger&limit=5&radius=5");
+        response.then().statusCode(200);
+        response = get("/restaurants?query=pizza&limit=5&radius=5");
+        response.then().statusCode(200);
+        response = get("/searches");
+        response.then().statusCode(200).contentType(ContentType.JSON);
+        assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]",
+                response.asString());
+    }
+
     @Test
     public void recentlySearchTestEmpty() {
-        empty();
+        init();
         Response response = get("/searches");
         response.then()
             .statusCode(200)
@@ -301,6 +299,7 @@ public class BackendTest extends PippoTest {
     // pagination test
     @Test
     public void paginationTest() {
+        init();
         Response response = get("/restaurants?query=burger&limit=10&radius=5");
         response.then()
             .statusCode(200);
@@ -319,55 +318,50 @@ public class BackendTest extends PippoTest {
         }
     }
 
+   
     @Test
     public void groceryListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
-        empty();
-        given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")
+        init();
+        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")
                 .then().statusCode(200).contentType(ContentType.JSON);
+
         Response response = given().filter(sessionFilter)
-                .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+                .get("/grocery/add?id=559251");
         response.then().statusCode(200);
-
-        response = given().filter(sessionFilter)
-                .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter)
-        .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        // finditem coverage
-        response = given().filter(sessionFilter)
-        .get("list/add?listName=Grocery List&id=missing");
-        response.then().statusCode(200);
-
-        // item already in list
-        response = given().filter(sessionFilter).
-        get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-    }
-
-    @Test
-    public void groceryListDelete() {
-        SessionFilter sessionFilter = new SessionFilter();
-        empty();
-        given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")// sessionId("testFavoritesList")
-                .then().statusCode(200).contentType(ContentType.JSON);
-
-        Response response = given().filter(sessionFilter).get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter).get("/list?listName=Grocery List");
+        
+        response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
-        // assertEquals(0, result.size());
-
-        // item not in list
-        response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=missing");
-        response.then().statusCode(200);
+        assertEquals("pizza dough", result.get(0).getAsJsonObject().get("name").getAsString());
+        assertEquals("mozzarella", result.get(1).getAsJsonObject().get("name").getAsString());
+        assertEquals("parmesan", result.get(2).getAsJsonObject().get("name").getAsString());
+        assertEquals("olive oil", result.get(3).getAsJsonObject().get("name").getAsString());
+        assertEquals("egg", result.get(4).getAsJsonObject().get("name").getAsString());
+        assertEquals("parsley", result.get(5).getAsJsonObject().get("name").getAsString());
+        assertEquals("chives", result.get(6).getAsJsonObject().get("name").getAsString());
     }
+
+    // @Test
+    // public void groceryListDelete() {
+    //     SessionFilter sessionFilter = new SessionFilter();
+    //     init();
+    //     given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")// sessionId("testFavoritesList")
+    //             .then().statusCode(200).contentType(ContentType.JSON);
+
+    //     Response response = given().filter(sessionFilter).get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+    //     response.then().statusCode(200);
+
+    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+    //     response.then().statusCode(200);
+
+    //     response = given().filter(sessionFilter).get("/list?listName=Grocery List");
+    //     response.then().statusCode(200);
+    //     JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+    //     // assertEquals(0, result.size());
+
+    //     // item not in list
+    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=missing");
+    //     response.then().statusCode(200);
+    // }
 }
