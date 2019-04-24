@@ -1,17 +1,16 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import PropTypes from "prop-types";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import AppBar from '@material-ui/core/AppBar';
 import ToolBar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import 
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 10
+    marginTop: 10,
   },
   Header: {
     backgroundColor: '#E6FAFC',
@@ -33,11 +32,12 @@ const styles = theme => ({
 
 class Grocery extends React.Component {
   state = {
-      item: []
-  }  
+    item: [],
+  };
   componentDidMount() {
-    axios.get(
-        "http://localhost:8338/grocery",
+    axios
+      .get(
+        'http://localhost:8338/grocery',
         {
           withCredentials: true,
         },
@@ -48,35 +48,35 @@ class Grocery extends React.Component {
             'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
           },
         },
-      ).then(res => {
-          console.log(res)
-      })
-    
+      )
+      .then(res => {
+        console.log(res);
+      });
   }
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.Header}>
-            <ToolBar>
-                <Typography
-                    variant="h6"
-                    color="inherit"
-                    className={classes.fontCss}
-                >
-                    I'm Hungry 🍽
-                </Typography>
-            </ToolBar>
+          <ToolBar>
+            <Typography
+              variant="h6"
+              color="inherit"
+              className={classes.fontCss}
+            >
+              I'm Hungry 🍽
+            </Typography>
+          </ToolBar>
         </AppBar>
         <div>
-            <Typography
-                component="h1"
-                variant="h2"
-                className={classes.title}
-                id="header"
-            >
-                Grocery Lists
-            </Typography>
+          <Typography
+            component="h1"
+            variant="h2"
+            className={classes.title}
+            id="header"
+          >
+            Grocery Lists
+          </Typography>
         </div>
       </div>
     );
@@ -84,6 +84,6 @@ class Grocery extends React.Component {
 }
 
 Grocery.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(withRouter(Grocery));
