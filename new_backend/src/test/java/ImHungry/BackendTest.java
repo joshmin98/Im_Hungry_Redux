@@ -318,55 +318,50 @@ public class BackendTest extends PippoTest {
         }
     }
 
+   
     @Test
     public void groceryListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")
+        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5")
                 .then().statusCode(200).contentType(ContentType.JSON);
+
         Response response = given().filter(sessionFilter)
-                .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+                .get("/grocery/add?id=559251");
         response.then().statusCode(200);
-
-        response = given().filter(sessionFilter)
-                .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter)
-        .get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        // finditem coverage
-        response = given().filter(sessionFilter)
-        .get("list/add?listName=Grocery List&id=missing");
-        response.then().statusCode(200);
-
-        // item already in list
-        response = given().filter(sessionFilter).
-        get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-    }
-
-    @Test
-    public void groceryListDelete() {
-        SessionFilter sessionFilter = new SessionFilter();
-        init();
-        given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")// sessionId("testFavoritesList")
-                .then().statusCode(200).contentType(ContentType.JSON);
-
-        Response response = given().filter(sessionFilter).get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
-        response.then().statusCode(200);
-
-        response = given().filter(sessionFilter).get("/list?listName=Grocery List");
+        
+        response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
-        // assertEquals(0, result.size());
-
-        // item not in list
-        response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=missing");
-        response.then().statusCode(200);
+        assertEquals("pizza dough", result.get(0).getAsJsonObject().get("name").getAsString());
+        assertEquals("mozzarella", result.get(1).getAsJsonObject().get("name").getAsString());
+        assertEquals("parmesan", result.get(2).getAsJsonObject().get("name").getAsString());
+        assertEquals("olive oil", result.get(3).getAsJsonObject().get("name").getAsString());
+        assertEquals("egg", result.get(4).getAsJsonObject().get("name").getAsString());
+        assertEquals("parsley", result.get(5).getAsJsonObject().get("name").getAsString());
+        assertEquals("chives", result.get(6).getAsJsonObject().get("name").getAsString());
     }
+
+    // @Test
+    // public void groceryListDelete() {
+    //     SessionFilter sessionFilter = new SessionFilter();
+    //     init();
+    //     given().filter(sessionFilter).get("/recipe?query=pizza&limit=5")// sessionId("testFavoritesList")
+    //             .then().statusCode(200).contentType(ContentType.JSON);
+
+    //     Response response = given().filter(sessionFilter).get("list/add?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+    //     response.then().statusCode(200);
+
+    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=v5Eiu0WaNhDXBSNsAdjmUw");
+    //     response.then().statusCode(200);
+
+    //     response = given().filter(sessionFilter).get("/list?listName=Grocery List");
+    //     response.then().statusCode(200);
+    //     JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+    //     // assertEquals(0, result.size());
+
+    //     // item not in list
+    //     response = given().filter(sessionFilter).get("list/delete?listName=Grocery List&id=missing");
+    //     response.then().statusCode(200);
+    // }
 }
