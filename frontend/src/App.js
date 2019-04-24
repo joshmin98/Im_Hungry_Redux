@@ -8,6 +8,7 @@ import RestaurantPage from './components/RestaurantPage';
 import RecipePage from './components/RecipePage';
 import SearchPage from './components/SearchPage';
 import AuthPage from './components/AuthPage';
+import Grocery from './components/Grocery';
 
 import firebase from './config/firebaseConfig';
 
@@ -43,6 +44,7 @@ export default class App extends Component {
             <Route path="/recipe" component={RecipePage} />
             <Route path="/search" component={SearchPage} />
             <Route path="/print/:name/" component={PrintPage} />
+            <Route path="/grocery" component={Grocery} />
           </>
         </Router>
       </div>

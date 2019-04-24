@@ -76,6 +76,7 @@ class HomePage extends React.Component {
     loading: false,
   };
   componentDidMount() {
+    console.log(this.props.location);
     this.props.location.state !== undefined &&
       this.setState({
         searchVal: this.props.location.state.term,

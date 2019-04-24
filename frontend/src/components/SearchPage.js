@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import { Card, CardContent, CardActionArea, Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Pagination from 'material-ui-flat-pagination';
+import axios from 'axios';
 
 const styles = theme => ({
   root: {
@@ -26,8 +27,8 @@ const styles = theme => ({
     marginTop: 10,
   },
   card: {
-    marginBottom: 10,
-    height: '140px',
+    marginBottom: 12,
+    height: '153px',
   },
   gray: {
     // backgroundColor: '#FFF275',
@@ -59,6 +60,15 @@ const styles = theme => ({
     marginTop: 13,
     color: '#3f51b5',
   },
+  groceryListBtn: {
+    float: 'right',
+    color: '#2B3252',
+    backgroundColor: '#fad744',
+    marginBottom: 10
+  },
+  cardRecipe: {
+    marginBottom:10
+  }
 });
 
 class SearchPage extends React.Component {
@@ -121,6 +131,26 @@ class SearchPage extends React.Component {
       offset: this.state.size - 5,
     });
   }
+  handleGrocery = async (item) => {
+    console.log(item);
+    const res = await axios.get(
+      "http://localhost:8338/grocery/add",
+      {
+        withCredentials: true,
+        params: {
+          id: item
+        },
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+        },
+      },
+    );
+    console.log(res.data)  
+  }
   render() {
     console.log(this.props.location);
     const { classes } = this.props;
@@ -157,9 +187,10 @@ class SearchPage extends React.Component {
                 return (
                   <Card
                     key={e.id}
-                    className={
-                      i % 2 !== 0 ? [classes.card, classes.gray] : classes.card
-                    }
+                    // className={
+                    //   i % 2 !== 0 ? [classes.card, classes.gray] : classes.card
+                    // }
+                    className={classes.card}
                   >
                     <CardActionArea
                       onClick={this.handleClickRestaurant.bind(this, e)}
@@ -210,7 +241,7 @@ class SearchPage extends React.Component {
                   <Card
                     key={e.id}
                     className={
-                      i % 2 !== 0 ? [classes.card, classes.gray] : classes.card
+                      classes.cardRecipe
                     }
                   >
                     <CardActionArea
@@ -230,8 +261,12 @@ class SearchPage extends React.Component {
                         <Typography component="p" className="cookTime">
                           <b>Cook Time: </b> {e.readyInMinutes}
                         </Typography>
+                        
                       </CardContent>
                     </CardActionArea>
+                    <CardContent>
+                      <Button className={classes.groceryListBtn} onClick={() => {this.handleGrocery(e.id)}} id={"grocery-"+i}>Add To Grocery List</Button>
+                    </CardContent>
                   </Card>
                 );
               })}
