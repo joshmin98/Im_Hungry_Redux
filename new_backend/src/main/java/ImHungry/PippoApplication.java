@@ -353,8 +353,8 @@ public class PippoApplication extends Application {
                 log.info(ingredients.toString());
                 for(JsonElement i : ingredients) {
                     JsonObject groceryItem = new JsonObject();
-                    groceryItem.addProperty("recipe", item.get("title").toString());
-                    groceryItem.addProperty("name", i.getAsJsonObject().get("name").toString());
+                    groceryItem.addProperty("recipe", item.get("title").getAsString());
+                    groceryItem.addProperty("name", i.getAsJsonObject().get("name").getAsString());
                     log.info(groceryItem.toString());
                     if(!groceryList.contains(groceryItem)) {
                         groceryList.add(groceryItem);
@@ -368,7 +368,13 @@ public class PippoApplication extends Application {
         });
 
         GET("/grocery/delete", routeContext -> {
-            
+            routeContext = setHeaders(routeContext, "GET");
+            int idx = routeContext.getParameter("index").toInt();
+            JsonParser parser = new JsonParser();
+            JsonArray groceryList = (JsonArray) parser.parse(db.getDataFromDatabase(this.user, "Grocery"));
+            groceryList.remove(idx);
+            db.pushDataToDatabase(this.user, "Grocery", groceryList.toString());
+            routeContext.send("deleted ingredient at " + idx);
         });
     }
 
