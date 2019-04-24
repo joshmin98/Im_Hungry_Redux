@@ -119,12 +119,16 @@ class Header extends React.Component {
   handleTermChange = e => {
     console.log(e.target.value);
     this.props.history.push({
-      pathname: '/',
+      pathname: '/homepage',
       state: {
         term: e.target.value,
       },
     });
   };
+
+  handleGrocery = () => {
+    this.props.history.push("/grocery");
+  }
 
   handleLogout = () => {
     firebase
@@ -235,6 +239,13 @@ class Header extends React.Component {
                     onClick={this.handleList}
                     className={classes.marginTop}
                     id="Manage Lists"
+                  />
+                </ListItem>
+                <ListItem button>
+                  <ListItemText
+                    primary="Grocery Lists"
+                    onClick={this.handleGrocery}
+                    id="Grocery-Lists"
                   />
                 </ListItem>
                 <ListItem button>
