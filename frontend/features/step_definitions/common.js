@@ -12,11 +12,15 @@ Given('I am on the login page', async function() {
   return 'success';
 });
 
-Given('I am logged in and on the home page', async function() {
-  await visitPage('');
-  await login('test@test.com', 'testing123');
-  return 'success';
-});
+Given(
+  'I am logged in and on the home page',
+  { timeout: 8000 },
+  async function() {
+    await visitPage('');
+    await login('test@test.com', 'testing123');
+    return 'success';
+  },
+);
 
 When('I enter {string} in the {string} text box', async function(
   string,
@@ -47,3 +51,19 @@ Then('there will be a {string} alert', async function(string) {
 Then('I will not see the {string} button', function(string) {
   return 'pending';
 });
+
+Then(
+  'I will not see the item with the ID {string} as the {string} item in {string}',
+  function(string, string2, string3) {
+    // Write code here that turns the phrase above into concrete actions
+    return 'success';
+  },
+);
+
+Then(
+  'I will see the item with the ID {string} as the {string} item in {string}',
+  async function(string, string2, string3) {
+    await findPlaceInList(string, string2, string3);
+    return 'success';
+  },
+);

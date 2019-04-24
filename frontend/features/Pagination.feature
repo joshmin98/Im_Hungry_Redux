@@ -23,7 +23,7 @@ Scenario: Navigating to page 2 and back to page 1 by using previous and next
   When I click the "next" button on the pagination selector
   Then I will see the item with the ID "DXFhzx94myitMxmBhsdz8A" as the "first" item in "restaurants"
   And I will see the item with the ID "864633" as the "first" item in "recipes"
-  When I click the "previous" button on the pagination selector
+  When I click the "1" button on the pagination selector
   And I will see the item with the ID "DXFhzx94myitMxmBhsdz8A" as the "first" item in "restaurants"
   And I will see the item with the ID "864633" as the "first" item in "recipes"
 
@@ -34,7 +34,7 @@ Scenario: Navigating to page 11 (demonstrating the sliding window)
   And I enter "55" in the "#limit" text box
   And I click the "#feedME" button
   Then I will transition to the Results Page
-  When I click the "2" button on the pagination selector
+  When I click the "11" button on the pagination selector
   Then I will see the item with the ID "DXFhzx94myitMxmBhsdz8A" as the "first" item in "restaurants"
   And I will see the item with the ID "864633" as the "first" item in "recipes"
   And I will not see the "1" button on the pagination selector
