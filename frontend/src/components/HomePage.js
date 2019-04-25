@@ -155,17 +155,17 @@ class HomePage extends React.Component {
     this.setState({
       recipes: res.data,
     });
-    if (
-      this.state.restaurants.length === 0 ||
-      this.state.recipes.length === 0
-    ) {
-      alert(
-        "Sorry, We can't find any restaurants or recipes for " +
-          this.state.searchVal,
-      );
-      this.setState({ loading: false });
-      return;
-    }
+    // if (
+    //   this.state.restaurants.length === 0 ||
+    //   this.state.recipes.length === 0
+    // ) {
+    //   alert(
+    //     "Sorry, We can't find any restaurants or recipes for " +
+    //       this.state.searchVal,
+    //   );
+    //   this.setState({ loading: false });
+    //   return;
+    // }
     this.setState({ loading: false });
     localStorage.setItem('name', this.state.searchVal);
     localStorage.setItem('restaurants', JSON.stringify(this.state.restaurants));

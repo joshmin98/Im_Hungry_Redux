@@ -64,11 +64,11 @@ const styles = theme => ({
     float: 'right',
     color: '#2B3252',
     backgroundColor: '#fad744',
-    marginBottom: 10
+    marginBottom: 10,
   },
   cardRecipe: {
-    marginBottom:10
-  }
+    marginBottom: 10,
+  },
 });
 
 class SearchPage extends React.Component {
@@ -129,13 +129,13 @@ class SearchPage extends React.Component {
       offset: this.state.size - 5,
     });
   }
-  handleGrocery = async (item) => {
+  handleGrocery = async item => {
     const res = await axios.get(
-      "http://localhost:8338/grocery/add",
+      'http://localhost:8338/grocery/add',
       {
         withCredentials: true,
         params: {
-          id: item
+          id: item,
         },
       },
       {
@@ -145,8 +145,8 @@ class SearchPage extends React.Component {
           'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         },
       },
-    ); 
-  }
+    );
+  };
   render() {
     const { classes } = this.props;
     var pagRestaurant = this.state.restaurants.slice(
@@ -160,17 +160,32 @@ class SearchPage extends React.Component {
     return (
       <div>
         <Header searchPage={true} />
-        <Typography
-          component="h1"
-          variant="h2"
-          className={classes.title}
-          id="header"
-        >
-          Results for "
-          {this.props.location.state !== undefined &&
-            this.props.location.state.name}
-          "
-        </Typography>
+        {this.state.restaurants.length === 0 &&
+        this.state.recipes.length === 0 ? (
+          <Typography
+            component="h1"
+            variant="h2"
+            className={classes.title}
+            id="header"
+          >
+            Error! No results for "
+            {this.props.location.state !== undefined &&
+              this.props.location.state.name}
+            "
+          </Typography>
+        ) : (
+          <Typography
+            component="h1"
+            variant="h2"
+            className={classes.title}
+            id="header"
+          >
+            Results for "
+            {this.props.location.state !== undefined &&
+              this.props.location.state.name}
+            "
+          </Typography>
+        )}
         <div className={classes.photobox}>
           <PhotoCollage photos={this.state.photos} />
         </div>
@@ -232,12 +247,7 @@ class SearchPage extends React.Component {
             <Grid item xs={6} id="recipes">
               {pagRecipe.map((e, i) => {
                 return (
-                  <Card
-                    key={e.id}
-                    className={
-                      classes.cardRecipe
-                    }
-                  >
+                  <Card key={e.id} className={classes.cardRecipe}>
                     <CardActionArea
                       onClick={this.handleClickRecipe.bind(this, e)}
                       className={classes.actionArea}
@@ -255,11 +265,18 @@ class SearchPage extends React.Component {
                         <Typography component="p" className="cookTime">
                           <b>Cook Time: </b> {e.readyInMinutes}
                         </Typography>
-                        
                       </CardContent>
                     </CardActionArea>
                     <CardContent>
-                      <Button className={classes.groceryListBtn} onClick={() => {this.handleGrocery(e.id)}} id={"grocery-"+i}>Add To Grocery List</Button>
+                      <Button
+                        className={classes.groceryListBtn}
+                        onClick={() => {
+                          this.handleGrocery(e.id);
+                        }}
+                        id={'grocery-' + i}
+                      >
+                        Add To Grocery List
+                      </Button>
                     </CardContent>
                   </Card>
                 );
