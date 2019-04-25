@@ -164,10 +164,11 @@ public class BackendTest extends PippoTest {
         response = given().filter(sessionFilter).get("list/delete?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
 
-        response = given().filter(sessionFilter).get("/list?listName=Favorites");
+        get("list?listName=Favorites");
+        response = get("/list?listName=Favorites");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
-        // assertEquals(0, result.size());
+        assertEquals(0, result.size());
 
         // item not in list
         response = given().filter(sessionFilter).get("list/delete?listName=Favorites&id=missing");
@@ -183,6 +184,7 @@ public class BackendTest extends PippoTest {
         Response response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
 
+        get("list?listName=Favorites");
         response = get("list?listName=Favorites");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
@@ -193,7 +195,7 @@ public class BackendTest extends PippoTest {
         response.then().statusCode(200);
 
 
-        response = given().filter(sessionFilter).get("/list?listName=To Explore");
+        given().filter(sessionFilter).get("/list?listName=To Explore");
         response = given().filter(sessionFilter).get("/list?listName=To Explore");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
@@ -218,6 +220,7 @@ public class BackendTest extends PippoTest {
         response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=" + id2);
         response.then().statusCode(200);
 
+        given().filter(sessionFilter).get("/list?listName=Favorites");
         response = given().filter(sessionFilter).get("/list?listName=Favorites");
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
@@ -226,11 +229,11 @@ public class BackendTest extends PippoTest {
         response = given().filter(sessionFilter).get("/reorder?listName=Favorites&oldPosition=0&newPosition=1");
         response.then().statusCode(200);
 
-        response = get("/list?listName=Favorites");
+        get("list?listName=Favorites");
+        response = get("list?listName=Favorites");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
-
-        // assertEquals(id2, result.get(0).getAsJsonObject().get("id").getAsString());
+        assertEquals(id2, result.get(0).getAsJsonObject().get("id").getAsString());
 
         // out of bounds index
         response = given().filter(sessionFilter)
@@ -427,7 +430,7 @@ public class BackendTest extends PippoTest {
         response.then()
             .statusCode(200);
         
-        response = get("list?listName=Favorites");
+        get("list?listName=Favorites");
         response = get("list?listName=Favorites");
 
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
@@ -444,8 +447,8 @@ public class BackendTest extends PippoTest {
         response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then()
             .statusCode(200);
-
-        response = get("list?listName=Favorites");
+        
+        get("list?listName=Favorites");
         response = get("list?listName=Favorites");
 
         JsonArray result2 = (JsonArray) (new JsonParser()).parse(response.asString());
