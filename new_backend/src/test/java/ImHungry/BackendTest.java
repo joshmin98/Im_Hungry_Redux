@@ -10,6 +10,7 @@ import com.jayway.restassured.response.Response;
 import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import ro.pippo.test.PippoRule;
 import ro.pippo.test.PippoTest;
@@ -274,12 +275,43 @@ public class BackendTest extends PippoTest {
         init();
         Response response = get("/restaurants?query=burger&limit=5&radius=5");
         response.then().statusCode(200);
-        response = get("/restaurants?query=pizza&limit=5&radius=5");
+        response = get("/restaurants?query=pizza&limit=3&radius=10");
         response.then().statusCode(200);
         response = get("/searches");
-        response.then().statusCode(200).contentType(ContentType.JSON);
-        assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":5,\"radius\":5}]",
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
+        assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5},{\"query\":\"pizza\",\"limit\":3,\"radius\":10}]",
                 response.asString());
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        JsonObject search = result.get(0).getAsJsonObject();
+        assertEquals("burger", search.get("query").getAsString());
+        assertEquals(5, search.get("limit").getAsInt());
+        assertEquals(5, search.get("radius").getAsInt());
+        search = result.get(1).getAsJsonObject();
+        assertEquals("pizza", search.get("query").getAsString());
+        assertEquals(3, search.get("limit").getAsInt());
+        assertEquals(10, search.get("radius").getAsInt());
+
+    }
+
+    @Test
+    public void recentlySearchOneTest() {
+        init();
+        Response response = get("/restaurants?query=burger&limit=5&radius=5");
+        response.then().statusCode(200);
+        get("/searches");
+        response = get("/searches");
+        response.then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
+        JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
+        assertEquals("[{\"query\":\"burger\",\"limit\":5,\"radius\":5}]",
+                response.asString());
+        JsonObject search = result.get(0).getAsJsonObject();
+        assertEquals("burger", search.get("query").getAsString());
+        assertEquals(5, search.get("limit").getAsInt());
+        assertEquals(5, search.get("radius").getAsInt());
     }
 
     @Test
@@ -381,15 +413,23 @@ public class BackendTest extends PippoTest {
         response.then().statusCode(200);
         JsonArray result = (JsonArray) (new JsonParser()).parse(response.asString());
         int sizeBeforeDelete = result.size();
+        String ingredientToDelete = result.get(0).getAsJsonObject().get("name").getAsString();
+        String ingredientToDelete1 = result.get(1).getAsJsonObject().get("name").getAsString();
 
+        response = given().filter(sessionFilter).get("grocery/delete?index=1");
+        response.then()
+            .statusCode(200);
         response = given().filter(sessionFilter).get("grocery/delete?index=0");
-        response.then().statusCode(200);
+        response.then()
+            .statusCode(200);
 
         response = given().filter(sessionFilter).get("/grocery");
         response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
         assertEquals(sizeBeforeDelete - 1, result.size());
+        assertNotEquals(ingredientToDelete, result.get(0).getAsJsonObject().get("name").getAsString());
+        assertNotEquals(ingredientToDelete1, result.get(1).getAsJsonObject().get("name").getAsString());
     }
 
     // beyond one session backend test
