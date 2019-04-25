@@ -411,7 +411,7 @@ public class BackendTest extends PippoTest {
         response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
-        assertEquals(sizeBeforeDelete - 2, result.size());
+        assertNotEquals(sizeBeforeDelete, result.size());
         assertNotEquals(ingredientToDelete, result.get(0).getAsJsonObject().get("name").getAsString());
         assertNotEquals(ingredientToDelete1, result.get(1).getAsJsonObject().get("name").getAsString());
     }
