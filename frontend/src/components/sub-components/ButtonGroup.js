@@ -89,9 +89,9 @@ class ButtonGroup extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    console.log(localStorage.getItem('name'));
-    console.log(JSON.parse(localStorage.getItem('restaurants')));
-    console.log(JSON.parse(localStorage.getItem('recipes')));
+    // console.log(localStorage.getItem('name'));
+    // console.log(JSON.parse(localStorage.getItem('restaurants')));
+    // console.log(JSON.parse(localStorage.getItem('recipes')));
     return (
       <div className={classes.root}>
         <List>

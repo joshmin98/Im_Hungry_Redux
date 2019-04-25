@@ -83,10 +83,10 @@ class Header extends React.Component {
         },
       )
       .then(res => {
-        console.log(res);
+        //console.log(res);
         this.setState({ searchTerm: res.data });
       });
-    console.log(res);
+    //console.log(res);
   }
   handleDrawerOpen = () => {
     this.setState({
@@ -117,7 +117,7 @@ class Header extends React.Component {
   };
 
   handleTermChange = e => {
-    console.log(e.target.value);
+    //console.log(e.target.value);
     this.props.history.push({
       pathname: '/homepage',
       state: {
@@ -136,25 +136,25 @@ class Header extends React.Component {
       .signOut()
       .then(resp => {
         this.setGlobal({ user: null });
-        console.log(this.global.user);
+        //console.log(this.global.user);
       })
       .catch(err => {
-        console.log(err);
+        //console.log(err);
       });
   };
 
   render() {
     const { classes } = this.props;
-    console.log(this.state.searchTerm);
+    //console.log(this.state.searchTerm);
     let prevSearchQuery = new Set();
     this.state.searchTerm !== [] &&
       this.state.searchTerm.forEach(el => {
-        console.log(el.query);
+        //console.log(el.query);
         prevSearchQuery.add(el.query);
       });
-    console.log(prevSearchQuery);
+   // console.log(prevSearchQuery);
     let myArr = Array.from(prevSearchQuery);
-    console.log(myArr);
+    //console.log(myArr);
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classes.Header}>
