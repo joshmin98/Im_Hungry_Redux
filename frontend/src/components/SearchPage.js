@@ -104,7 +104,6 @@ class SearchPage extends React.Component {
     this.setState({ offset });
   }
   handleClickRestaurant(element, event) {
-    console.log(element);
     this.props.history.push({
       pathname: '/restaurant',
       state: {
@@ -113,7 +112,6 @@ class SearchPage extends React.Component {
     });
   }
   handleClickRecipe(element, event) {
-    console.log(element);
     this.props.history.push({
       pathname: '/recipe',
       state: {
@@ -132,7 +130,6 @@ class SearchPage extends React.Component {
     });
   }
   handleGrocery = async (item) => {
-    console.log(item);
     const res = await axios.get(
       "http://localhost:8338/grocery/add",
       {
@@ -148,11 +145,9 @@ class SearchPage extends React.Component {
           'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         },
       },
-    );
-    console.log(res.data)  
+    ); 
   }
   render() {
-    console.log(this.props.location);
     const { classes } = this.props;
     var pagRestaurant = this.state.restaurants.slice(
       this.state.offset,
@@ -162,7 +157,6 @@ class SearchPage extends React.Component {
       this.state.offset,
       this.state.offset + 5,
     );
-    console.log(pagRecipe);
     return (
       <div>
         <Header searchPage={true} />
