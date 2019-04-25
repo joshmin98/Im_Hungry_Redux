@@ -24,8 +24,8 @@ class RecipePage extends React.Component {
     const { classes } = this.props;
     return (
       <div className={classes.root} id="recipePrint">
-        <Header 
-          searchPage={false} 
+        <Header
+          searchPage={false}
           restaurant={false}
           info={this.props.location.state.recipe}
           history={this.props.history}
@@ -35,13 +35,13 @@ class RecipePage extends React.Component {
             <RecipeInfo info={this.props.location.state.recipe} />
           </Grid>
           <Grid item xs={2} className={classes.right}>
-            { /* <ButtonGroup
+            {/* <ButtonGroup
               passId="recipePrint"
               restaurant={false}
               info={this.props.location.state.recipe}
               history={this.props.history}
             />
-            */ }
+            */}
           </Grid>
         </Grid>
       </div>

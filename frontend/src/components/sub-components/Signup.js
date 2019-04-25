@@ -41,6 +41,7 @@ const styles = theme => ({
     color: '#2B3252',
     fontSize: '15px',
     fontWeight: 'bold',
+    marginBottom: '25px',
   },
   form: {
     margin: '10px',

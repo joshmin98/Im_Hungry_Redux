@@ -19,4 +19,3 @@
   - Since last meeting, I have added tests and implemented the route for deleting from the grocery list
   - n/a
   - By next meeting, I’ll make sure that the backend tests are still working. I will work on refactoring backend code.
-

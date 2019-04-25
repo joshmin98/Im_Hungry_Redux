@@ -11,12 +11,15 @@ import Signup from './sub-components/Signup.js';
 
 const styles = {
   root: {
-    marginTop: '25%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     marginLeft: '5%',
     marginRight: '5%',
+  },
+  modal: {
+    position: 'absolute',
+    marginTop: '950px',
   },
 };
 
@@ -32,19 +35,19 @@ const AuthPage = props => {
   return (
     <div className={props.classes.root}>
       {form === 'login' ? (
-        <>
+        <div className={props.classes.modal}>
           <Login />
           <Button id="switch" onClick={() => setForm('signup')}>
             Sign Up
           </Button>
-        </>
+        </div>
       ) : (
-        <>
+        <div className={props.classes.modal}>
           <Signup />
           <Button id="switch" onClick={() => setForm('login')}>
             Login
           </Button>
-        </>
+        </div>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ const {
   clickButtonWithID,
   login,
   enterToTextbox,
+  findPlaceInList,
   wait,
 } = require('../support/actions.js');
 
@@ -21,6 +22,13 @@ Given(
     return 'success';
   },
 );
+
+Then('I login and am on the home page', { timeout: 5000 }, async function() {
+  // Write code here that turns the phrase above into concrete actions
+  await wait(1);
+  await login('test@test.com', 'testing123');
+  return 'success';
+});
 
 When('I enter {string} in the {string} text box', async function(
   string,

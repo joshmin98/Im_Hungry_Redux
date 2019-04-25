@@ -127,19 +127,21 @@ class Header extends React.Component {
   };
 
   handleGrocery = () => {
-    this.props.history.push("/grocery");
-  }
+    this.props.history.push('/grocery');
+  };
 
   handleLogout = () => {
     firebase
       .auth()
       .signOut()
       .then(resp => {
-        this.setGlobal({ user: null });
-        //console.log(this.global.user);
+        axios.get('http://localhost:8338/logout').then(resp => {
+          console.log(resp);
+          this.props.history.push('/');
+        });
       })
       .catch(err => {
-        //console.log(err);
+        console.log(err);
       });
   };
 
@@ -152,7 +154,7 @@ class Header extends React.Component {
         //console.log(el.query);
         prevSearchQuery.add(el.query);
       });
-   // console.log(prevSearchQuery);
+    // console.log(prevSearchQuery);
     let myArr = Array.from(prevSearchQuery);
     //console.log(myArr);
     return (
