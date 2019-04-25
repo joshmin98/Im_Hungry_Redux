@@ -38,6 +38,15 @@ public class BackendTest extends PippoTest {
         given().get("/reset?name=Grocery");
     }
 
+    public void callAPI(SessionFilter sessionFilter) {
+        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
+            .statusCode(200)
+            .contentType(ContentType.JSON);
+        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
+                    .statusCode(200)
+                    .contentType(ContentType.JSON);
+    }
+
     @Test
     public void testDefault() {
         Response response = get("/");
@@ -121,12 +130,8 @@ public class BackendTest extends PippoTest {
     public void testListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-                    .statusCode(200)
-                    .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
+
         Response response = given().filter(sessionFilter)
                 .get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
@@ -151,12 +156,7 @@ public class BackendTest extends PippoTest {
     public void testListDelete() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("/restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
@@ -178,12 +178,7 @@ public class BackendTest extends PippoTest {
     public void testListMove() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then().statusCode(200);
@@ -214,12 +209,7 @@ public class BackendTest extends PippoTest {
     public void testListReorder() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         String id1 = "v5Eiu0WaNhDXBSNsAdjmUw", id2 = "559251";
         Response response = given().filter(sessionFilter).get("list/add?listName=Favorites&id=" + id1);
@@ -274,9 +264,11 @@ public class BackendTest extends PippoTest {
     public void recentlySearchTest() {
         init();
         Response response = get("/restaurants?query=burger&limit=5&radius=5");
-        response.then().statusCode(200);
+        response.then()
+            .statusCode(200);
         response = get("/restaurants?query=pizza&limit=3&radius=10");
-        response.then().statusCode(200);
+        response.then()
+            .statusCode(200);
         response = get("/searches");
         response.then()
             .statusCode(200)
@@ -299,7 +291,8 @@ public class BackendTest extends PippoTest {
     public void recentlySearchOneTest() {
         init();
         Response response = get("/restaurants?query=burger&limit=5&radius=5");
-        response.then().statusCode(200);
+        response.then()
+            .statusCode(200);
         get("/searches");
         response = get("/searches");
         response.then()
@@ -371,11 +364,7 @@ public class BackendTest extends PippoTest {
     public void groceryListAdd() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5")
-                .then().statusCode(200).contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter)
                 .get("/grocery/add?id=559251");
@@ -398,12 +387,7 @@ public class BackendTest extends PippoTest {
     public void groceryListDelete() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter).get("/grocery/add?id=559251");
         response.then().statusCode(200);
@@ -423,11 +407,11 @@ public class BackendTest extends PippoTest {
         response.then()
             .statusCode(200);
 
-        response = given().filter(sessionFilter).get("/grocery");
+        given().filter(sessionFilter).get("/grocery");
         response = given().filter(sessionFilter).get("/grocery");
         response.then().statusCode(200);
         result = (JsonArray) (new JsonParser()).parse(response.asString());
-        assertEquals(sizeBeforeDelete - 1, result.size());
+        assertEquals(sizeBeforeDelete - 2, result.size());
         assertNotEquals(ingredientToDelete, result.get(0).getAsJsonObject().get("name").getAsString());
         assertNotEquals(ingredientToDelete1, result.get(1).getAsJsonObject().get("name").getAsString());
     }
@@ -437,11 +421,7 @@ public class BackendTest extends PippoTest {
     public void beyondOneSessionTest() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter).get("/list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then()
@@ -477,11 +457,7 @@ public class BackendTest extends PippoTest {
     public void multipleSessionTest() {
         SessionFilter sessionFilter = new SessionFilter();
         init();
-        given().filter(sessionFilter).get("restaurants?query=pizza&limit=5&radius=5").then()
-            .statusCode(200);
-        given().filter(sessionFilter).get("recipes?query=pizza&limit=5").then()
-            .statusCode(200)
-            .contentType(ContentType.JSON);
+        callAPI(sessionFilter);
 
         Response response = given().filter(sessionFilter).get("/list/add?listName=Favorites&id=v5Eiu0WaNhDXBSNsAdjmUw");
         response.then()
