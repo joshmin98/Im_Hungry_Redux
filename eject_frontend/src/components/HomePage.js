@@ -119,7 +119,7 @@ class HomePage extends React.Component {
         params: {
           query: this.state.searchVal,
           radius: this.state.distance,
-          limit: this.state.limit,
+          limit: this.state.limit <= 20 ? this.state.limit : 20,
         },
       },
       {

@@ -55,23 +55,23 @@ const styles = theme => ({
   },
   drawer: {
     //backgroundColor: '#2b3152',
-    height: '100%'
+    height: '100%',
   },
   drawerSize: {
     width: 200,
   },
   sideBarButton: {
     marginTop: 10,
-    borderRadius: "10px",
-    width: "95%",
-    marginLeft: "auto",
-    marginRight: "auto",
+    borderRadius: '10px',
+    width: '95%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
     backgroundColor: '#fad744',
     color: '#2B3252',
   },
   center: {
     paddingRight: 0,
-    textAlign: 'center'
+    textAlign: 'center',
   },
 });
 
@@ -198,7 +198,12 @@ class Header extends React.Component {
             </IconButton>
           </ToolBar>
         </AppBar>
-        <Drawer variant="persistent" anchor="right" open={this.state.open} className={classes.drawerSize}>
+        <Drawer
+          variant="persistent"
+          anchor="right"
+          open={this.state.open}
+          className={classes.drawerSize}
+        >
           <div className={classes.drawer}>
             <IconButton onClick={this.handleDrawerClose}>
               <ChevronRightIcon />
@@ -250,9 +255,6 @@ class Header extends React.Component {
                       <MenuItem id="DoNotSow" value={'Do Not Show'}>
                         Do Not Show
                       </MenuItem>
-                      <MenuItem id="Grocery" value={'Grocery'}>
-                        Grocery
-                      </MenuItem>
                     </Select>
                   </FormControl>
                 </ListItem>
@@ -280,7 +282,12 @@ class Header extends React.Component {
                     id="Return to Search"
                   />
                 </ListItem>
-                <ListItem id="logout" button onClick={this.handleLogout} className={classes.sideBarButton}>
+                <ListItem
+                  id="logout"
+                  button
+                  onClick={this.handleLogout}
+                  className={classes.sideBarButton}
+                >
                   <ListItemText primary="Log Out" className={classes.center} />
                 </ListItem>
               </List>
