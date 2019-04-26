@@ -1,0 +1,17 @@
+#+TITLE: Scrum 6 Notes
+* Josh
+  - Since our last meeting I created more robust tests for grocery list. I also worked with Patrick on the grocery list backend. And worked on creating the error message on the search page, as well as the remove function on the grocery list page.
+  - N/A
+  - N/A
+* Tanay
+  - Since last meeting, I worked on polishing the backend code and features.  
+  - Other final projects and submissions are taking a lot of time as well. 
+  - N/A (Last scrum of Project 2, Scrum #3). 
+* Nhan
+  - Since last meeting I polishing all tests and front end features
+  - N/A
+  - By next meeting, we should be polishing all tests and front end features
+* Patrick
+  - Since last meeting, I have refactored repeated code found in multiple tests.
+  - n/a
+  - n/a (Last scrum of Project 2 and Sprint 3)
