@@ -68,7 +68,11 @@ const styles = theme => ({
     marginRight: "auto",
     backgroundColor: '#fad744',
     color: '#2B3252',
-  }
+  },
+  center: {
+    paddingRight: 0,
+    textAlign: 'center'
+  },
 });
 
 class Header extends React.Component {
@@ -256,7 +260,7 @@ class Header extends React.Component {
                   <ListItemText
                     primary="Manage Lists"
                     onClick={this.handleList}
-                    className={classes.marginTop}
+                    className={classes.center}
                     id="Manage Lists"
                   />
                 </ListItem>
@@ -265,18 +269,19 @@ class Header extends React.Component {
                     primary="Grocery Lists"
                     onClick={this.handleGrocery}
                     id="Grocery-Lists"
+                    className={classes.center}
                   />
                 </ListItem>
                 <ListItem button className={classes.sideBarButton}>
                   <ListItemText
-                    
+                    className={classes.center}
                     primary="Return to Search"
                     onClick={this.handleBack}
                     id="Return to Search"
                   />
                 </ListItem>
                 <ListItem id="logout" button onClick={this.handleLogout} className={classes.sideBarButton}>
-                  <ListItemText primary="Log Out" />
+                  <ListItemText primary="Log Out" className={classes.center} />
                 </ListItem>
               </List>
             ) : (
