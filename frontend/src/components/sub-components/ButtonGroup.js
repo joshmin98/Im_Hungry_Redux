@@ -11,7 +11,13 @@ const styles = theme => ({
     flexGrow: 1,
   },
   button: {
-    width: '100%',
+    marginTop: 10,
+    borderRadius: "10px",
+    width: "95%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    backgroundColor: '#fad744',
+    color: '#2B3252',
   },
   dropdown: {
     width: '100%',
@@ -26,6 +32,9 @@ const styles = theme => ({
   center: {
     paddingRight: 0,
     textAlign: 'center'
+  },
+  listSize: {
+    width: 200
   }
 });
 
@@ -87,6 +96,9 @@ class ButtonGroup extends React.Component {
           },
         });
   };
+  handleGrocery = () => {
+    this.props.history.push('/grocery');
+  };
   render() {
     const { classes } = this.props;
     // console.log(localStorage.getItem('name'));
@@ -94,7 +106,7 @@ class ButtonGroup extends React.Component {
     // console.log(JSON.parse(localStorage.getItem('recipes')));
     return (
       <div className={classes.root}>
-        <List>
+        <List className={classes.listSize}>
           <ListItem className={classes.button} button>
             <ListItemText 
               primary="Printable View"
@@ -137,6 +149,14 @@ class ButtonGroup extends React.Component {
               onClick={this.addToList}
               className={classes.center}
             />
+          </ListItem>
+          <ListItem button className={classes.button}>
+          <ListItemText
+            primary="Grocery Lists"
+            onClick={this.handleGrocery}
+            id="Grocery-Lists"
+            className={classes.center}
+          />
           </ListItem>
         </List>
       </div>
