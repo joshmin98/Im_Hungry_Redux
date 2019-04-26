@@ -51,8 +51,24 @@ const styles = theme => ({
     paddingBottom: 0,
   },
   marginTop: {
-    paddingTop: 10,
+    //paddingTop: 10,
   },
+  drawer: {
+    //backgroundColor: '#2b3152',
+    height: '100%'
+  },
+  drawerSize: {
+    width: 200,
+  },
+  sideBarButton: {
+    marginTop: 10,
+    borderRadius: "10px",
+    width: "95%",
+    marginLeft: "auto",
+    marginRight: "auto",
+    backgroundColor: '#fad744',
+    color: '#2B3252',
+  }
 });
 
 class Header extends React.Component {
@@ -178,14 +194,14 @@ class Header extends React.Component {
             </IconButton>
           </ToolBar>
         </AppBar>
-        <Drawer variant="persistent" anchor="right" open={this.state.open}>
-          <div>
+        <Drawer variant="persistent" anchor="right" open={this.state.open} className={classes.drawerSize}>
+          <div className={classes.drawer}>
             <IconButton onClick={this.handleDrawerClose}>
               <ChevronRightIcon />
             </IconButton>
             <Divider />
             {this.props.searchPage ? (
-              <List>
+              <List className={classes.drawerSize}>
                 <ListItem className={classes.noPadding}>
                   <FormControl className={classes.dropdown}>
                     <InputLabel>Search Terms</InputLabel>
@@ -194,6 +210,7 @@ class Header extends React.Component {
                       onChange={this.handleTermChange}
                       input={<Input name="terms" id="terms" />}
                       id="termDropdown"
+                      variant="outlined"
                     >
                       <MenuItem id="" value="">
                         <em>None</em>
@@ -235,7 +252,7 @@ class Header extends React.Component {
                     </Select>
                   </FormControl>
                 </ListItem>
-                <ListItem button>
+                <ListItem button className={classes.sideBarButton}>
                   <ListItemText
                     primary="Manage Lists"
                     onClick={this.handleList}
@@ -243,21 +260,22 @@ class Header extends React.Component {
                     id="Manage Lists"
                   />
                 </ListItem>
-                <ListItem button>
+                <ListItem button className={classes.sideBarButton}>
                   <ListItemText
                     primary="Grocery Lists"
                     onClick={this.handleGrocery}
                     id="Grocery-Lists"
                   />
                 </ListItem>
-                <ListItem button>
+                <ListItem button className={classes.sideBarButton}>
                   <ListItemText
+                    
                     primary="Return to Search"
                     onClick={this.handleBack}
                     id="Return to Search"
                   />
                 </ListItem>
-                <ListItem id="logout" button onClick={this.handleLogout}>
+                <ListItem id="logout" button onClick={this.handleLogout} className={classes.sideBarButton}>
                   <ListItemText primary="Log Out" />
                 </ListItem>
               </List>
