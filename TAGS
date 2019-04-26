@@ -1,118 +1,0 @@
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/support/env.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/step_definitions/SearchPage.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/step_definitions/ListManagementPage.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/step_definitions/Restaurant.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/step_definitions/HomePage.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/features/step_definitions/RecipePage.rb,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/App.js,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/index.js,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/App.test.js,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/SearchPage.js,76
-  classes: PropTypes.object.isRequiredSearchPage.propTypes.classes60,1550
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/ListManagementPage.js,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/PrintPage.js,74
-  classes: PropTypes.object.isRequiredPrintPage.propTypes.classes26,707
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/HomePage.js,102
-    searchVal: '',class.Component.searchVal53,1224
-    distance: 5class.Component.distance54,1243
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/Context.js,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/RestaurantPage.js,80
-  classes: PropTypes.object.isRequiredRestaurantPage.propTypes.classes45,1197
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/UserSignIn.js,518
-function getModalStyle() {getModalStyle43,964
-        open: false,class.Component.open51,1111
-        email: '',class.Component.email52,1132
-        password: '',class.Component.password53,1151
-        whichModal: '',class.Component.whichModal54,1173
-        emailLI: '',class.Component.emailLI55,1197
-        passwordLI: '',class.Component.passwordLI56,1218
-        passwordAgainLI: ''class.Component.passwordAgainLI57,1242
-  classes: PropTypes.object.isRequiredUserSignIn.propTypes.classes154,5094
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/RecipeInfo.js,484
-        name: 'Burger',class.Component.name28,561
-        img: 'https://www.epicurus.com/food/recipes/wp-content/uploads/2011/09/bbq-cheeseburger.jpg',class.Component.img29,585
-        preptime: '10 mins',class.Component.preptime30,687
-        cookTime: '20 mins',class.Component.cookTime31,716
-        Ingredient: ['buns', 'beef patty', 'tomatoes', 'ketchup'],class.Component.Ingredient32,745
-    classes: PropTypes.object.isRequired,RecipeInfo.propTypes.classes105,3726
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/PhotoCollage.js,78
-  classes: PropTypes.object.isRequiredPhotoCollage.propTypes.classes57,1447
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/ButtonGroup.js,157
-        value: '',state.value28,651
-        open: falsestate.open29,670
-    classes: PropTypes.object.isRequired,ButtonGroup.propTypes.classes108,4059
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/RestaurantInfo.js,330
-    name: "Burger King",class.Component.name21,379
-    address: "1103 N Pass Ave, Burbank, CA 91505",class.Component.address22,404
-    phone: "818-445-7919",class.Component.phone23,455
-    website: "facebook.com"class.Component.website24,482
-  classes: PropTypes.object.isRequiredRestaurantInfo.propTypes.classes74,1831
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/sub-components/Header.js,44
-    open: falseclass.Component.open28,895
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/components/RecipePage.js,79
-    classes: PropTypes.object.isRequired,RecipePage.propTypes.classes41,1248
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/src/serviceWorker.js,149
-function registerValidSW(swUrl, config) {registerValidSW57,2261
-function checkValidServiceWorker(swUrl, config) {checkValidServiceWorker101,3830
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/frontend/public/index.html,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/src/test/java/ImHungryTest/BackendTest.java,85
-package ImHungryTest;ImHungryTest1,0
-public class BackendTest {BackendTest13,271
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/src/main/java/ImHungryServlet/YelpRestaurantService.java,733
-package ImHungryServlet;ImHungryServlet1,0
-public class YelpRestaurantService {YelpRestaurantService21,540
-        private static String API_KEY;API_KEY23,578
-        private static final String baseyelpSearchUrl = "https://api.yelp.com/v3/businesses/search?latitude=34.0206&longitude=-118.2854";baseyelpSearchUrl24,617
-        public static String getRestaurantInfo(String term, String limit, String radius)getRestaurantInfo28,852
-        public YelpRestaurantService() {YelpRestaurantService36,1257
-        private static String getRestaurantJsonString(String term, String limit, String radius)getRestaurantJsonString50,1982
-        public static String convertPrettyJSON(String uglyJSON) {convertPrettyJSON94,4264
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/src/main/java/ImHungryServlet/RecipeServlet.java,686
-package ImHungryServlet;ImHungryServlet1,0
-public class RecipeServlet extends HttpServlet {RecipeServlet32,920
-        private static final long serialVersionUID = 1L;serialVersionUID33,969
-        private static String API_KEY;API_KEY34,1026
-        public RecipeServlet() {RecipeServlet39,1123
-        protected void service(HttpServletRequest request, HttpServletResponse response)service55,1840
-        public String getRecipeData(String query, String num) {getRecipeData67,2367
-        public static String convertPrettyJSON(String u) {convertPrettyJSON94,3498
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)doPost105,3945
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/src/main/java/ImHungryServlet/RestaurantServlet.java,469
-package ImHungryServlet;ImHungryServlet1,0
-public class RestaurantServlet extends HttpServlet {RestaurantServlet15,363
-        private static final long serialVersionUID = 1L;serialVersionUID16,416
-        public RestaurantServlet() {RestaurantServlet21,531
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)doGet29,776
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)doPost50,1858
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/buildscript.sh,0
-
-/home/joshmin/Development/CSCI310/Im_Hungry_Redux/backend/set_env_vars.sh,0
